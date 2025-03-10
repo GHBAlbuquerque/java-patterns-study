@@ -1,6 +1,6 @@
 package com.patterns.domain.usecase;
 
-public interface BillCreationUseCase {
+public interface CreateBillUseCase {
 
     public void createBill();
 }
