@@ -1,22 +1,23 @@
 package com.patterns.application.mapper;
 
-import com.patterns.application.entrypoint.dto.BillDTO;
+import com.patterns.application.entrypoint.dto.CreateBillDTO;
+import com.patterns.application.entrypoint.dto.GetBillDTO;
 import com.patterns.domain.entity.Bill;
 import com.patterns.repository.bill.orm.BillORM;
 
 public class BillMapper {
 
-    public BillDTO fromDomainToDTO(Bill bill) {
+    public GetBillDTO fromDomainToDTO(Bill bill) {
 
-        return new BillDTO(bill.id(),
-                bill.barcode(),
-                bill.amount(),
-                bill.dueDate(),
-                bill.issueDate(),
-                bill.issuer());
+        return new GetBillDTO(bill.getId(),
+                bill.getBarcode(),
+                bill.getAmount(),
+                bill.getDueDate(),
+                bill.getIssueDate(),
+                bill.getIssuer());
     }
 
-    public Bill fromDTOtoDomain(BillDTO dto) {
+    public Bill fromDTOtoDomain(GetBillDTO dto) {
 
         return new Bill(dto.id(),
                 dto.barcode(),
@@ -26,14 +27,22 @@ public class BillMapper {
                 dto.issuer());
     }
 
+    public Bill fromCreationDTOtoDomain(CreateBillDTO dto) {
+
+        return new Bill(dto.amount(),
+                dto.dueDate(),
+                dto.issueDate(),
+                dto.issuer());
+    }
+
     public BillORM fromDomainToORM(Bill bill) {
 
-        return new BillORM(bill.id(),
-                bill.barcode(),
-                bill.amount(),
-                bill.dueDate(),
-                bill.issueDate(),
-                bill.issuer());
+        return new BillORM(bill.getId(),
+                bill.getBarcode(),
+                bill.getAmount(),
+                bill.getDueDate(),
+                bill.getIssueDate(),
+                bill.getIssuer());
     }
 
     public Bill fromORMtoDomain(BillORM orm) {
