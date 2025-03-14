@@ -5,7 +5,7 @@ import com.patterns.domain.validator.ValidationResult;
 
 import java.time.LocalDate;
 
-import static com.patterns.domain.validator.ValidationMessageEnum.MSPAY3000;
+import static com.patterns.domain.validator.ValidationMessageEnum.MSINV3000;
 
 public class RetroactiveDateValidator extends ChainValidator<LocalDate> {
 
@@ -14,7 +14,7 @@ public class RetroactiveDateValidator extends ChainValidator<LocalDate> {
         var today = LocalDate.now();
 
         if (value.isBefore(today)) {
-            return ValidationResult.invalid(MSPAY3000);
+            return ValidationResult.invalid(MSINV3000);
         }
 
         return checkNext(value);

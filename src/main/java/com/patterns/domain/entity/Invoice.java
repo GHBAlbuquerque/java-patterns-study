@@ -3,7 +3,7 @@ package com.patterns.domain.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Payment {
+public class Invoice {
 
     private String id;
     private String barcode;
@@ -12,7 +12,7 @@ public class Payment {
     private LocalDate issueDate;
     private String issuer;
 
-    public Payment(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Invoice(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
         this.id = id;
         this.barcode = barcode;
         this.amount = amount;
@@ -21,7 +21,7 @@ public class Payment {
         this.issuer = issuer;
     }
 
-    public Payment(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Invoice(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
         this.amount = amount;
         this.dueDate = dueDate;
         this.issueDate = issueDate;

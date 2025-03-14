@@ -5,7 +5,7 @@ import com.patterns.domain.validator.ValidationResult;
 
 import java.math.BigDecimal;
 
-import static com.patterns.domain.validator.ValidationMessageEnum.MSPAY1001;
+import static com.patterns.domain.validator.ValidationMessageEnum.MSINV1001;
 
 public class MaximumAmountValidator extends ChainValidator<BigDecimal> {
 
@@ -14,7 +14,7 @@ public class MaximumAmountValidator extends ChainValidator<BigDecimal> {
     @Override
     public ValidationResult validate(BigDecimal value) {
         if (maximumValue.compareTo(value) == -1) {
-            return ValidationResult.invalid(MSPAY1001);
+            return ValidationResult.invalid(MSINV1001);
         }
 
         return checkNext(value);

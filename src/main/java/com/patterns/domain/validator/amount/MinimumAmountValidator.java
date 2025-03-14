@@ -5,7 +5,7 @@ import com.patterns.domain.validator.ValidationResult;
 
 import java.math.BigDecimal;
 
-import static com.patterns.domain.validator.ValidationMessageEnum.MSPAY1000;
+import static com.patterns.domain.validator.ValidationMessageEnum.MSINV1000;
 
 public class MinimumAmountValidator extends ChainValidator<BigDecimal> {
 
@@ -14,7 +14,7 @@ public class MinimumAmountValidator extends ChainValidator<BigDecimal> {
     @Override
     public ValidationResult validate(BigDecimal value) {
         if (minimumValue.compareTo(value) == 1) {
-            return ValidationResult.invalid(MSPAY1000);
+            return ValidationResult.invalid(MSINV1000);
         }
 
         return checkNext(value);
