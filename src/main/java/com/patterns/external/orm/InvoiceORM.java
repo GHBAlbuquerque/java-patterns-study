@@ -1,4 +1,4 @@
-package com.patterns.repository.invoice.orm;
+package com.patterns.external.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

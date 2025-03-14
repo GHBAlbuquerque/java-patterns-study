@@ -1,6 +1,6 @@
-package com.patterns.domain.usecase.impl;
+package com.patterns.domain.usecase;
 
-import com.patterns.domain.usecase.CreateInvoiceUseCase;
+import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 
 public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 

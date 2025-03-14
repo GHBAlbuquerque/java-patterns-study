@@ -1,9 +1,11 @@
-package com.patterns.application.beans;
+package com.patterns.common.beans;
 
-import com.patterns.domain.usecase.CreateInvoiceUseCase;
-import com.patterns.domain.usecase.GetInvoiceUseCase;
-import com.patterns.domain.usecase.impl.CreateInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.impl.GetInvoiceUseCaseImpl;
+import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
+import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
+import com.patterns.communication.gateway.InvoiceGatewayImpl;
+import com.patterns.domain.usecase.CreateInvoiceUseCaseImpl;
+import com.patterns.domain.usecase.GetInvoiceUseCaseImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +20,12 @@ public class DependencyInjectionContainer {
     }
 
     @Bean
-    public CreateInvoiceUseCase invoiceCreationUseCase() {
+    public InvoiceGateway invoiceGateway() {
+        return new InvoiceGatewayImpl();
+    }
+
+    @Bean
+    public CreateInvoiceUseCase createInvoiceUseCase() {
         return new CreateInvoiceUseCaseImpl();
     }
 

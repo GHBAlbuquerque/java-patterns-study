@@ -1,4 +1,4 @@
-package com.patterns.domain.usecase;
+package com.patterns.common.interfaces.usecases;
 
 public interface CreateInvoiceUseCase {
 

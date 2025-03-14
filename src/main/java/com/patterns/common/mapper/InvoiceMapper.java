@@ -1,9 +1,9 @@
-package com.patterns.application.mapper;
+package com.patterns.common.mapper;
 
-import com.patterns.application.entrypoint.dto.CreateInvoiceDTO;
-import com.patterns.application.entrypoint.dto.GetInvoiceDTO;
+import com.patterns.common.dto.CreateInvoiceDTO;
+import com.patterns.common.dto.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
-import com.patterns.repository.invoice.orm.InvoiceORM;
+import com.patterns.external.orm.InvoiceORM;
 
 public class InvoiceMapper {
 
