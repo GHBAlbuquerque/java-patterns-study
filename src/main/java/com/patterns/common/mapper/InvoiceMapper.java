@@ -1,13 +1,13 @@
 package com.patterns.common.mapper;
 
-import com.patterns.common.dto.CreateInvoiceDTO;
-import com.patterns.common.dto.GetInvoiceDTO;
+import com.patterns.common.dto.request.CreateInvoiceDTO;
+import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.external.orm.InvoiceORM;
 
 public class InvoiceMapper {
 
-    public GetInvoiceDTO fromDomainToDTO(Invoice invoice) {
+    public static GetInvoiceDTO fromDomainToGetDTO(Invoice invoice) {
 
         return new GetInvoiceDTO(invoice.getId(),
                 invoice.getBarcode(),
@@ -17,7 +17,7 @@ public class InvoiceMapper {
                 invoice.getIssuer());
     }
 
-    public Invoice fromDTOtoDomain(GetInvoiceDTO dto) {
+    public static Invoice fromDTOtoDomain(GetInvoiceDTO dto) {
 
         return new Invoice(dto.id(),
                 dto.barcode(),
@@ -27,7 +27,7 @@ public class InvoiceMapper {
                 dto.issuer());
     }
 
-    public Invoice fromCreationDTOtoDomain(CreateInvoiceDTO dto) {
+    public static Invoice fromCreationDTOtoDomain(CreateInvoiceDTO dto) {
 
         return new Invoice(dto.amount(),
                 dto.dueDate(),
@@ -35,7 +35,7 @@ public class InvoiceMapper {
                 dto.issuer());
     }
 
-    public InvoiceORM fromDomainToORM(Invoice invoice) {
+    public static InvoiceORM fromDomainToORM(Invoice invoice) {
 
         return new InvoiceORM(invoice.getId(),
                 invoice.getBarcode(),
@@ -45,7 +45,7 @@ public class InvoiceMapper {
                 invoice.getIssuer());
     }
 
-    public Invoice fromORMtoDomain(InvoiceORM orm) {
+    public static Invoice fromORMtoDomain(InvoiceORM orm) {
 
         return new Invoice(orm.id(),
                 orm.barcode(),

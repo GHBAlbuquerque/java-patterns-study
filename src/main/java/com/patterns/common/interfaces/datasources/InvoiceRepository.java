@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface InvoiceRepository extends JpaRepository<InvoiceORM, String> {
 
-    Optional<Invoice> findByBarcode(String barcode);
+    Optional<InvoiceORM> findByBarcode(String barcode);
 
 }

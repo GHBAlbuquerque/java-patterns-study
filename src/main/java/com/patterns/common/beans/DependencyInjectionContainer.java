@@ -1,5 +1,6 @@
 package com.patterns.common.beans;
 
+import com.patterns.common.interfaces.datasources.InvoiceRepository;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
@@ -20,8 +21,8 @@ public class DependencyInjectionContainer {
     }
 
     @Bean
-    public InvoiceGateway invoiceGateway() {
-        return new InvoiceGatewayImpl();
+    public InvoiceGateway invoiceGateway(InvoiceRepository invoiceRepository) {
+        return new InvoiceGatewayImpl(invoiceRepository);
     }
 
     @Bean

@@ -1,10 +1,11 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.GetInvoiceDTO;
+import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
+import com.patterns.common.mapper.InvoiceMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,20 @@ public class InvoiceController {
 
     @GetMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<GetInvoiceDTO> getInvoice(
-            @PathVariable String id,
-            @RequestParam(required = true) String type
+            @PathVariable String id
     ) throws EntityNotFoundException {
-//        final var result = getInvoiceUseCase.getInvoice(id, type, gateway);
-//
-//        return ResponseEntity.ok(ProductBuilder.toResponse(result));
-        return null;
+        final var result = getInvoiceUseCase.getInvoiceById(id, gateway);
+
+        return ResponseEntity.ok(InvoiceMapper.fromDomainToGetDTO(result));
+    }
+
+    @GetMapping(consumes = "application/json", produces = "application/json")
+    public ResponseEntity<GetInvoiceDTO> getInvoiceByBarcode(
+            @RequestParam(required = true) String barcode
+    ) throws EntityNotFoundException {
+        final var result = getInvoiceUseCase.getInvoiceByBarcode(barcode, gateway);
+
+        return ResponseEntity.ok(InvoiceMapper.fromDomainToGetDTO(result));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

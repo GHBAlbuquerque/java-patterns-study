@@ -1,4 +1,4 @@
-package com.patterns.common.dto;
+package com.patterns.common.dto.request;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
