@@ -1,28 +1,28 @@
 package com.patterns.common.exception.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class CustomException extends Exception {
 
     private final String code;
-    private List<CustomError> errors;
+    private Map<String, String> errors;
 
     public CustomException(String code, String message) {
         super(message);
         this.code = code;
     }
 
-    public CustomException(String code, String message, List<CustomError> customErrors) {
+    public CustomException(String code, String message, Map<String, String> errors) {
         super(message);
         this.code = code;
-        this.errors = customErrors;
+        this.errors = errors;
     }
 
     public String getCode() {
         return code;
     }
 
-    public List<CustomError> getErrors() {
+    public Map<String, String> getErrors() {
         return errors;
     }
 }

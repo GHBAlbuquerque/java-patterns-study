@@ -1,8 +1,16 @@
 package com.patterns.common.exception.custom;
 
-public class InvalidInvoiceException extends RuntimeException {
+import com.patterns.common.exception.model.CustomException;
 
-    public InvalidInvoiceException(String message) {
-        super(message);
+import java.util.Map;
+
+public class InvalidInvoiceException extends CustomException {
+
+    public InvalidInvoiceException(String code, String message) {
+        super(code, message);
+    }
+
+    public InvalidInvoiceException(String code, String message, Map<String, String> errors) {
+        super(code, message, errors);
     }
 }

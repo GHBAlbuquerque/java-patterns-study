@@ -6,9 +6,9 @@ import com.patterns.domain.validator.ValidationResult;
 
 import static com.patterns.domain.validator.ValidationMessageEnum.MSINV2000;
 
-public class KnownIssuersValidator extends ChainValidator<IssuerEnum> {
+public class KnownIssuersValidator extends ChainValidator<String> {
     @Override
-    public ValidationResult validate(IssuerEnum value) {
+    public ValidationResult validate(String value) {
         if (!IssuerEnum.contains(value)) {
             return ValidationResult.invalid(MSINV2000);
         }

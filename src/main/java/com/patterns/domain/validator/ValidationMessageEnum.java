@@ -4,6 +4,7 @@ public enum ValidationMessageEnum {
 
     MSINV0001("MSINV0001", "Invoice not found"),
     MSINV0002("MSINV0002", "Invoice already exists"),
+    MSINV0003("MSINV0002", "Invoice creation request is invalid"),
 
     MSINV1000("MSINV1000", "Invoice amount is under the minimum limit"),
     MSINV1001("MSINV1001", "Invoice amount is over the maximum limit"),
@@ -12,7 +13,8 @@ public enum ValidationMessageEnum {
     MSINV2000("MSINV2000", "Invoice issuer is not known"),
 
     MSINV3000("MSINV3000", "Date cannot be a retroactive date"),
-    MSINV3001("MSINV3001", "Date has to be business day");
+    MSINV3001("MSINV3001", "Date has to be business day"),
+    MSINV3002("MSINV3000", "Date cannot be a future date");
 
     private final String code;
     private final String logMessage;

@@ -1,11 +1,8 @@
 package com.patterns.common.exception.custom;
 
-
-
-import com.patterns.common.exception.model.CustomError;
 import com.patterns.common.exception.model.CustomException;
 
-import java.util.List;
+import java.util.Map;
 
 public class EntityNotFoundException extends CustomException {
 
@@ -13,7 +10,7 @@ public class EntityNotFoundException extends CustomException {
         super(code, message);
     }
 
-    public EntityNotFoundException(String code, String message, List<CustomError> customErrors) {
-        super(code, message, customErrors);
+    public EntityNotFoundException(String code, String message, Map<String, String> errors) {
+        super(code, message, errors);
     }
 }

@@ -8,10 +8,10 @@ public enum IssuerEnum {
     TOPBANK,
     MOCKBANK;
 
-    public static Boolean contains(IssuerEnum issuerEnum) {
+    public static Boolean contains(String issuer) {
         final var values = Arrays.stream(IssuerEnum.values()).map(Enum::name).toList();
 
-        return values.contains(issuerEnum.name());
+        return values.contains(issuer);
     }
 
 }

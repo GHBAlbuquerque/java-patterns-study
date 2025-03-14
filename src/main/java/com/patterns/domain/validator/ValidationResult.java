@@ -22,7 +22,7 @@ public final class ValidationResult {
         return !isValid;
     }
 
-    public ValidationMessageEnum getError() {
+    public ValidationMessageEnum getMessage() {
         return validationMessageEnum;
     }
 }
