@@ -1,4 +1,4 @@
-package com.patterns.application.exception;
+package com.patterns.common.exception.custom;
 
 public class InvalidInvoiceException extends RuntimeException {
 

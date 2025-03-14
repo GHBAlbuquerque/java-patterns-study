@@ -8,9 +8,9 @@ import java.time.LocalDate;
 
 @Entity
 public record InvoiceORM(@Id String id,
-                      String barcode,
-                      BigDecimal amount,
-                      LocalDate dueDate,
-                      LocalDate issueDate,
-                      String issuer) {
+                         String barcode,
+                         BigDecimal amount,
+                         LocalDate dueDate,
+                         LocalDate issueDate,
+                         String issuer) {
 }
