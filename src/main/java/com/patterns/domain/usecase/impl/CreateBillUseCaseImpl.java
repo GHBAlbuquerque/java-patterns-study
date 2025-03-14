@@ -1,10 +1,10 @@
 package com.patterns.domain.usecase.impl;
 
-import com.patterns.domain.usecase.CreateBillUseCase;
+import com.patterns.domain.usecase.CreatePaymentUseCase;
 
-public class CreateBillUseCaseImpl implements CreateBillUseCase {
+public class CreatePaymentUseCaseImpl implements CreatePaymentUseCase {
 
-    public void createBill() {
-        //TODO: Business logic to create a bill
+    public void createPayment() {
+        //TODO: Business logic to create a payment
     }
 }

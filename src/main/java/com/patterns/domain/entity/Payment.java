@@ -3,7 +3,7 @@ package com.patterns.domain.entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Bill {
+public class Payment {
 
     private String id;
     private String barcode;
@@ -12,7 +12,7 @@ public class Bill {
     private LocalDate issueDate;
     private String issuer;
 
-    public Bill(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Payment(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
         this.id = id;
         this.barcode = barcode;
         this.amount = amount;
@@ -21,7 +21,7 @@ public class Bill {
         this.issuer = issuer;
     }
 
-    public Bill(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Payment(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
         this.amount = amount;
         this.dueDate = dueDate;
         this.issueDate = issueDate;
@@ -77,7 +77,7 @@ public class Bill {
     }
 }
 
-//    public Bill {
+//    public Payment {
 //        if (barcode == null || barcode.isBlank()) {
 //            throw new IllegalArgumentException("Barcode cannot be null or empty");
 //        }

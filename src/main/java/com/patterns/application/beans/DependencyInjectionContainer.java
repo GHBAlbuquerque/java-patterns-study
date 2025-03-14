@@ -1,9 +1,9 @@
 package com.patterns.application.beans;
 
-import com.patterns.domain.usecase.CreateBillUseCase;
-import com.patterns.domain.usecase.GetBillUseCase;
-import com.patterns.domain.usecase.impl.CreateBillUseCaseImpl;
-import com.patterns.domain.usecase.impl.GetBillUseCaseImpl;
+import com.patterns.domain.usecase.CreatePaymentUseCase;
+import com.patterns.domain.usecase.GetPaymentUseCase;
+import com.patterns.domain.usecase.impl.CreatePaymentUseCaseImpl;
+import com.patterns.domain.usecase.impl.GetPaymentUseCaseImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +18,12 @@ public class DependencyInjectionContainer {
     }
 
     @Bean
-    public CreateBillUseCase billCreationUseCase() {
-        return new CreateBillUseCaseImpl();
+    public CreatePaymentUseCase paymentCreationUseCase() {
+        return new CreatePaymentUseCaseImpl();
     }
 
     @Bean
-    public GetBillUseCase getBillUseCase() {
-        return new GetBillUseCaseImpl();
+    public GetPaymentUseCase getPaymentUseCase() {
+        return new GetPaymentUseCaseImpl();
     }
 }

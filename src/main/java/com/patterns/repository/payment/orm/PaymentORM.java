@@ -1,4 +1,4 @@
-package com.patterns.repository.bill.orm;
+package com.patterns.repository.payment.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-public record BillORM(@Id String id,
+public record PaymentORM(@Id String id,
                       String barcode,
                       BigDecimal amount,
                       LocalDate dueDate,
