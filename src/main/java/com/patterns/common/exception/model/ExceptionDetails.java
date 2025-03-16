@@ -1,7 +1,7 @@
 package com.patterns.common.exception.model;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 public class ExceptionDetails {
 
@@ -17,9 +17,9 @@ public class ExceptionDetails {
 
     private Date date;
 
-    private List<CustomError> errors;
+    private Map<String, String> errors;
 
-    public ExceptionDetails(String type, String title, String code, String detail, Integer status, Date date, List<CustomError> errors) {
+    public ExceptionDetails(String type, String title, String code, String detail, Integer status, Date date, Map<String, String> errors) {
         this.type = type;
         this.title = title;
         this.code = code;
@@ -53,7 +53,7 @@ public class ExceptionDetails {
         return date;
     }
 
-    public List<CustomError> getErrors() {
+    public Map<String, String> getErrors() {
         return errors;
     }
 }

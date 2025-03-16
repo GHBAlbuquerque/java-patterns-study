@@ -4,6 +4,7 @@ import com.patterns.common.interfaces.datasources.InvoiceRepository;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
+import com.patterns.common.properties.PropertiesMapper;
 import com.patterns.communication.gateway.InvoiceGatewayImpl;
 import com.patterns.domain.usecase.CreateInvoiceUseCaseImpl;
 import com.patterns.domain.usecase.GetInvoiceUseCaseImpl;
@@ -33,5 +34,10 @@ public class DependencyInjectionContainer {
     @Bean
     public GetInvoiceUseCase getInvoiceUseCase() {
         return new GetInvoiceUseCaseImpl();
+    }
+
+    @Bean
+    public PropertiesMapper propertiesMapper() {
+        return new PropertiesMapper();
     }
 }

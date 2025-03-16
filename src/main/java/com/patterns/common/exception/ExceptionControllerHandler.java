@@ -3,6 +3,7 @@ package com.patterns.common.exception;
 
 import com.patterns.common.exception.custom.CreateEntityException;
 import com.patterns.common.exception.custom.EntityNotFoundException;
+import com.patterns.common.exception.custom.InvalidInvoiceException;
 import com.patterns.common.exception.model.ExceptionDetails;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +39,21 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {CreateEntityException.class})
     public ResponseEntity<ExceptionDetails> resourceException(CreateEntityException ex, WebRequest request) {
+
+        final var message = new ExceptionDetails(
+                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
+                "Couldn't create entity on database. Try again with different values.",
+                ex.getCode(),
+                ex.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                new Date(),
+                ex.getErrors());
+
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {InvalidInvoiceException.class})
+    public ResponseEntity<ExceptionDetails> resourceException(InvalidInvoiceException ex, WebRequest request) {
 
         final var message = new ExceptionDetails(
                 "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",

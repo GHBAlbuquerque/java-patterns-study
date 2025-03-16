@@ -22,6 +22,7 @@ import java.security.SecureRandom;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0003;
@@ -29,17 +30,19 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0003;
 public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
     private final Logger logger = LogManager.getLogger(CreateInvoiceUseCaseImpl.class);
-    private final PropertiesMapper properties = new PropertiesMapper();
+
 
     @Override
-    public Invoice createInvoice(Invoice invoice, InvoiceGateway gateway) throws InvalidInvoiceException {
+    public Invoice createInvoice(Invoice invoice,
+                                 InvoiceGateway gateway,
+                                 PropertiesMapper properties) throws InvalidInvoiceException {
 
         validateInvoiceRequest(invoice);
 
         logger.info("Completing information for Invoice creation: generating barcode and id.");
 
-        final var barcode = generateBarcode();
-        final var id = generateInvoiceId();
+        final var barcode = generateBarcode(properties);
+        final var id = generateInvoiceId(properties);
 
         invoice.setBarcode(barcode);
         invoice.setId(id);
@@ -50,7 +53,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
     }
 
     @Override
-    public String generateInvoiceId() {
+    public String generateInvoiceId(PropertiesMapper properties) {
         final var random = new SecureRandom();
 
         return properties.getInvoiceIdPreffix()
@@ -61,7 +64,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
 
     @Override
-    public String generateBarcode() {
+    public String generateBarcode(PropertiesMapper properties) {
         return properties.getInvoiceBarcodePreffix() + UUID.randomUUID();
     }
 
@@ -76,7 +79,10 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
                 validateAmount(invoice.getAmount())
         );
 
-        final var validationMessages = validations.stream().map(ValidationResult::getMessage).toList();
+        final var validationMessages = validations.stream()
+                .map(ValidationResult::getMessage)
+                .filter(Objects::nonNull)
+                .toList();
 
         if (validationMessages.isEmpty()) {
             logger.info("Invoice creation request is valid.");

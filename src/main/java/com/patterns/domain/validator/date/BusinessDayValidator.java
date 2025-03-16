@@ -6,7 +6,7 @@ import com.patterns.domain.validator.ValidationResult;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.patterns.domain.validator.ValidationMessageEnum.MSINV3001;
+import static com.patterns.domain.validator.ValidationMessageEnum.MSINV3000;
 
 public class BusinessDayValidator extends ChainValidator<LocalDate> {
 
@@ -17,7 +17,7 @@ public class BusinessDayValidator extends ChainValidator<LocalDate> {
         var weekDay = value.getDayOfWeek().name();
 
         if (weekend.contains(weekDay)) {
-            return ValidationResult.invalid(MSINV3001);
+            return ValidationResult.invalid(MSINV3000);
         }
 
         return checkNext(value);

@@ -27,7 +27,7 @@ public class InvoiceMapper {
                 dto.issuer());
     }
 
-    public static Invoice fromCreationDTOtoDomain(CreateInvoiceDTO dto) {
+    public static Invoice fromCreateDTOtoDomain(CreateInvoiceDTO dto) {
 
         return new Invoice(dto.amount(),
                 dto.dueDate(),
@@ -47,11 +47,11 @@ public class InvoiceMapper {
 
     public static Invoice fromORMtoDomain(InvoiceORM orm) {
 
-        return new Invoice(orm.id(),
-                orm.barcode(),
-                orm.amount(),
-                orm.dueDate(),
-                orm.issueDate(),
-                orm.issuer());
+        return new Invoice(orm.getId(),
+                orm.getBarcode(),
+                orm.getAmount(),
+                orm.getDueDate(),
+                orm.getIssueDate(),
+                orm.getIssuer());
     }
 }
