@@ -2,7 +2,7 @@
 ## java-patterns-study
 
 Mock project for pattern study using Java.
-Simples invoice management system with CRUD operations.
+Simple invoice management system with CRUD operations.
 
 ## Patterns :checkered_flag:
 - Validation Chain
