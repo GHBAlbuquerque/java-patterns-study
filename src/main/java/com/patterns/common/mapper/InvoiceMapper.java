@@ -14,7 +14,8 @@ public class InvoiceMapper {
                 invoice.getAmount(),
                 invoice.getDueDate(),
                 invoice.getIssueDate(),
-                invoice.getIssuer());
+                invoice.getIssuer(),
+                invoice.getStatus());
     }
 
     public static Invoice fromDTOtoDomain(GetInvoiceDTO dto) {
@@ -24,7 +25,8 @@ public class InvoiceMapper {
                 dto.amount(),
                 dto.dueDate(),
                 dto.issueDate(),
-                dto.issuer());
+                dto.issuer(),
+                dto.status());
     }
 
     public static Invoice fromCreateDTOtoDomain(CreateInvoiceDTO dto) {
@@ -32,7 +34,8 @@ public class InvoiceMapper {
         return new Invoice(dto.amount(),
                 dto.dueDate(),
                 dto.issueDate(),
-                dto.issuer());
+                dto.issuer(),
+                dto.status());
     }
 
     public static InvoiceORM fromDomainToORM(Invoice invoice) {
@@ -42,7 +45,8 @@ public class InvoiceMapper {
                 invoice.getAmount(),
                 invoice.getDueDate(),
                 invoice.getIssueDate(),
-                invoice.getIssuer());
+                invoice.getIssuer(),
+                invoice.getStatus());
     }
 
     public static Invoice fromORMtoDomain(InvoiceORM orm) {
@@ -52,6 +56,7 @@ public class InvoiceMapper {
                 orm.getAmount(),
                 orm.getDueDate(),
                 orm.getIssueDate(),
-                orm.getIssuer());
+                orm.getIssuer(),
+                orm.getStatus());
     }
 }

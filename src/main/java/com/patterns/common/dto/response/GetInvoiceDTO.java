@@ -8,6 +8,7 @@ public record GetInvoiceDTO(String id,
                             BigDecimal amount,
                             LocalDate dueDate,
                             LocalDate issueDate,
-                            String issuer) {
+                            String issuer,
+                            String status) {
 }
 
