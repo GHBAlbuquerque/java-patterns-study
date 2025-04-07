@@ -3,7 +3,7 @@ package com.patterns.communication.gateway;
 import com.patterns.common.dto.message.CustomQueueMessage;
 import com.patterns.common.dto.request.PaymentEventDTO;
 import com.patterns.common.interfaces.gateways.MessagingGateway;
-import com.patterns.domain.usecase.strategy.EventUseCaseAbstract;
+import com.patterns.domain.usecase.eventstrategy.EventUseCaseAbstract;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

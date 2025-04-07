@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 //@Import(SqsBootstrapConfiguration.class)
 public class AWSSQSBeanDeclaration {
 
+    //TODO
     /*@Bean
     public AmazonSQS amazonSQS() {
         return AmazonSQSClient.builder()

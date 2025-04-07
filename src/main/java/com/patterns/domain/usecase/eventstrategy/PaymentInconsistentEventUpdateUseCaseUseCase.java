@@ -1,4 +1,4 @@
-package com.patterns.domain.usecase.strategy;
+package com.patterns.domain.usecase.eventstrategy;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
@@ -7,13 +7,14 @@ import org.apache.logging.log4j.Logger;
 import static com.patterns.domain.enums.EventsEnum.PAYMENT_SUSPENDED;
 import static com.patterns.domain.enums.StatusEnum.PAID;
 
-public class PaymentSuspendedEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
+public class PaymentInconsistentEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
-    private final Logger log = LogManager.getLogger(PaymentSuspendedEventUpdateUseCaseUseCase.class);
+    private final Logger log = LogManager.getLogger(PaymentInconsistentEventUpdateUseCaseUseCase.class);
 
-    public PaymentSuspendedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
+    public PaymentInconsistentEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
         super(invoiceGateway);
     }
+
 
     @Override
     public String getEventStatus() {

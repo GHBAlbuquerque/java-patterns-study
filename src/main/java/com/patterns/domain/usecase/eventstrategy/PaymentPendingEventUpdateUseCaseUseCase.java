@@ -1,28 +1,28 @@
-package com.patterns.domain.usecase.strategy;
+package com.patterns.domain.usecase.eventstrategy;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.EventsEnum.PAYMENT_CREATED;
-import static com.patterns.domain.enums.StatusEnum.ACTIVE;
+import static com.patterns.domain.enums.EventsEnum.PAYMENT_PENDING;
+import static com.patterns.domain.enums.StatusEnum.PENDING;
 
-public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
+public class PaymentPendingEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
-    private final Logger log = LogManager.getLogger(PaymentCancelledEventUpdateUseCaseUseCase.class);
+    private final Logger log = LogManager.getLogger(PaymentPendingEventUpdateUseCaseUseCase.class);
 
-    public PaymentCancelledEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
+    public PaymentPendingEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
         super(invoiceGateway);
     }
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_CREATED;
+        return PAYMENT_PENDING;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return ACTIVE;
+        return PENDING;
     }
 
     @Override

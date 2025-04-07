@@ -1,7 +1,7 @@
 package com.patterns.common.beans;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.domain.usecase.strategy.*;
+import com.patterns.domain.usecase.eventstrategy.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

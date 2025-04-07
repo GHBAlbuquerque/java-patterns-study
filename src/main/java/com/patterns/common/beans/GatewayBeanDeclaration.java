@@ -5,7 +5,7 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.gateways.MessagingGateway;
 import com.patterns.communication.gateway.InvoiceGatewayImpl;
 import com.patterns.communication.gateway.MessagingGatewayImpl;
-import com.patterns.domain.usecase.strategy.EventUseCaseAbstract;
+import com.patterns.domain.usecase.eventstrategy.EventUseCaseAbstract;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
