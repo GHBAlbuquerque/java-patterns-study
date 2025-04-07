@@ -29,8 +29,7 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0003;
 
 public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
-    private final Logger logger = LogManager.getLogger(CreateInvoiceUseCaseImpl.class);
-
+    private final Logger log = LogManager.getLogger(CreateInvoiceUseCaseImpl.class);
 
     @Override
     public Invoice createInvoice(Invoice invoice,
@@ -39,7 +38,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
         validateInvoiceRequest(invoice);
 
-        logger.info("Completing information for Invoice creation: generating barcode and id.");
+        log.info("Completing information for Invoice creation: generating barcode and id.");
 
         final var barcode = generateBarcode(properties);
         final var id = generateInvoiceId(properties);
@@ -47,7 +46,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
         invoice.setBarcode(barcode);
         invoice.setId(id);
 
-        logger.info("Persisting invoice.");
+        log.info("Persisting invoice.");
 
         return gateway.saveInvoice(invoice);
     }
@@ -70,7 +69,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
     @Override
     public void validateInvoiceRequest(Invoice invoice) throws InvalidInvoiceException {
-        logger.info("Validating invoice creation request.");
+        log.info("Validating invoice creation request.");
 
         final var validations = List.of(
                 validateDueDate(invoice.getDueDate()),
@@ -85,11 +84,11 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
                 .toList();
 
         if (validationMessages.isEmpty()) {
-            logger.info("Invoice creation request is valid.");
+            log.info("Invoice creation request is valid.");
             return;
         }
 
-        logger.info("Errors found in Invoice creation request.");
+        log.info("Errors found in Invoice creation request.");
         final var errors = new HashMap<String, String>();
 
         for (ValidationMessageEnum message : validationMessages) {
@@ -102,7 +101,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
     }
 
     private ValidationResult validateDueDate(LocalDate dueDate) {
-        logger.info("Validating Due Date...");
+        log.info("Validating Due Date...");
 
         return new BusinessDayValidator()
                 .linkWith(new RetroactiveDateValidator())
@@ -110,7 +109,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
     }
 
     private ValidationResult validateIssueDate(LocalDate issueDate) {
-        logger.info("Validating Issue Date...");
+        log.info("Validating Issue Date...");
 
         return new BusinessDayValidator()
                 .linkWith(new FutureDateValidator())
@@ -118,13 +117,13 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
     }
 
     private ValidationResult validateIssuer(String issuer) {
-        logger.info("Validating Issuer...");
+        log.info("Validating Issuer...");
 
         return new KnownIssuersValidator().validate(issuer);
     }
 
     private ValidationResult validateAmount(BigDecimal amount) {
-        logger.info("Validating Amount...");
+        log.info("Validating Amount...");
 
         return new NegativeAmountValidator()
                 .linkWith(new MaximumAmountValidator())
