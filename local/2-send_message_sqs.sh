@@ -12,8 +12,7 @@ echo $message
 
 aws sqs send-message --endpoint-url "$ENDPOINT_URL" \
   --queue-url "$QUEUE_URL" \
-  --message-body "$message" \
-  --region us-east-1
+  --message-body "$message"
 
 echo "###############################"
 echo "#         MESSAGE SENT        #"
