@@ -25,7 +25,7 @@ public class MessagingGatewayImpl implements MessagingGateway {
 
         try {
             final var paymentStatus = message.body().paymentStatus();
-            final var invoiceId = message.body().invoiceId();
+            final var invoiceId = message.headers().invoiceId();
 
             this.eventUseCases
                     .stream()

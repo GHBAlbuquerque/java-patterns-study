@@ -1,0 +1,15 @@
+services:
+  localstack:
+    container_name: aws_localstack
+    image: localstack/localstack
+    ports:
+      - "4566:4566"  # LocalStack Gateway
+      - "4510-4559:4510-4559"  # External services
+    entrypoint:
+      - SERVICES=sqs
+    networks:
+      - env-local
+networks:
+  env-local:
+    driver: bridge
+    name: env-local

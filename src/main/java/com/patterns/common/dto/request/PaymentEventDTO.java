@@ -1,7 +1,6 @@
 package com.patterns.common.dto.request;
 
-public record PaymentEventDTO(String id,
-                              String invoiceId,
+public record PaymentEventDTO(String paymentId,
                               String paymentStatus) {
 }
 
