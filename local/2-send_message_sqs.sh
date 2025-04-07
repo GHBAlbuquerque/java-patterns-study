@@ -6,7 +6,7 @@ echo "###############################"
 echo "#       SENDING MESSAGE       #"
 echo "###############################"
 
-message=$(cat MESSAGE_FILE_PATH)
+message=$(cat $MESSAGE_FILE_PATH)
 
 echo $message
 
