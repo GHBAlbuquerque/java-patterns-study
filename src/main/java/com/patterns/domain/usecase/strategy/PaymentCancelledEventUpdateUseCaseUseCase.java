@@ -1,8 +1,6 @@
 package com.patterns.domain.usecase.strategy;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.domain.entity.Invoice;
-import com.patterns.domain.usecase.CreateInvoiceUseCaseImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +10,10 @@ import static com.patterns.domain.enums.StatusEnum.ACTIVE;
 public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
     private final Logger log = LogManager.getLogger(PaymentCancelledEventUpdateUseCaseUseCase.class);
+
+    public PaymentCancelledEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
+        super(invoiceGateway);
+    }
 
     @Override
     public String getEventStatus() {
@@ -24,14 +26,21 @@ public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstr
     }
 
     @Override
-    public void updateInvoice(Invoice invoice, InvoiceGateway invoiceGateway) {
-        log.info("Event received with status: {}", getEventStatus());
+    public void updateInvoice(String invoiceId) {
+        log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
 
-        log.info("Updating invoice status to: {}", getInvoiceUpdateStatus());
+        try {
+            final var invoice = invoiceGateway.getInvoiceById(invoiceId);
 
-        invoice.setStatus(getInvoiceUpdateStatus());
+            log.info("Updating invoice status to: {}", getInvoiceUpdateStatus());
 
-        invoiceGateway.saveInvoice(invoice);
+            invoice.setStatus(getInvoiceUpdateStatus());
+            invoiceGateway.saveInvoice(invoice);
+
+        } catch (Exception e) {
+            log.error("Error updating invoice: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
     }
 
 }
