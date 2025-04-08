@@ -1,13 +1,21 @@
 package com.patterns.common.beans;
 
+import com.amazonaws.services.sqs.AmazonSQS;
+import com.amazonaws.services.sqs.AmazonSQSClient;
+import io.awspring.cloud.autoconfigure.sqs.SqsProperties;
+import io.awspring.cloud.sqs.config.SqsBootstrapConfiguration;
+import io.awspring.cloud.sqs.config.SqsMessageListenerContainerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 @Configuration
-//@Import(SqsBootstrapConfiguration.class)
+@Import(SqsBootstrapConfiguration.class)
 public class AWSSQSBeanDeclaration {
 
-    //TODO
-    /*@Bean
+    @Bean
     public AmazonSQS amazonSQS() {
         return AmazonSQSClient.builder()
                 .withRegion(String.valueOf(Region.US_EAST_1))
@@ -32,5 +40,5 @@ public class AWSSQSBeanDeclaration {
     @Bean
     public SqsProperties.Listener listener() {
         return new SqsProperties.Listener();
-    }*/
+    }
 }

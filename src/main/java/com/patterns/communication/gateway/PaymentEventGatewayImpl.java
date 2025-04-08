@@ -2,25 +2,29 @@ package com.patterns.communication.gateway;
 
 import com.patterns.common.dto.message.CustomQueueMessage;
 import com.patterns.common.dto.request.PaymentEventDTO;
-import com.patterns.common.interfaces.gateways.MessagingGateway;
+import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.domain.usecase.eventstrategy.EventUseCaseAbstract;
+import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public class MessagingGatewayImpl implements MessagingGateway {
+import static io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode.ON_SUCCESS;
 
-    private final Logger log = LogManager.getLogger(MessagingGatewayImpl.class);
+public class PaymentEventGatewayImpl implements PaymentEventGateway {
+
+    private final Logger log = LogManager.getLogger(PaymentEventGatewayImpl.class);
 
     private final List<EventUseCaseAbstract> eventUseCases;
 
-    public MessagingGatewayImpl(List<EventUseCaseAbstract> eventUseCases) {
+    public PaymentEventGatewayImpl(List<EventUseCaseAbstract> eventUseCases) {
         this.eventUseCases = eventUseCases;
     }
 
     @Override
-    public void listenToInvoiceUpdate(CustomQueueMessage<PaymentEventDTO> message) {
+    @SqsListener(queueNames = "${aws.queue.payment_update.endpoint}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
+    public void listenToPaymentUpdateEvent(CustomQueueMessage<PaymentEventDTO> message) {
         log.info("Received message: {}", message);
 
         try {

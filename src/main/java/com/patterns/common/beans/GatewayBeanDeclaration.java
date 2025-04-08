@@ -2,9 +2,9 @@ package com.patterns.common.beans;
 
 import com.patterns.common.interfaces.datasources.InvoiceRepository;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.common.interfaces.gateways.MessagingGateway;
+import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.communication.gateway.InvoiceGatewayImpl;
-import com.patterns.communication.gateway.MessagingGatewayImpl;
+import com.patterns.communication.gateway.PaymentEventGatewayImpl;
 import com.patterns.domain.usecase.eventstrategy.EventUseCaseAbstract;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class GatewayBeanDeclaration {
     }
 
     @Bean
-    public MessagingGateway messagingGateway(List<EventUseCaseAbstract> eventUseCases) {
-        return new MessagingGatewayImpl(eventUseCases);
+    public PaymentEventGateway messagingGateway(List<EventUseCaseAbstract> eventUseCases) {
+        return new PaymentEventGatewayImpl(eventUseCases);
     }
 }
