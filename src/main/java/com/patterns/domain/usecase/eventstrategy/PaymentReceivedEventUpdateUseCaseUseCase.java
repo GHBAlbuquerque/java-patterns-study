@@ -4,26 +4,26 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.EventsEnum.PAYMENT_DONE;
-import static com.patterns.domain.enums.StatusEnum.SUSPENDED;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_RECEIVED;
+import static com.patterns.domain.enums.StatusEnum.PAID;
 
-public class PaymentDoneEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
+public class PaymentReceivedEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
-    private final Logger log = LogManager.getLogger(PaymentDoneEventUpdateUseCaseUseCase.class);
+    private final Logger log = LogManager.getLogger(PaymentReceivedEventUpdateUseCaseUseCase.class);
 
-    public PaymentDoneEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
+    public PaymentReceivedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
         super(invoiceGateway);
     }
 
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_DONE;
+        return PAYMENT_RECEIVED;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return SUSPENDED;
+        return PAID;
     }
 
     @Override

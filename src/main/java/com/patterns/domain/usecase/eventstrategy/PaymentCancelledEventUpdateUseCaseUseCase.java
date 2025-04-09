@@ -4,7 +4,7 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.EventsEnum.PAYMENT_CREATED;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_CREATED;
 import static com.patterns.domain.enums.StatusEnum.ACTIVE;
 
 public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstract {

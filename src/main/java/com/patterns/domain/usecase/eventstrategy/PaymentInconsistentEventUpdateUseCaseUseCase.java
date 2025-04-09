@@ -4,8 +4,8 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.EventsEnum.PAYMENT_SUSPENDED;
-import static com.patterns.domain.enums.StatusEnum.PAID;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_INCONSISTENT;
+import static com.patterns.domain.enums.StatusEnum.INCONSISTENT;
 
 public class PaymentInconsistentEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
@@ -18,12 +18,12 @@ public class PaymentInconsistentEventUpdateUseCaseUseCase extends EventUseCaseAb
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_SUSPENDED;
+        return PAYMENT_INCONSISTENT;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return PAID;
+        return INCONSISTENT;
     }
 
     @Override

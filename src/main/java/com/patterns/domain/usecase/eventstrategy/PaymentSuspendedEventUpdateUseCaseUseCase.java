@@ -4,8 +4,8 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.EventsEnum.PAYMENT_SUSPENDED;
-import static com.patterns.domain.enums.StatusEnum.PAID;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_SUSPENDED;
+import static com.patterns.domain.enums.StatusEnum.SUSPENDED;
 
 public class PaymentSuspendedEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
 
@@ -22,7 +22,7 @@ public class PaymentSuspendedEventUpdateUseCaseUseCase extends EventUseCaseAbstr
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return PAID;
+        return SUSPENDED;
     }
 
     @Override

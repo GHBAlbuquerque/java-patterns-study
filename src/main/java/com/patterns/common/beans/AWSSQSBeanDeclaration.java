@@ -1,24 +1,37 @@
 package com.patterns.common.beans;
 
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import io.awspring.cloud.autoconfigure.sqs.SqsProperties;
 import io.awspring.cloud.sqs.config.SqsBootstrapConfiguration;
 import io.awspring.cloud.sqs.config.SqsMessageListenerContainerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
+import java.net.URI;
+
 @Configuration
 @Import(SqsBootstrapConfiguration.class)
 public class AWSSQSBeanDeclaration {
 
+    @Value("${aws.region}")
+    private String region;
+
+    @Value("${aws.sqs.endpoint}")
+    private String sqsEndpoint;
+
     @Bean
     public AmazonSQS amazonSQS() {
+
+        final var endpointConfig = new AwsClientBuilder.EndpointConfiguration(sqsEndpoint, region);
+
         return AmazonSQSClient.builder()
-                .withRegion(String.valueOf(Region.US_EAST_1))
+                .withEndpointConfiguration(endpointConfig)
                 .build();
     }
 
@@ -32,8 +45,11 @@ public class AWSSQSBeanDeclaration {
 
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
+        final var endpoint = URI.create(sqsEndpoint);
+
         return SqsAsyncClient.builder()
-                .region(Region.US_EAST_1)
+                .endpointOverride(endpoint)
+                .region(Region.of(region))
                 .build();
     }
 

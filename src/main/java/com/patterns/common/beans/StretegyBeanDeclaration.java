@@ -19,8 +19,8 @@ public class StretegyBeanDeclaration {
     }
 
     @Bean
-    public PaymentDoneEventUpdateUseCaseUseCase paymentDoneEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentDoneEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentReceivedEventUpdateUseCaseUseCase paymentDoneEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
+        return new PaymentReceivedEventUpdateUseCaseUseCase(invoiceGateway);
     }
 
     @Bean

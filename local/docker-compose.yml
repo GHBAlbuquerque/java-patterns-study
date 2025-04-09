@@ -5,8 +5,8 @@ services:
     ports:
       - "4566:4566"  # LocalStack Gateway
       - "4510-4559:4510-4559"  # External services
-#    entrypoint:
-#      - SERVICES=sqs
+    environment:
+      - SERVICES=sqs,s3
     networks:
       - env-local
 networks:
