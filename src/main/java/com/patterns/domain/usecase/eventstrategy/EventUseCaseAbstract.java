@@ -2,6 +2,7 @@ package com.patterns.domain.usecase.eventstrategy;
 
 import com.patterns.common.dto.message.CustomMessageHeaders;
 import com.patterns.common.dto.message.CustomQueueMessage;
+import com.patterns.common.exception.custom.UpdateEntityException;
 import com.patterns.common.interfaces.external.MessageSender;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.domain.entity.Invoice;
@@ -31,7 +32,7 @@ public abstract class EventUseCaseAbstract {
 
     public abstract String getInvoiceUpdateStatus();
 
-    public abstract void updateInvoice(final String invoiceId);
+    public abstract void updateInvoice(final String invoiceId) throws UpdateEntityException;
 
     public void sendUpdateEvent(final Invoice invoice, final String eventStatus) {
         log.info("Sending event with status: {} and invoice id {}", eventStatus, invoice.getId());
