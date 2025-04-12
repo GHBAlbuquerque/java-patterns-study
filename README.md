@@ -6,7 +6,7 @@ Simple invoice management system with CRUD operations.
 
 ## Patterns :checkered_flag:
 - Validation Chain (package com.patterns.domain.validator;)
-- Strategy (package com.patterns.domain.use;)
+- Strategy (package com.patterns.domain.strategy;)
 
 ## Technologies :checkered_flag:
 

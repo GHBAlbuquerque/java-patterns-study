@@ -18,10 +18,10 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
         log.info("Retrieving invoice by id: {}", id);
         var result = gateway.getInvoiceById(id);
 
-        if (result == null)
+        if (result.isEmpty())
             throw new EntityNotFoundException(MSINV0001.getCode(), MSINV0001.getLogMessage());
 
-        return result;
+        return result.get();
     }
 
     @Override
