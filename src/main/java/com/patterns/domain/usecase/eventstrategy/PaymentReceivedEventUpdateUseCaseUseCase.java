@@ -1,5 +1,6 @@
 package com.patterns.domain.usecase.eventstrategy;
 
+import com.patterns.common.interfaces.external.MessageSender;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,8 +12,8 @@ public class PaymentReceivedEventUpdateUseCaseUseCase extends EventUseCaseAbstra
 
     private final Logger log = LogManager.getLogger(PaymentReceivedEventUpdateUseCaseUseCase.class);
 
-    public PaymentReceivedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        super(invoiceGateway);
+    public PaymentReceivedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway, MessageSender messageSender) {
+        super(invoiceGateway, messageSender);
     }
 
 

@@ -2,8 +2,7 @@
   "headers": {
     "messageId": "111111111",
     "invoiceId": "invoice-1234-abc",
-    "correlationId": "correlation-1234",
-    "clientId": "client-1234"
+    "correlationId": "correlation-1234"
   },
   "body": {
     "id": "abc123",

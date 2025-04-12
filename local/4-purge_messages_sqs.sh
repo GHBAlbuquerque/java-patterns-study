@@ -7,7 +7,7 @@ echo "#      DELETING MESSAGES      #"
 echo "###############################"
 
 aws sqs purge-queue --endpoint-url "$ENDPOINT_URL" \
-  --queue-url "$QUEUE_URL"
+  --queue-url "$PAYMENT_QUEUE_URL"
 
 echo "###############################"
 echo "#      MESSAGES DELETED       #"
