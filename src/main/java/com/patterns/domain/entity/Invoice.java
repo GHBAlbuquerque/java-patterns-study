@@ -11,21 +11,24 @@ public class Invoice {
     private LocalDate dueDate;
     private LocalDate issueDate;
     private String issuer;
+    private String status;
 
-    public Invoice(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Invoice(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
         this.id = id;
         this.barcode = barcode;
         this.amount = amount;
         this.dueDate = dueDate;
         this.issueDate = issueDate;
         this.issuer = issuer;
+        this.status = status;
     }
 
-    public Invoice(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer) {
+    public Invoice(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
         this.amount = amount;
         this.dueDate = dueDate;
         this.issueDate = issueDate;
         this.issuer = issuer;
+        this.status = status;
     }
 
     public String getId() {
@@ -75,5 +78,14 @@ public class Invoice {
     public void setIssuer(String issuer) {
         this.issuer = issuer;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }
 

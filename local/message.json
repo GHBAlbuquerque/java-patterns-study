@@ -1,0 +1,12 @@
+{
+  "headers": {
+    "messageId": "111111111",
+    "invoiceId": "INV2025-04-12863124SP",
+    "correlationId": "correlation-1234",
+    "clientId": "client-1234"
+  },
+  "body": {
+    "id": "abc123",
+    "paymentStatus": "RECEIVED"
+  }
+}
