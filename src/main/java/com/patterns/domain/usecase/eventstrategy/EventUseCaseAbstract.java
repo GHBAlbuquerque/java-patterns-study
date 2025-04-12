@@ -23,7 +23,7 @@ public abstract class EventUseCaseAbstract {
     @Value("${aws.queue.invoice_update.endpoint}")
     protected String queueUrl;
 
-    protected EventUseCaseAbstract(InvoiceGateway invoiceGateway, MessageSender messageSender) {
+    protected EventUseCaseAbstract(final InvoiceGateway invoiceGateway, final MessageSender messageSender) {
         this.invoiceGateway = invoiceGateway;
         this.messageSender = messageSender;
     }
@@ -38,19 +38,15 @@ public abstract class EventUseCaseAbstract {
         log.info("Sending event with status: {} and invoice id {}", eventStatus, invoice.getId());
 
         try {
-            final var messageId = UUID.randomUUID().toString();
             final var message = new CustomQueueMessage<Invoice>(
                     new CustomMessageHeaders(
-                            messageId,
                             invoice.getId(),
-                            UUID.randomUUID().toString()
-                    ),
+                            UUID.randomUUID().toString()),
                     invoice);
 
+            messageSender.sendMessage(message, queueUrl);
 
-            messageSender.sendMessage(message, messageId, queueUrl);
-
-            log.info("Event sent with messageId: {}", messageId);
+            log.info("Message sent.");
 
         } catch (Exception e) {
             log.error("Error sending event: {}", e.getMessage());

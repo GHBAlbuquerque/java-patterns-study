@@ -10,8 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
-
 @Component
 public class MessageSenderimpl implements MessageSender {
 
@@ -28,29 +26,24 @@ public class MessageSenderimpl implements MessageSender {
 
     @Override
     public SendMessageResult sendMessage(final Object object,
-                                         final String id,
                                          final String queueUrl)
             throws MessageCreationException {
 
-        return client.sendMessage(createSendMessageRequest(object, id, queueUrl));
+        return client.sendMessage(createSendMessageRequest(object, queueUrl));
     }
 
     @Override
     public SendMessageRequest createSendMessageRequest(final Object object,
-                                                       final String sagaId,
                                                        final String queueUrl) throws MessageCreationException {
         try {
             return new SendMessageRequest()
                     .withQueueUrl(queueUrl)
-                    .withMessageBody(objectMapper.writeValueAsString(object))
-                    .withMessageGroupId(sagaId)
-                    .withMessageDeduplicationId(UUID.randomUUID().toString());
+                    .withMessageBody(objectMapper.writeValueAsString(object));
 
         } catch (Exception ex) {
             logger.error(
-                    "Could not create message for queue: {}, groupId: {}. Exception: {}",
+                    "Could not create message for queue: {}. Exception: {}",
                     queueUrl,
-                    sagaId,
                     ex.getMessage()
             );
 

@@ -3,6 +3,7 @@ package com.patterns.common.mapper;
 import com.patterns.common.dto.request.CreateInvoiceDTO;
 import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
+import com.patterns.domain.enums.StatusEnum;
 import com.patterns.external.orm.InvoiceORM;
 
 public class InvoiceMapper {
@@ -35,7 +36,7 @@ public class InvoiceMapper {
                 dto.dueDate(),
                 dto.issueDate(),
                 dto.issuer(),
-                dto.status());
+                StatusEnum.ACTIVE);
     }
 
     public static InvoiceORM fromDomainToORM(Invoice invoice) {

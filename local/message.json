@@ -1,7 +1,6 @@
 {
   "headers": {
-    "messageId": "111111111",
-    "invoiceId": "invoice-1234-abc",
+    "invoiceId": "INV2025-04-12644672SP",
     "correlationId": "correlation-1234"
   },
   "body": {

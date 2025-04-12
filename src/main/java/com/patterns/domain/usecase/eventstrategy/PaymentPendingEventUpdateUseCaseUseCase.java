@@ -29,7 +29,7 @@ public class PaymentPendingEventUpdateUseCaseUseCase extends EventUseCaseAbstrac
     }
 
     @Override
-    public void updateInvoice(String invoiceId) throws UpdateEntityException {
+    public void updateInvoice(final String invoiceId) throws UpdateEntityException {
         try {
             log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
 
@@ -40,6 +40,8 @@ public class PaymentPendingEventUpdateUseCaseUseCase extends EventUseCaseAbstrac
             final var invoice = optional.orElseThrow();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
+
+            sendUpdateEvent(invoice, getInvoiceUpdateStatus());
 
         } catch (Exception e) {
             log.error("Error updating invoice status to: {}", getInvoiceUpdateStatus(), e);

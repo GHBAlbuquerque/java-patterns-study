@@ -7,7 +7,7 @@ echo "#     RECEIVEING MESSAGE      #"
 echo "###############################"
 
 aws sqs receive-message --endpoint-url "$ENDPOINT_URL" \
-  --queue-url "$PAYMENT_QUEUE_URL" \
+  --queue-url "$UPDATE_QUEUE_URL" \
   --attribute-names All \
   --message-attribute-names All \
   --max-number-of-messages "$QTT_TO_RECEIVE"
