@@ -5,6 +5,8 @@ import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.external.orm.InvoiceORM;
 
+import java.util.Objects;
+
 public class InvoiceMapper {
 
     public static GetInvoiceDTO fromDomainToGetDTO(Invoice invoice) {
@@ -50,6 +52,9 @@ public class InvoiceMapper {
     }
 
     public static Invoice fromORMtoDomain(InvoiceORM orm) {
+        if (Objects.isNull(orm)) {
+            return null;
+        }
 
         return new Invoice(orm.getId(),
                 orm.getBarcode(),

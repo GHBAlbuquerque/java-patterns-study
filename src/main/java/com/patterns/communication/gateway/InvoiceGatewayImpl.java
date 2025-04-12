@@ -5,6 +5,8 @@ import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.mapper.InvoiceMapper;
 import com.patterns.domain.entity.Invoice;
 
+import java.util.Optional;
+
 public class InvoiceGatewayImpl implements InvoiceGateway {
 
     private final InvoiceRepository repository;
@@ -14,10 +16,10 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
     }
 
     @Override
-    public Invoice getInvoiceById(String id) {
+    public Optional<Invoice> getInvoiceById(String id) {
         var optional = repository.findById(id);
 
-        return optional.map(InvoiceMapper::fromORMtoDomain).orElse(null);
+        return optional.map(InvoiceMapper::fromORMtoDomain);
     }
 
     @Override

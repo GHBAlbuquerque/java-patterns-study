@@ -3,7 +3,7 @@ package com.patterns.communication.gateway;
 import com.patterns.common.dto.message.CustomQueueMessage;
 import com.patterns.common.dto.request.PaymentEventDTO;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
-import com.patterns.domain.usecase.eventstrategy.EventUseCaseAbstract;
+import com.patterns.domain.strategy.EventStrategy;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +16,10 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
 
     private final Logger log = LogManager.getLogger(PaymentEventGatewayImpl.class);
 
-    private final List<EventUseCaseAbstract> eventUseCases;
+    private final List<EventStrategy> eventUseCases;
 
-    public PaymentEventGatewayImpl(List<EventUseCaseAbstract> eventUseCases) {
-        this.eventUseCases = eventUseCases;
+    public PaymentEventGatewayImpl(List<EventStrategy> eventStrategyList) {
+        this.eventUseCases = eventStrategyList;
     }
 
     @Override

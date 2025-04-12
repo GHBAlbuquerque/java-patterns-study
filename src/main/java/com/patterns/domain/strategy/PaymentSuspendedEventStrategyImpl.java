@@ -1,29 +1,29 @@
-package com.patterns.domain.usecase.eventstrategy;
+package com.patterns.domain.strategy;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_INCONSISTENT;
-import static com.patterns.domain.enums.StatusEnum.INCONSISTENT;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_SUSPENDED;
+import static com.patterns.domain.enums.StatusEnum.SUSPENDED;
 
-public class PaymentInconsistentEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
+public class PaymentSuspendedEventStrategyImpl implements EventStrategy {
 
-    private final Logger log = LogManager.getLogger(PaymentInconsistentEventUpdateUseCaseUseCase.class);
+    private final Logger log = LogManager.getLogger(PaymentSuspendedEventStrategyImpl.class);
+    private final InvoiceGateway invoiceGateway;
 
-    public PaymentInconsistentEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        super(invoiceGateway);
+    public PaymentSuspendedEventStrategyImpl(InvoiceGateway invoiceGateway) {
+        this.invoiceGateway = invoiceGateway;
     }
-
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_INCONSISTENT;
+        return PAYMENT_SUSPENDED;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return INCONSISTENT;
+        return SUSPENDED;
     }
 
     @Override
@@ -31,10 +31,12 @@ public class PaymentInconsistentEventUpdateUseCaseUseCase extends EventUseCaseAb
         log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
 
         try {
-            final var invoice = invoiceGateway.getInvoiceById(invoiceId);
+            final var optional = invoiceGateway.getInvoiceById(invoiceId);
+            if (optional.isEmpty()) return;
 
             log.info("Updating invoice status to: {}", getInvoiceUpdateStatus());
 
+            final var invoice = optional.get();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
 

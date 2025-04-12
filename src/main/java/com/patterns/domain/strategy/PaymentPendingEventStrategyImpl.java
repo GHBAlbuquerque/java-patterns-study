@@ -1,28 +1,29 @@
-package com.patterns.domain.usecase.eventstrategy;
+package com.patterns.domain.strategy;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_CREATED;
-import static com.patterns.domain.enums.StatusEnum.ACTIVE;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_PENDING;
+import static com.patterns.domain.enums.StatusEnum.PENDING;
 
-public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstract {
+public class PaymentPendingEventStrategyImpl implements EventStrategy {
 
-    private final Logger log = LogManager.getLogger(PaymentCancelledEventUpdateUseCaseUseCase.class);
+    private final Logger log = LogManager.getLogger(PaymentPendingEventStrategyImpl.class);
+    private final InvoiceGateway invoiceGateway;
 
-    public PaymentCancelledEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        super(invoiceGateway);
+    public PaymentPendingEventStrategyImpl(InvoiceGateway invoiceGateway) {
+        this.invoiceGateway = invoiceGateway;
     }
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_CREATED;
+        return PAYMENT_PENDING;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return ACTIVE;
+        return PENDING;
     }
 
     @Override
@@ -30,10 +31,12 @@ public class PaymentCancelledEventUpdateUseCaseUseCase extends EventUseCaseAbstr
         log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
 
         try {
-            final var invoice = invoiceGateway.getInvoiceById(invoiceId);
+            final var optional = invoiceGateway.getInvoiceById(invoiceId);
+            if (optional.isEmpty()) return;
 
             log.info("Updating invoice status to: {}", getInvoiceUpdateStatus());
 
+            final var invoice = optional.get();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
 

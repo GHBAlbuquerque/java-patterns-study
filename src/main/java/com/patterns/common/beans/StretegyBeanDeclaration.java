@@ -1,7 +1,7 @@
 package com.patterns.common.beans;
 
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.domain.usecase.eventstrategy.*;
+import com.patterns.domain.strategy.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -9,32 +9,32 @@ import org.springframework.stereotype.Component;
 public class StretegyBeanDeclaration {
 
     @Bean
-    public PaymentCancelledEventUpdateUseCaseUseCase paymentCancelledEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentCancelledEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentCancelledEventStrategyImpl paymentCancelledEventStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentCancelledEventStrategyImpl(invoiceGateway);
     }
 
     @Bean
-    public PaymentCreatedEventUpdateUseCaseUseCase paymentCreatedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentCreatedEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentCreatedEventStrategyImpl paymentCreatedEventStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentCreatedEventStrategyImpl(invoiceGateway);
     }
 
     @Bean
-    public PaymentReceivedEventUpdateUseCaseUseCase paymentDoneEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentReceivedEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentReceivedEventStrategyImpl paymentReceivedEventStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentReceivedEventStrategyImpl(invoiceGateway);
     }
 
     @Bean
-    public PaymentInconsistentEventUpdateUseCaseUseCase paymentInconsistentEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentInconsistentEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentInconsistentEventStrategyImpl paymentInconsistentEventStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentInconsistentEventStrategyImpl(invoiceGateway);
     }
 
     @Bean
-    public PaymentPendingEventUpdateUseCaseUseCase paymentPendingEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentPendingEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentPendingEventStrategyImpl paymentPendingStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentPendingEventStrategyImpl(invoiceGateway);
     }
 
     @Bean
-    public PaymentSuspendedEventUpdateUseCaseUseCase paymentSuspendedEventUpdateUseCaseUseCase(InvoiceGateway invoiceGateway) {
-        return new PaymentSuspendedEventUpdateUseCaseUseCase(invoiceGateway);
+    public PaymentSuspendedEventStrategyImpl paymentSuspendedEventStrategy(InvoiceGateway invoiceGateway) {
+        return new PaymentSuspendedEventStrategyImpl(invoiceGateway);
     }
 }

@@ -5,7 +5,8 @@ Mock project for pattern study using Java.
 Simple invoice management system with CRUD operations.
 
 ## Patterns :checkered_flag:
-- Validation Chain
+- Validation Chain (package com.patterns.domain.validator;)
+- Strategy (package com.patterns.domain.use;)
 
 ## Technologies :checkered_flag:
 
