@@ -2,6 +2,7 @@ package com.patterns.domain.strategy;
 
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.UpdateEntityException;
+import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,10 +13,13 @@ import static com.patterns.domain.enums.StatusEnum.PENDING;
 public class PaymentPendingEventStrategyImpl implements EventStrategy {
 
     private final Logger log = LogManager.getLogger(PaymentPendingEventStrategyImpl.class);
-    private final InvoiceGateway invoiceGateway;
 
-    public PaymentPendingEventStrategyImpl(InvoiceGateway invoiceGateway) {
+    private final InvoiceGateway invoiceGateway;
+    private final InvoiceEventGateway invoiceEventGateway;
+
+    public PaymentPendingEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
         this.invoiceGateway = invoiceGateway;
+        this.invoiceEventGateway = invoiceEventGateway;
     }
 
     @Override
@@ -40,6 +44,8 @@ public class PaymentPendingEventStrategyImpl implements EventStrategy {
             final var invoice = optional.orElseThrow();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
+
+            invoiceEventGateway.sendUpdateEvent(invoice, getInvoiceUpdateStatus());
 
         } catch (Exception e) {
             log.error("Error updating invoice status to: {}", getInvoiceUpdateStatus(), e);
