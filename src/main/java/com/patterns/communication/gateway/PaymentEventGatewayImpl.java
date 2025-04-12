@@ -2,6 +2,8 @@ package com.patterns.communication.gateway;
 
 import com.patterns.common.dto.message.CustomQueueMessage;
 import com.patterns.common.dto.request.PaymentEventDTO;
+import com.patterns.common.exception.ExceptionCodesEnum;
+import com.patterns.common.exception.custom.InvalidMessageException;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.domain.strategy.EventStrategy;
 import io.awspring.cloud.sqs.annotation.SqsListener;
@@ -31,14 +33,19 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
             final var paymentStatus = message.body().paymentStatus();
             final var invoiceId = message.headers().invoiceId();
 
-            this.eventUseCases
+            final var strategy = this.eventUseCases
                     .stream()
                     .filter(eventUseCase -> eventUseCase.getEventStatus().equals(paymentStatus))
                     .findFirst()
-                    .ifPresentOrElse(
-                            eventUseCase -> eventUseCase.updateInvoice(invoiceId),
-                            () -> log.warn("No use case found for event status: {}", paymentStatus)
+                    .orElseThrow(
+                            () -> new InvalidMessageException(
+                                    ExceptionCodesEnum.INVOICE_04_INVALID_PAYMENT_EVENT.name(),
+                                    String.format("No use case found for event status: %s", paymentStatus))
                     );
+
+            strategy.updateInvoice(invoiceId);
+
+            log.info("Invoice updated successfully with status: {}", strategy.getInvoiceUpdateStatus());
 
         } catch (Exception e) {
             throw new RuntimeException(e);

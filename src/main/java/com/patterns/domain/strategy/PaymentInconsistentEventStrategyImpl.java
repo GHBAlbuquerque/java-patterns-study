@@ -1,5 +1,8 @@
 package com.patterns.domain.strategy;
 
+import com.patterns.common.exception.ExceptionCodesEnum;
+import com.patterns.common.exception.custom.EntityNotFoundException;
+import com.patterns.common.exception.custom.UpdateEntityException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,23 +30,24 @@ public class PaymentInconsistentEventStrategyImpl implements EventStrategy {
     }
 
     @Override
-    public void updateInvoice(String invoiceId) {
-        log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
-
+    public void updateInvoice(String invoiceId) throws UpdateEntityException {
         try {
+            log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
+
             final var optional = invoiceGateway.getInvoiceById(invoiceId);
-            if (optional.isEmpty()) return;
 
             log.info("Updating invoice status to: {}", getInvoiceUpdateStatus());
 
-            final var invoice = optional.get();
+            final var invoice = optional.orElseThrow();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
 
         } catch (Exception e) {
-            log.error("Error updating invoice: {}", e.getMessage());
-            throw new RuntimeException(e);
+            log.error("Error updating invoice status to: {}", getInvoiceUpdateStatus(), e);
+
+            throw new UpdateEntityException(
+                    ExceptionCodesEnum.INVOICE_03_INVOICE_UPDATE.name(),
+                    String.format("Error updating invoice with Id %s. Message: %s", invoiceId, e.getMessage()));
         }
     }
-
 }

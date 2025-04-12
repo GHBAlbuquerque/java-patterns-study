@@ -7,6 +7,6 @@
   },
   "body": {
     "id": "abc123",
-    "paymentStatus": "RECEIVED"
+    "paymentStatus": "INVALID_STATUS"
   }
 }
