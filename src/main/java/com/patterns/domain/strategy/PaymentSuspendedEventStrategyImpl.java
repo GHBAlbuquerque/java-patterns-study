@@ -2,7 +2,9 @@ package com.patterns.domain.strategy;
 
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.UpdateEntityException;
+import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,10 +14,13 @@ import static com.patterns.domain.enums.StatusEnum.SUSPENDED;
 public class PaymentSuspendedEventStrategyImpl implements EventStrategy {
 
     private final Logger log = LogManager.getLogger(PaymentSuspendedEventStrategyImpl.class);
-    private final InvoiceGateway invoiceGateway;
 
-    public PaymentSuspendedEventStrategyImpl(InvoiceGateway invoiceGateway) {
+    private final InvoiceGateway invoiceGateway;
+    private final InvoiceEventGateway invoiceEventGateway;
+
+    public PaymentSuspendedEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
         this.invoiceGateway = invoiceGateway;
+        this.invoiceEventGateway = invoiceEventGateway;
     }
 
     @Override
@@ -40,6 +45,8 @@ public class PaymentSuspendedEventStrategyImpl implements EventStrategy {
             final var invoice = optional.orElseThrow();
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
+
+            propagateUpdate(invoiceEventGateway, invoice);
 
         } catch (Exception e) {
             log.error("Error updating invoice status to: {}", getInvoiceUpdateStatus(), e);
