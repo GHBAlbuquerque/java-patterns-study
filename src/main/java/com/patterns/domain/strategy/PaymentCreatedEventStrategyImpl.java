@@ -1,10 +1,10 @@
 package com.patterns.domain.strategy;
 
 import com.patterns.common.exception.ExceptionCodesEnum;
-import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.UpdateEntityException;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -46,7 +46,7 @@ public class PaymentCreatedEventStrategyImpl implements EventStrategy {
             invoice.setStatus(getInvoiceUpdateStatus());
             invoiceGateway.saveInvoice(invoice);
 
-            invoiceEventGateway.sendUpdateEvent(invoice, getInvoiceUpdateStatus());
+            propagateUpdate(invoiceEventGateway, invoice);
 
         } catch (Exception e) {
             log.error("Error updating invoice status to: {}", getInvoiceUpdateStatus(), e);

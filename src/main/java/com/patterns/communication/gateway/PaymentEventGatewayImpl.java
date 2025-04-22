@@ -5,7 +5,7 @@ import com.patterns.common.dto.request.PaymentEventDTO;
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.InvalidMessageException;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
-import com.patterns.domain.strategy.EventStrategy;
+import com.patterns.common.interfaces.strategy.EventStrategy;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -8,7 +8,7 @@ import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.communication.gateway.InvoiceEventGatewayImpl;
 import com.patterns.communication.gateway.InvoiceGatewayImpl;
 import com.patterns.communication.gateway.PaymentEventGatewayImpl;
-import com.patterns.domain.strategy.EventStrategy;
+import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
