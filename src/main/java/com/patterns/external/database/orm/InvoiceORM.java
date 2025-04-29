@@ -1,4 +1,4 @@
-package com.patterns.external.orm;
+package com.patterns.external.database.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "invoice")
 public class InvoiceORM {
 
     @Id

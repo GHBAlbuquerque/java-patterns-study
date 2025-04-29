@@ -1,6 +1,6 @@
 package com.patterns.domain.enums;
 
-public class PaymentEventsEnum {
+public class PaymentStatusEnum {
     public static final String PAYMENT_CREATED = "CREATED";
     public static final String PAYMENT_CANCELLED = "CANCELLED";
     public static final String PAYMENT_PENDING = "PENDING";

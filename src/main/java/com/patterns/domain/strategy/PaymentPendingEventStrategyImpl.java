@@ -8,7 +8,7 @@ import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_PENDING;
+import static com.patterns.domain.enums.PaymentStatusEnum.PAYMENT_PENDING;
 import static com.patterns.domain.enums.StatusEnum.PENDING;
 
 public class PaymentPendingEventStrategyImpl implements EventStrategy {
