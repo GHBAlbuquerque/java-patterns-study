@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/invoices")
 public class InvoiceController {
 
     private final InvoiceGateway gateway;

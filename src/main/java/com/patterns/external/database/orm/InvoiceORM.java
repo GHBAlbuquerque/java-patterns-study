@@ -1,4 +1,4 @@
-package com.patterns.external.orm;
+package com.patterns.external.database.orm;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

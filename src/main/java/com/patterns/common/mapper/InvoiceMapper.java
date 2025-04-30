@@ -4,7 +4,7 @@ import com.patterns.common.dto.request.CreateInvoiceDTO;
 import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.StatusEnum;
-import com.patterns.external.orm.InvoiceORM;
+import com.patterns.external.database.orm.InvoiceORM;
 
 import java.util.Objects;
 
