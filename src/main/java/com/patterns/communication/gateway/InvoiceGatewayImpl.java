@@ -35,4 +35,18 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
         final var result = repository.save(orm);
         return InvoiceMapper.fromORMtoDomain(result);
     }
+
+    @Override
+    public Invoice getInvoiceIssuerById(String id) {
+        var view = repository.getIssuerById(id);
+
+        return null; //TODO
+    }
+
+    @Override
+    public Invoice getInvoiceStatusById(String id) {
+        var view = repository.getStatusById(id);
+
+        return null; //TODO
+    }
 }

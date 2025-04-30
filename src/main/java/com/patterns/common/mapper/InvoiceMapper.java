@@ -5,6 +5,7 @@ import com.patterns.common.dto.response.GetInvoiceDTO;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.StatusEnum;
 import com.patterns.external.database.orm.InvoiceORM;
+import com.patterns.external.database.projections.IssuerView;
 
 import java.util.Objects;
 
@@ -64,5 +65,13 @@ public class InvoiceMapper {
                 orm.getIssueDate(),
                 orm.getIssuer(),
                 orm.getStatus());
+    }
+
+    public static Invoice fromIssuerViewToDomain(IssuerView issuerView) {
+
+        //return new Invoice(issuerView.getId(), issuerView.getIssuer()); //TODO
+
+        return null;
+
     }
 }

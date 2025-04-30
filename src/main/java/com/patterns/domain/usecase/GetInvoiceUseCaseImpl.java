@@ -34,4 +34,14 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
 
         return result;
     }
+
+    @Override
+    public Invoice getInvoiceIssuerById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
+        return null; //TODO
+    }
+
+    @Override
+    public Invoice getInvoiceStatusById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
+        return null; //TODO
+    }
 }

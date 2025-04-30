@@ -10,4 +10,8 @@ public interface GetInvoiceUseCase {
 
     Invoice getInvoiceByBarcode(String barcode, InvoiceGateway gateway) throws EntityNotFoundException;
 
+    Invoice getInvoiceIssuerById(String id, InvoiceGateway gateway) throws EntityNotFoundException;
+
+    Invoice getInvoiceStatusById(String id, InvoiceGateway gateway) throws EntityNotFoundException;
+
 }
