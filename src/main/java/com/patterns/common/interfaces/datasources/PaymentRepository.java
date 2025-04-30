@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PaymentRepository extends JpaRepository<PaymentORM, PaymentId> {
 
-    PaymentMethodView findById(String id);
+    PaymentMethodView findPaymentMethodByIdAndInvoiceId(String id, String invoiceId);
 
 }

@@ -5,4 +5,6 @@ public class PaymentMethodEnum {
     public static final String BANK_TRANSFER = "BANK_TRANSFER";
     public static final String PAYPAL = "PAYPAL";
     public static final String CASH = "CASH";
+
+
 }
