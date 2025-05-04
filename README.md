@@ -12,6 +12,9 @@ Invoice management system with:
 - Validation Chain (package com.patterns.domain.validator;)
 - Strategy (package com.patterns.domain.strategy;)
 
+## Other 📨
+- Projection Views (com.patterns.external.database.projections;)
+
 ## Technologies :robot:
 
 ![image](https://img.shields.io/badge/Java-E97627?style=for-the-badge&logo=Java&logoColor=white)
