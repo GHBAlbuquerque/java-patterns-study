@@ -2,6 +2,8 @@ package com.patterns.communication.controller;
 
 import com.patterns.common.dto.request.CreateInvoiceDTO;
 import com.patterns.common.dto.response.GetInvoiceDTO;
+import com.patterns.common.dto.response.GetInvoiceIssuerDTO;
+import com.patterns.common.dto.response.GetInvoiceStatusDTO;
 import com.patterns.common.dto.response.InvoiceIdDTO;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
@@ -46,6 +48,22 @@ public class InvoiceController {
         final var result = getInvoiceUseCase.getInvoiceByBarcode(barcode, gateway);
 
         return ResponseEntity.ok(InvoiceMapper.fromDomainToGetDTO(result));
+    }
+
+    @GetMapping(value = "/{id}/issuer", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<GetInvoiceIssuerDTO> getInvoiceIssuerById(
+            @PathVariable String id
+    ) throws EntityNotFoundException {
+        final var result = getInvoiceUseCase.getInvoiceIssuerById(id, gateway);
+        return ResponseEntity.ok(InvoiceMapper.fromIssuerViewToDTO(result));
+    }
+
+    @GetMapping(value = "/{id}/status", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<GetInvoiceStatusDTO> getInvoiceStatusById(
+            @PathVariable String id
+    ) throws EntityNotFoundException {
+        final var result = getInvoiceUseCase.getInvoiceStatusById(id, gateway);
+        return ResponseEntity.ok(InvoiceMapper.fromStatusViewToDTO(result));
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")

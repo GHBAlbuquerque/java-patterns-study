@@ -1,6 +1,8 @@
 package com.patterns.common.interfaces.gateways;
 
 import com.patterns.domain.entity.Invoice;
+import com.patterns.external.database.projections.IssuerView;
+import com.patterns.external.database.projections.StatusView;
 
 import java.util.Optional;
 
@@ -12,8 +14,8 @@ public interface InvoiceGateway {
 
     Invoice saveInvoice(Invoice invoice);
 
-    Invoice getInvoiceIssuerById(String id);
+    IssuerView getInvoiceIssuerById(String id);
 
-    Invoice getInvoiceStatusById(String id);
+    StatusView getInvoiceStatusById(String id);
 
 }

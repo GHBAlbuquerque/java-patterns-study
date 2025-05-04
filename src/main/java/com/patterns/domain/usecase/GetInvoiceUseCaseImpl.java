@@ -4,6 +4,8 @@ import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.domain.entity.Invoice;
+import com.patterns.external.database.projections.IssuerView;
+import com.patterns.external.database.projections.StatusView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,12 +38,24 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public Invoice getInvoiceIssuerById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
-        return null; //TODO
+    public IssuerView getInvoiceIssuerById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
+        log.info("Retrieving invoice issuer by id: {}", id);
+        var result = gateway.getInvoiceIssuerById(id);
+
+        if (result == null)
+            throw new EntityNotFoundException(MSINV0001.getCode(), MSINV0001.getLogMessage());
+
+        return result;
     }
 
     @Override
-    public Invoice getInvoiceStatusById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
-        return null; //TODO
+    public StatusView getInvoiceStatusById(String id, InvoiceGateway gateway) throws EntityNotFoundException {
+        log.info("Retrieving invoice status by id: {}", id);
+        var result = gateway.getInvoiceStatusById(id);
+
+        if (result == null)
+            throw new EntityNotFoundException(MSINV0001.getCode(), MSINV0001.getLogMessage());
+
+        return result;
     }
 }

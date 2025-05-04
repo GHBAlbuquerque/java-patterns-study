@@ -2,10 +2,13 @@ package com.patterns.common.mapper;
 
 import com.patterns.common.dto.request.CreateInvoiceDTO;
 import com.patterns.common.dto.response.GetInvoiceDTO;
+import com.patterns.common.dto.response.GetInvoiceIssuerDTO;
+import com.patterns.common.dto.response.GetInvoiceStatusDTO;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.StatusEnum;
 import com.patterns.external.database.orm.InvoiceORM;
 import com.patterns.external.database.projections.IssuerView;
+import com.patterns.external.database.projections.StatusView;
 
 import java.util.Objects;
 
@@ -67,11 +70,11 @@ public class InvoiceMapper {
                 orm.getStatus());
     }
 
-    public static Invoice fromIssuerViewToDomain(IssuerView issuerView) {
+    public static GetInvoiceIssuerDTO fromIssuerViewToDTO(IssuerView view){
+        return new GetInvoiceIssuerDTO(view.getId(), view.getIssuer());
+    }
 
-        //return new Invoice(issuerView.getId(), issuerView.getIssuer()); //TODO
-
-        return null;
-
+    public static GetInvoiceStatusDTO fromStatusViewToDTO(StatusView view){
+        return new GetInvoiceStatusDTO(view.getId(), view.getStatus());
     }
 }

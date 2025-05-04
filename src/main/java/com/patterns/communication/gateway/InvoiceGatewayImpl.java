@@ -4,6 +4,8 @@ import com.patterns.common.interfaces.datasources.InvoiceRepository;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.mapper.InvoiceMapper;
 import com.patterns.domain.entity.Invoice;
+import com.patterns.external.database.projections.IssuerView;
+import com.patterns.external.database.projections.StatusView;
 
 import java.util.Optional;
 
@@ -37,16 +39,12 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
     }
 
     @Override
-    public Invoice getInvoiceIssuerById(String id) {
-        var view = repository.getIssuerById(id);
-
-        return null; //TODO
+    public IssuerView getInvoiceIssuerById(String id) {
+        return repository.getIssuerById(id);
     }
 
     @Override
-    public Invoice getInvoiceStatusById(String id) {
-        var view = repository.getStatusById(id);
-
-        return null; //TODO
+    public StatusView getInvoiceStatusById(String id) {
+        return repository.getStatusById(id);
     }
 }
