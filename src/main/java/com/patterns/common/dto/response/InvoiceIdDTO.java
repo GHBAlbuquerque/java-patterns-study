@@ -1,5 +1,5 @@
 package com.patterns.common.dto.response;
 
-public record InvoiceIdDTO(String id) {
+public record InvoiceIdDTO(String id) implements IResponse {
 }
 
