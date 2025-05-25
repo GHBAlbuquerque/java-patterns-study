@@ -2,6 +2,7 @@ package com.patterns.common.dto.request;
 
 import com.patterns.common.dto.validators.annotations.ValidAmountRange;
 import com.patterns.common.dto.validators.annotations.ValidDateRange;
+import com.patterns.common.dto.validators.annotations.ValidSingleFilter;
 import com.patterns.domain.enums.IssuerEnum;
 import com.patterns.domain.enums.StatusEnum;
 import jakarta.validation.constraints.AssertTrue;
@@ -9,8 +10,10 @@ import jakarta.validation.constraints.AssertTrue;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 @ValidAmountRange
 @ValidDateRange
+@ValidSingleFilter
 public record InvoiceFilterRequest(
 
         String barcode,
