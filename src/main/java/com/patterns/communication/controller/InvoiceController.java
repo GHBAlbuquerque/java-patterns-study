@@ -3,6 +3,7 @@ package com.patterns.communication.controller;
 import com.patterns.common.dto.request.CreateInvoiceDTO;
 import com.patterns.common.dto.request.InvoiceFilterRequest;
 import com.patterns.common.dto.response.*;
+import com.patterns.common.dto.validators.SingleFilterFinder;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
@@ -15,8 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import static com.patterns.common.mapper.InvoiceMapper.*;
+
 
 @Validated
 @RestController
@@ -39,7 +40,7 @@ public class InvoiceController {
     public ResponseEntity<InvoiceIdDTO> createInvoice(
             final @RequestBody @Validated CreateInvoiceDTO createInvoiceDTO
     ) throws InvalidInvoiceException {
-        final var invoice = InvoiceMapper.fromCreateDTOtoDomain(createInvoiceDTO);
+        final var invoice = fromCreateDTOtoDomain(createInvoiceDTO);
         final var result = createInvoiceUseCase.createInvoice(invoice, gateway, properties);
 
         return ResponseEntity.ok(new InvoiceIdDTO(result.getId()));
@@ -51,7 +52,7 @@ public class InvoiceController {
     ) throws EntityNotFoundException {
         final var result = getInvoiceUseCase.getInvoiceById(id, gateway);
 
-        return ResponseEntity.ok(InvoiceMapper.fromDomainToGetDTO(result));
+        return ResponseEntity.ok(fromDomainToGetDTO(result));
     }
 
     @GetMapping(value = "/{id}/issuer", consumes = "application/json", produces = "application/json")
@@ -59,7 +60,7 @@ public class InvoiceController {
             final @PathVariable String id
     ) throws EntityNotFoundException {
         final var result = getInvoiceUseCase.getInvoiceIssuerById(id, gateway);
-        return ResponseEntity.ok(InvoiceMapper.fromIssuerViewToDTO(result));
+        return ResponseEntity.ok(fromIssuerViewToDTO(result));
     }
 
     @GetMapping(value = "/{id}/status", consumes = "application/json", produces = "application/json")
@@ -67,16 +68,27 @@ public class InvoiceController {
             final @PathVariable String id
     ) throws EntityNotFoundException {
         final var result = getInvoiceUseCase.getInvoiceStatusById(id, gateway);
-        return ResponseEntity.ok(InvoiceMapper.fromStatusViewToDTO(result));
+        return ResponseEntity.ok(fromStatusViewToDTO(result));
     }
 
     @GetMapping
     public <E extends IResponse> ResponseEntity<PagedResponse<E>> getInvoiceByFilter(
-            final @Valid InvoiceFilterRequest invoiceFilterRequest
+            final @Valid InvoiceFilterRequest invoiceFilterRequest,
+            final @RequestParam(value = "page", defaultValue = "0") int page,
+            final @RequestParam(value = "size", defaultValue = "10") int size
     ) {
-        final PagedResponse<GetInvoiceDTO> response = new PagedResponse<>(1, 1, 0, 1, new ArrayList<GetInvoiceDTO>());
 
         //TODO
-        return ResponseEntity.ok(null);
+        final var filterType = SingleFilterFinder.providedFilter(invoiceFilterRequest);
+        final var response = getInvoiceUseCase.getInvoicesWithFilter(page, size, filterType, gateway);
+
+        final var convertedResponseContent = response.getContent().stream()
+                .map(InvoiceMapper::fromDomainToGetDTO)
+                .map(e -> (E) e) // Cast to E, assuming E extends IResponse
+                .toList();
+
+        final var pagedResponse = fromPageToPagedResponse(response, convertedResponseContent);
+
+        return ResponseEntity.ok(pagedResponse);
     }
 }

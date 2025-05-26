@@ -32,6 +32,7 @@ public record InvoiceFilterRequest(
 
         @AssertTrue(message = "User must agree to terms and conditions")
         boolean termsAndConditionsAccepted
+
 ) {
 
     @AssertTrue(message = "Invalid arguments.")
@@ -62,5 +63,6 @@ public record InvoiceFilterRequest(
 
         return true;
     }
+
 
 }
