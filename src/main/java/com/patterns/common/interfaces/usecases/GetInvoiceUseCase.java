@@ -1,5 +1,6 @@
 package com.patterns.common.interfaces.usecases;
 
+import com.patterns.common.dto.request.InvoiceFilterRequest;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.domain.entity.Invoice;
@@ -18,6 +19,6 @@ public interface GetInvoiceUseCase {
 
     StatusView getInvoiceStatusById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException;
 
-    Page<Invoice> getInvoicesWithFilter(final int page, final int size, final FilterEnum filterType, final InvoiceGateway gateway);
+    Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter, final int page, final int size, final FilterEnum filterType, final InvoiceGateway gateway);
 
 }

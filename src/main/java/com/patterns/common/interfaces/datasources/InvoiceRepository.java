@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface InvoiceRepository extends JpaRepository<InvoiceORM, String> {
@@ -22,7 +23,7 @@ public interface InvoiceRepository extends JpaRepository<InvoiceORM, String> {
 
     Page<InvoiceORM> findAllByIssuer(String issuer, PageRequest pageRequest);
 
-    Page<InvoiceORM> findAllByIssueDateBetween(String startDate, String endDate, PageRequest pageRequest);
+    Page<InvoiceORM> findAllByIssueDateBetween(LocalDate startDate, LocalDate endDate, PageRequest pageRequest);
 
     Page<InvoiceORM> findAllByAmountBetween(BigDecimal minimumAmount, BigDecimal maximumAmount, PageRequest pageRequest);
 

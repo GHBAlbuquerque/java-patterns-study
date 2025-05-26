@@ -1,5 +1,6 @@
 package com.patterns.domain.usecase;
 
+import com.patterns.common.dto.request.InvoiceFilterRequest;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
@@ -10,6 +11,7 @@ import com.patterns.external.database.projections.StatusView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0001;
 
@@ -62,11 +64,24 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public Page<Invoice> getInvoicesWithFilter(final int page,
+    public Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter,
+                                               final int page,
                                                final int size,
                                                final FilterEnum filterType,
                                                final InvoiceGateway gateway) {
-        //TODO implement search method decision
-        return null;
+
+        return switch (filterType) {
+            case BARCODE -> Page.empty(); //TODO gateway.getInvoiceByBarcode(null);
+            case ISSUER -> gateway.findAllByIssuer(filter.issuer(), PageRequest.of(page, size));
+            case STATUS -> gateway.findAllByStatus(filter.status(), PageRequest.of(page, size));
+            case ISSUE_DATE ->
+                    gateway.findAllByIssueDateBetween(filter.startDate(), filter.endDate(), PageRequest.of(page, size));
+            case AMOUNT ->
+                    gateway.findAllByAmountBetween(filter.minimumAmount(), filter.maximumAmount(), PageRequest.of(page, size));
+            default -> {
+                log.warn("Invalid filter type provided: {}", filterType);
+                throw new IllegalArgumentException("Invalid filter type: " + filterType);
+            }
+        };
     }
 }

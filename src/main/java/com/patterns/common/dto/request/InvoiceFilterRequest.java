@@ -6,6 +6,7 @@ import com.patterns.common.dto.validators.annotations.ValidSingleFilter;
 import com.patterns.domain.enums.IssuerEnum;
 import com.patterns.domain.enums.StatusEnum;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,8 +31,9 @@ public record InvoiceFilterRequest(
 
         String issuer,
 
+        @NotNull
         @AssertTrue(message = "User must agree to terms and conditions")
-        boolean termsAndConditionsAccepted
+        Boolean termsAndConditionsAccepted
 
 ) {
 
@@ -63,6 +65,5 @@ public record InvoiceFilterRequest(
 
         return true;
     }
-
 
 }

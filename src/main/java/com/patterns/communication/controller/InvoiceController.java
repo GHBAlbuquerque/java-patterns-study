@@ -73,14 +73,13 @@ public class InvoiceController {
 
     @GetMapping
     public <E extends IResponse> ResponseEntity<PagedResponse<E>> getInvoiceByFilter(
-            final @Valid InvoiceFilterRequest invoiceFilterRequest,
+            final @Valid InvoiceFilterRequest filter,
             final @RequestParam(value = "page", defaultValue = "0") int page,
             final @RequestParam(value = "size", defaultValue = "10") int size
     ) {
 
-        //TODO
-        final var filterType = SingleFilterFinder.providedFilter(invoiceFilterRequest);
-        final var response = getInvoiceUseCase.getInvoicesWithFilter(page, size, filterType, gateway);
+        final var filterType = SingleFilterFinder.providedFilter(filter);
+        final var response = getInvoiceUseCase.getInvoicesWithFilter(filter, page, size, filterType, gateway);
 
         final var convertedResponseContent = response.getContent().stream()
                 .map(InvoiceMapper::fromDomainToGetDTO)
