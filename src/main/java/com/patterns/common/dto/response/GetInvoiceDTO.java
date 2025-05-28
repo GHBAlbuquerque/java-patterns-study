@@ -9,6 +9,6 @@ public record GetInvoiceDTO(String id,
                             LocalDate dueDate,
                             LocalDate issueDate,
                             String issuer,
-                            String status) {
+                            String status) implements IResponse {
 }
 
