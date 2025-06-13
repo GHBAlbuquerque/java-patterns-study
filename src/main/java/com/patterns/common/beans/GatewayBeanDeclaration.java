@@ -29,6 +29,6 @@ public class GatewayBeanDeclaration {
 
     @Bean
     public PaymentEventGateway paymentEventGateway(List<EventStrategy> eventStrategyList) {
-        return new PaymentEventGatewayImpl(eventStrategyList);
+        return new PaymentEventGatewayImpl(eventStrategyList, getInvoiceUseCase, batchValidateInvoiceUseCase);
     }
 }

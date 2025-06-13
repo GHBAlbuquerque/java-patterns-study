@@ -6,6 +6,8 @@ import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.InvalidMessageException;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.common.interfaces.strategy.EventStrategy;
+import com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;
+import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,14 +22,30 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
 
     private final List<EventStrategy> eventUseCases;
 
-    public PaymentEventGatewayImpl(List<EventStrategy> eventStrategyList) {
+    private final GetInvoiceUseCase getInvoiceUseCase;
+
+    private final BatchValidateInvoiceUseCase batchValidateInvoiceUseCase;
+
+    public PaymentEventGatewayImpl(List<EventStrategy> eventStrategyList, GetInvoiceUseCase getInvoiceUseCase, BatchValidateInvoiceUseCase batchValidateInvoiceUseCase) {
         this.eventUseCases = eventStrategyList;
+        this.getInvoiceUseCase = getInvoiceUseCase;
+        this.batchValidateInvoiceUseCase = batchValidateInvoiceUseCase;
     }
 
     @Override
     @SqsListener(queueNames = "${aws.queue.payment_update.endpoint}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
-    public void listenToPaymentUpdateEvent(CustomQueueMessage<PaymentEventDTO> message) {
-        log.info("Received message: {}", message);
+    public void listenToPaymentUpdateEvents(List<CustomQueueMessage<PaymentEventDTO>> messages) {
+        log.info("Received messages: {}", messages);
+
+        //TODO: Implement logic to handle messages, e.g., validate invoices or update payment status
+        batchValidateInvoiceUseCase.validateAllAsync(null);
+
+        messages.forEach(this::processPaymentUpdateEvent);
+    }
+
+    @Override
+    public void processPaymentUpdateEvent(CustomQueueMessage<PaymentEventDTO> message) {
+        log.info("Processing message: {}", message);
 
         try {
             final var paymentStatus = message.body().paymentStatus();
@@ -43,7 +61,7 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
                                     String.format("No use case found for event status: %s", paymentStatus))
                     );
 
-            strategy.updateInvoice(invoiceId);
+            strategy.updatePaymentStatusOnInvoice(invoiceId);
 
             log.info("Invoice updated successfully with status: {}", strategy.getInvoiceUpdateStatus());
 
@@ -51,4 +69,5 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
             throw new RuntimeException(e);
         }
     }
+
 }

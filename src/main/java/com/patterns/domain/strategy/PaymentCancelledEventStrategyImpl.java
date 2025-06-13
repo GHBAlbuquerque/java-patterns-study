@@ -34,7 +34,7 @@ public class PaymentCancelledEventStrategyImpl implements EventStrategy {
     }
 
     @Override
-    public void updateInvoice(String invoiceId) throws UpdateEntityException {
+    public void updatePaymentStatusOnInvoice(String invoiceId) throws UpdateEntityException {
         try {
             log.info("Event received with status: {} and invoice id {}", getEventStatus(), invoiceId);
 
