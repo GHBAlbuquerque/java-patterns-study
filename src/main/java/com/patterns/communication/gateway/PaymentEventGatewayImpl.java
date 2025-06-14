@@ -7,7 +7,6 @@ import com.patterns.common.exception.custom.InvalidMessageException;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
 import com.patterns.common.interfaces.strategy.EventStrategy;
 import com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;
-import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,13 +21,10 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
 
     private final List<EventStrategy> eventUseCases;
 
-    private final GetInvoiceUseCase getInvoiceUseCase;
-
     private final BatchValidateInvoiceUseCase batchValidateInvoiceUseCase;
 
-    public PaymentEventGatewayImpl(List<EventStrategy> eventStrategyList, GetInvoiceUseCase getInvoiceUseCase, BatchValidateInvoiceUseCase batchValidateInvoiceUseCase) {
-        this.eventUseCases = eventStrategyList;
-        this.getInvoiceUseCase = getInvoiceUseCase;
+    public PaymentEventGatewayImpl(List<EventStrategy> eventUseCases, BatchValidateInvoiceUseCase batchValidateInvoiceUseCase) {
+        this.eventUseCases = eventUseCases;
         this.batchValidateInvoiceUseCase = batchValidateInvoiceUseCase;
     }
 
@@ -37,8 +33,11 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
     public void listenToPaymentUpdateEvents(List<CustomQueueMessage<PaymentEventDTO>> messages) {
         log.info("Received messages: {}", messages);
 
-        //TODO: Implement logic to handle messages, e.g., validate invoices or update payment status
-        batchValidateInvoiceUseCase.validateAllAsync(null);
+        final List<String> invoicesIds = messages.stream()
+                .map(message -> message.headers().invoiceId())
+                .toList();
+
+        batchValidateInvoiceUseCase.validateAllAsync(invoicesIds).join();
 
         messages.forEach(this::processPaymentUpdateEvent);
     }

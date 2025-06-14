@@ -1,23 +1,22 @@
 package com.patterns.domain.usecase;
 
+import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;
-import com.patterns.domain.entity.Invoice;
-import com.patterns.domain.validator.barcode.BarcodeValidator;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BatchValidateInvoiceUseCaseImpl implements BatchValidateInvoiceUseCase {
 
-    private final BarcodeValidator barcodeValidator;
+    private final InvoiceGateway invoiceGateway;
 
-    public BatchValidateInvoiceUseCaseImpl(BarcodeValidator barcodeValidator) {
-        this.barcodeValidator = barcodeValidator;
+    public BatchValidateInvoiceUseCaseImpl(InvoiceGateway invoiceGateway) {
+        this.invoiceGateway = invoiceGateway;
     }
 
     @Override
-    public CompletableFuture<List<Boolean>> validateAllAsync(List<Invoice> invoices) {
-        List<CompletableFuture<Boolean>> futures = invoices.stream()
+    public CompletableFuture<List<Boolean>> validateAllAsync(List<String> invoicesIds) {
+        List<CompletableFuture<Boolean>> futures = invoicesIds.stream()
                 .map(this::validateAsync)
                 .toList();
 
@@ -29,9 +28,7 @@ public class BatchValidateInvoiceUseCaseImpl implements BatchValidateInvoiceUseC
     }
 
     @Override
-    public CompletableFuture<Boolean> validateAsync(Invoice invoice) {
-        return CompletableFuture.supplyAsync(() -> barcodeValidator.validate(
-                invoice.getBarcode()).isValid()
-        );
+    public CompletableFuture<Boolean> validateAsync(String invoiceId) {
+        return CompletableFuture.supplyAsync(() -> invoiceGateway.getInvoiceById(invoiceId).isPresent());
     }
 }
