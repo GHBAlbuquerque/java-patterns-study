@@ -11,4 +11,6 @@ public interface PaymentEventGateway {
 
     void processPaymentUpdateEvent(CustomQueueMessage<PaymentEventDTO> message);
 
+    List<CustomQueueMessage<PaymentEventDTO>> filterPaymentUpdateEventsByInvoicesCheck(List<CustomQueueMessage<PaymentEventDTO>> messages);
+
 }

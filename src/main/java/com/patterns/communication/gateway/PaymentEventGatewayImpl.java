@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.awspring.cloud.sqs.annotation.SqsListenerAcknowledgementMode.ON_SUCCESS;
 
@@ -33,13 +34,10 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
     public void listenToPaymentUpdateEvents(List<CustomQueueMessage<PaymentEventDTO>> messages) {
         log.info("Received messages: {}", messages);
 
-        final List<String> invoicesIds = messages.stream()
-                .map(message -> message.headers().invoiceId())
-                .toList();
+        //TODO? ver pq nao consegue ler
+        final var validMessages = filterPaymentUpdateEventsByInvoicesCheck(messages);
 
-        batchValidateInvoiceUseCase.validateAllAsync(invoicesIds).join();
-
-        messages.forEach(this::processPaymentUpdateEvent);
+        validMessages.forEach(this::processPaymentUpdateEvent);
     }
 
     @Override
@@ -67,6 +65,23 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public List<CustomQueueMessage<PaymentEventDTO>> filterPaymentUpdateEventsByInvoicesCheck(List<CustomQueueMessage<PaymentEventDTO>> messages) {
+        final List<String> invoicesIds = messages.stream()
+                .map(message -> message.headers().invoiceId())
+                .toList();
+
+        final Map<String, Boolean> validations = batchValidateInvoiceUseCase.validateAllAsync(invoicesIds).join();
+        final List<String> validInvoices = validations.entrySet().stream()
+                .filter(entry -> Boolean.TRUE.equals(entry.getValue()))
+                .map(entry -> entry.getKey())
+                .toList();
+
+        return messages.stream()
+                .filter(message -> validInvoices.contains(message.headers().invoiceId()))
+                .toList();
     }
 
 }

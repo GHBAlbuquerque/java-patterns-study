@@ -6,7 +6,7 @@ export SQS_NAME="payment-update-queue"
 export ENDPOINT_URL="http://localhost:4566"
 export QUEUE_URL="$ENDPOINT_URL/000000000000/$SQS_NAME"
 export QTT_TO_RECEIVE="10"
-export MESSAGE_FILE_PATH="./message.json"
+export MESSAGE_FILE_PATH="./message_list.json"
 export MESSAGE_ERROR_FILE_PATH="./message_error.json"
 
 echo "###############################"

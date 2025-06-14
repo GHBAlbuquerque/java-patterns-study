@@ -1,0 +1,22 @@
+[
+  {
+    "headers": {
+      "invoiceId": "INV2025-06-13515034SP",
+      "correlationId": "correlation-1234"
+    },
+    "body": {
+      "id": "abc123",
+      "paymentStatus": "RECEIVED"
+    }
+  },
+  {
+    "headers": {
+      "invoiceId": "INV2025-04-12883416SP",
+      "correlationId": "correlation-1234"
+    },
+    "body": {
+      "id": "abc123",
+      "paymentStatus": "RECEIVED"
+    }
+  }
+]
