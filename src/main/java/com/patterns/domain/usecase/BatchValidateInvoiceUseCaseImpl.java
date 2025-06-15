@@ -25,12 +25,15 @@ public class BatchValidateInvoiceUseCaseImpl implements BatchValidateInvoiceUseC
 
         CompletableFuture<?>[] futures = futureMap.values().toArray(new CompletableFuture[0]);
 
-        return CompletableFuture.allOf(futures)
+        final CompletableFuture<Map<String, Boolean>> results =
+                CompletableFuture.allOf(futures)
                 .thenApply(v -> futureMap.entrySet().stream()
                         .collect(Collectors.toMap(
                                 entry -> entry.getKey(),
                                 entry -> entry.getValue().join()
                         )));
+
+        return results;
     }
 
     @Override

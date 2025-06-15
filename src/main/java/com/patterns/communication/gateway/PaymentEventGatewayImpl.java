@@ -1,6 +1,7 @@
 package com.patterns.communication.gateway;
 
 import com.patterns.common.dto.message.CustomQueueMessage;
+import com.patterns.common.dto.message.ListWrapperQueueMessage;
 import com.patterns.common.dto.request.PaymentEventDTO;
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.InvalidMessageException;
@@ -31,13 +32,15 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
 
     @Override
     @SqsListener(queueNames = "${aws.queue.payment_update.endpoint}", maxConcurrentMessages = "1", maxMessagesPerPoll = "1", acknowledgementMode = ON_SUCCESS)
-    public void listenToPaymentUpdateEvents(List<CustomQueueMessage<PaymentEventDTO>> messages) {
+    public void listenToPaymentUpdateEvents(ListWrapperQueueMessage<PaymentEventDTO> payload) {
+        final var messages = payload.messages();
         log.info("Received messages: {}", messages);
 
-        //TODO? ver pq nao consegue ler
         final var validMessages = filterPaymentUpdateEventsByInvoicesCheck(messages);
 
         validMessages.forEach(this::processPaymentUpdateEvent);
+
+        log.info("Finished reading messages.");
     }
 
     @Override
@@ -63,6 +66,7 @@ public class PaymentEventGatewayImpl implements PaymentEventGateway {
             log.info("Invoice updated successfully with status: {}", strategy.getInvoiceUpdateStatus());
 
         } catch (Exception e) {
+            log.error("Error processing message: {}", message, e);
             throw new RuntimeException(e);
         }
     }

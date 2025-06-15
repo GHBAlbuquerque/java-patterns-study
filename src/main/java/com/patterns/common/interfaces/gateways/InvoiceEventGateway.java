@@ -4,5 +4,5 @@ import com.patterns.domain.entity.Invoice;
 
 public interface InvoiceEventGateway {
 
-    public void sendUpdateEvent(final Invoice invoice, final String eventStatus);
+    void sendUpdateEvent(final Invoice invoice, final String eventStatus);
 }
