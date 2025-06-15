@@ -13,7 +13,8 @@ Invoice management system with:
 - Strategy (package com.patterns.domain.strategy;)
 
 ## Other 📨
-- Projection Views (com.patterns.external.database.projections;)
+- Use of Projection Views to fetch and return partial fields from the database (com.patterns.external.database.projections;)
+- Use of CompletableFuture for validation of invoices before processing them for payment (package com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase);
 
 ## Technologies :robot:
 
