@@ -5,10 +5,11 @@ import com.patterns.common.interfaces.external.MessageSender;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
+import com.patterns.common.interfaces.strategy.EventStrategy;
+import com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;
 import com.patterns.communication.gateway.InvoiceEventGatewayImpl;
 import com.patterns.communication.gateway.InvoiceGatewayImpl;
 import com.patterns.communication.gateway.PaymentEventGatewayImpl;
-import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,7 +29,7 @@ public class GatewayBeanDeclaration {
     }
 
     @Bean
-    public PaymentEventGateway paymentEventGateway(List<EventStrategy> eventStrategyList) {
-        return new PaymentEventGatewayImpl(eventStrategyList);
+    public PaymentEventGateway paymentEventGateway(List<EventStrategy> eventStrategyList, BatchValidateInvoiceUseCase batchValidateInvoiceUseCase) {
+        return new PaymentEventGatewayImpl(eventStrategyList, batchValidateInvoiceUseCase);
     }
 }

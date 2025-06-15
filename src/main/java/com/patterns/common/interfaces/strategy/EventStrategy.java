@@ -10,7 +10,7 @@ public interface EventStrategy {
 
     String getInvoiceUpdateStatus();
 
-    void updateInvoice(final String invoiceId) throws UpdateEntityException;
+    void updatePaymentStatusOnInvoice(final String invoiceId) throws UpdateEntityException;
 
     default void propagateUpdate(InvoiceEventGateway invoiceEventGateway, Invoice invoice) {
         // Default implementation can be overridden if needed

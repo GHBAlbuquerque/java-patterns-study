@@ -6,12 +6,12 @@ echo "###############################"
 echo "#       SENDING MESSAGE       #"
 echo "###############################"
 
-message=$(cat $MESSAGE_FILE_PATH)
+message=$(cat "$MESSAGE_LIST_FILE_PATH")
 
 echo $message
 
 aws sqs send-message --endpoint-url "$ENDPOINT_URL" \
-  --queue-url "$QUEUE_URL" \
+  --queue-url "$PAYMENT_UPDATE_QUEUE_URL" \
   --message-body "$message"
 
 echo "###############################"

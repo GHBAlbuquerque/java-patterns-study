@@ -22,6 +22,10 @@ public final class ValidationResult {
         return !isValid;
     }
 
+    public boolean isValid() {
+        return isValid;
+    }
+
     public ValidationMessageEnum getMessage() {
         return validationMessageEnum;
     }
