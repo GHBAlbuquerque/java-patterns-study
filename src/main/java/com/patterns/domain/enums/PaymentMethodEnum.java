@@ -1,6 +1,6 @@
 package com.patterns.domain.enums;
 
-public enum PaymentMethod {
+public enum PaymentMethodEnum {
     BOLETO,
     CREDIT_CARD,
     BANK_TRANSFER,

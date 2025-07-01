@@ -1,6 +1,6 @@
 package com.patterns.domain.enums;
 
-public enum InstallmentStatus {
+public enum InstallmentStatusEnum {
     PENDING,
     PAID,
     OVERDUE,
