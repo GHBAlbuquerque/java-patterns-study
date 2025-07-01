@@ -1,4 +1,4 @@
-package com.patterns.domain.strategy;
+package com.patterns.domain.strategy.event;
 
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.UpdateEntityException;
@@ -8,29 +8,29 @@ import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_CANCELLED;
-import static com.patterns.domain.enums.StatusEnum.INACTIVE;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_INCONSISTENT;
+import static com.patterns.domain.enums.StatusEnum.INCONSISTENT;
 
-public class PaymentCreatedEventStrategyImpl implements EventStrategy {
+public class PaymentInconsistentEventStrategyImpl implements EventStrategy {
 
-    private final Logger log = LogManager.getLogger(PaymentCreatedEventStrategyImpl.class);
+    private final Logger log = LogManager.getLogger(PaymentInconsistentEventStrategyImpl.class);
 
     private final InvoiceGateway invoiceGateway;
     private final InvoiceEventGateway invoiceEventGateway;
 
-    public PaymentCreatedEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
+    public PaymentInconsistentEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
         this.invoiceGateway = invoiceGateway;
         this.invoiceEventGateway = invoiceEventGateway;
     }
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_CANCELLED;
+        return PAYMENT_INCONSISTENT;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return INACTIVE;
+        return INCONSISTENT;
     }
 
     @Override

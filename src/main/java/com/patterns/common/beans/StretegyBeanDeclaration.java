@@ -2,7 +2,7 @@ package com.patterns.common.beans;
 
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.domain.strategy.*;
+import com.patterns.domain.strategy.event.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
