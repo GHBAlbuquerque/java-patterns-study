@@ -1,4 +1,7 @@
 package com.patterns.common.interfaces.strategy;
 
-public class EntityStrategy {
+import com.patterns.domain.entity.Agreement;
+
+public interface EntityStrategy {
+    void handle(Agreement.Builder builder, String acordoId);
 }
