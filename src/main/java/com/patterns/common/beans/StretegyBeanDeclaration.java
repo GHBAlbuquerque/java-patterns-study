@@ -2,6 +2,9 @@ package com.patterns.common.beans;
 
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.domain.strategy.entity.AgreementDetailsStrategy;
+import com.patterns.domain.strategy.entity.InstallmentDetailsStrategy;
+import com.patterns.domain.strategy.entity.InvoiceDetailsStrategy;
 import com.patterns.domain.strategy.event.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -37,5 +40,20 @@ public class StretegyBeanDeclaration {
     @Bean
     public PaymentSuspendedEventStrategyImpl paymentSuspendedEventStrategy(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway){
         return new PaymentSuspendedEventStrategyImpl(invoiceGateway, invoiceEventGateway);
+    }
+
+    @Bean
+    public AgreementDetailsStrategy agreementDetailsStrategy(){
+        return new AgreementDetailsStrategy();
+    }
+
+    @Bean
+    public InvoiceDetailsStrategy invoiceDetailsStrategy(){
+        return new InvoiceDetailsStrategy();
+    }
+
+    @Bean
+    public InstallmentDetailsStrategy installmentDetailsStrategy(){
+        return new InstallmentDetailsStrategy();
     }
 }

@@ -1,27 +1,48 @@
-package com.patterns.domain.entity;
+package com.patterns.external.database.orm;
 
 import com.patterns.domain.enums.InstallmentStatusEnum;
 import com.patterns.domain.enums.PaymentMethodEnum;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Installment {
+@Entity
+public class InstallmentORM {
 
+    @Id
     private String id;
+
+    @NotNull
     private int number;
+
+    @NotNull
     private LocalDate dueDate;
+
+    @NotNull
     private LocalDate paymentDate;
 
+    @NotNull
     private BigDecimal amount;
+
+    @NotNull
     private BigDecimal paidAmount;
+
+    @NotNull
     private BigDecimal interest;
 
+    @NotNull
     private InstallmentStatusEnum status;
+
+    @NotNull
     private PaymentMethodEnum paymentMethod;
 
-    public Installment(String id, int number, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod) {
-        this.id = id;
+    public InstallmentORM() {
+    }
+
+    public InstallmentORM(int number, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod, String notes) {
         this.number = number;
         this.dueDate = dueDate;
         this.paymentDate = paymentDate;
@@ -95,5 +116,4 @@ public class Installment {
     public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-
 }
