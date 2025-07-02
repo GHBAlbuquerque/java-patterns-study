@@ -1,7 +1,6 @@
-package com.patterns.domain.usecase;
+package com.patterns.domain.facade;
 
 import com.patterns.common.interfaces.strategy.EntityStrategy;
-import com.patterns.common.interfaces.usecases.GetAgreementByIdUseCase;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
 import com.patterns.domain.strategy.entity.Middleware;
@@ -9,15 +8,14 @@ import com.patterns.domain.strategy.entity.Middleware;
 import java.util.List;
 import java.util.Set;
 
-public class GetAgreementByIdUseCaseImpl implements GetAgreementByIdUseCase {
+public class GetAgreementByIdFacade {
 
-    private final List<Middleware> entityStrategies; // ---- TODO --- validate if works
+    private final List<Middleware> entityStrategies;
 
-    public GetAgreementByIdUseCaseImpl(List<Middleware> entityStrategies) {
+    public GetAgreementByIdFacade(List<Middleware> entityStrategies) {
         this.entityStrategies = entityStrategies;
     }
 
-    @Override
     public Agreement getAgreementById(
             final String id,
             final Set<EntityEnum> entityEnumSet
