@@ -15,6 +15,9 @@ public class InvoiceORM {
     private String id;
 
     @NotNull
+    private String agreementId;
+
+    @NotNull
     private String barcode;
 
     @NotNull
@@ -47,6 +50,14 @@ public class InvoiceORM {
 
     public String getId() {
         return id;
+    }
+
+    public String getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(String agreementId) {
+        this.agreementId = agreementId;
     }
 
     public String getBarcode() {

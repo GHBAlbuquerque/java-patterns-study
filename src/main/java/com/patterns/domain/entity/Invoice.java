@@ -6,15 +6,18 @@ import java.time.LocalDate;
 public class Invoice {
 
     private String id;
+    private String agreementId;
     private String barcode;
+
     private BigDecimal amount;
     private LocalDate dueDate;
     private LocalDate issueDate;
     private String issuer;
     private String status;
 
-    public Invoice(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
+    public Invoice(String id, String agreementId, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
         this.id = id;
+        this.agreementId = agreementId;
         this.barcode = barcode;
         this.amount = amount;
         this.dueDate = dueDate;
@@ -23,7 +26,8 @@ public class Invoice {
         this.status = status;
     }
 
-    public Invoice(BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
+    public Invoice(String agreementId, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
+        this.agreementId = agreementId;
         this.amount = amount;
         this.dueDate = dueDate;
         this.issueDate = issueDate;
@@ -37,6 +41,14 @@ public class Invoice {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(String agreementId) {
+        this.agreementId = agreementId;
     }
 
     public String getBarcode() {
