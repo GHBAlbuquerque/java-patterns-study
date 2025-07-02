@@ -10,6 +10,45 @@ public class Agreement {
     private List<Invoice> invoices;
     private BigDecimal totalAmount;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Installment> getInstallments() {
+        return installments;
+    }
+
+    public void setInstallments(List<Installment> installments) {
+        this.installments = installments;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Agreement(String id, List<Installment> installments, List<Invoice> invoices, BigDecimal totalAmount) {
+        this.id = id;
+        this.installments = installments;
+        this.invoices = invoices;
+        this.totalAmount = totalAmount;
+    }
+
     private Agreement(Builder builder) {
         this.id = builder.id;
         this.installments = builder.installments;
