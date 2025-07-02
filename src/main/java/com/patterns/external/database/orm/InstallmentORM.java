@@ -2,8 +2,9 @@ package com.patterns.external.database.orm;
 
 import com.patterns.domain.enums.InstallmentStatusEnum;
 import com.patterns.domain.enums.PaymentMethodEnum;
+import com.patterns.external.database.id.InstallmentId;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -12,11 +13,8 @@ import java.time.LocalDate;
 @Entity
 public class InstallmentORM {
 
-    @Id
-    private String id;
-
-    @NotNull
-    private int number;
+    @EmbeddedId
+    private InstallmentId id;
 
     @NotNull
     private LocalDate dueDate;
@@ -41,9 +39,10 @@ public class InstallmentORM {
 
     public InstallmentORM() {
     }
-
-    public InstallmentORM(int number, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod, String notes) {
-        this.number = number;
+    public InstallmentORM(InstallmentId id, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount,
+                          BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status,
+                          PaymentMethodEnum paymentMethod) {
+        this.id = id;
         this.dueDate = dueDate;
         this.paymentDate = paymentDate;
         this.amount = amount;
@@ -53,12 +52,12 @@ public class InstallmentORM {
         this.paymentMethod = paymentMethod;
     }
 
-    public int getNumber() {
-        return number;
+    public InstallmentId getId() {
+        return id;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setId(InstallmentId id) {
+        this.id = id;
     }
 
     public LocalDate getDueDate() {

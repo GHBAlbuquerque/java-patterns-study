@@ -8,8 +8,9 @@ import java.time.LocalDate;
 
 public class Installment {
 
-    private String id;
+    private String agreementId;
     private int number;
+
     private LocalDate dueDate;
     private LocalDate paymentDate;
 
@@ -21,7 +22,7 @@ public class Installment {
     private PaymentMethodEnum paymentMethod;
 
     public Installment(String id, int number, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod) {
-        this.id = id;
+        this.agreementId = id;
         this.number = number;
         this.dueDate = dueDate;
         this.paymentDate = paymentDate;
@@ -30,6 +31,14 @@ public class Installment {
         this.interest = interest;
         this.status = status;
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(String agreementId) {
+        this.agreementId = agreementId;
     }
 
     public int getNumber() {
