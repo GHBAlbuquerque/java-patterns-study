@@ -15,13 +15,13 @@ public class AgreementGatewayImpl implements AgreementGateway {
     }
 
     @Override
-    public Optional<Agreement> getAgreementById(String id) {
+    public Optional<Agreement> getById(String id) {
         var optional = repository.findById(id);
         return optional.map(AgreementMapper::fromORMtoDomain);
     }
 
     @Override
-    public Agreement saveAgreement(Agreement agreement) {
+    public Agreement save(Agreement agreement) {
         final var orm = AgreementMapper.fromDomainToORM(agreement);
         final var result = repository.save(orm);
         return AgreementMapper.fromORMtoDomain(result);

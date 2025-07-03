@@ -1,5 +1,6 @@
 package com.patterns.common.mapper;
 
+import com.patterns.common.dto.request.CreateAgreementDTO;
 import com.patterns.common.dto.response.GetAgreementByIdDTO;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.external.database.orm.AgreementORM;
@@ -21,15 +22,11 @@ public class AgreementMapper {
         );
     }
 
-//    public static Agreement fromDTOtoDomain(final GetAgreementByIdDTO dto) {
-//        return new Agreement(
-//                dto.id(),
-//                dto.code(),
-//                dto.startDate(),
-//                dto.endDate(),
-//                dto.status()
-//        );
-//    }
+    public static Agreement fromDTOtoDomain(final CreateAgreementDTO dto) {
+        return new Agreement(
+                dto.totalAmount()
+        );
+    }
 
     public static AgreementORM fromDomainToORM(final Agreement agreement) {
 

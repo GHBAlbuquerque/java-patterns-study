@@ -19,20 +19,20 @@ public class InstallmentGatewayImpl implements InstallmentGateway {
     }
 
     @Override
-    public Optional<Installment> getInstallmentById(InstallmentId id) {
-        var optional = repository.findById(null);
+    public Optional<Installment> getById(InstallmentId id) {
+        var optional = repository.findById(null); //TODO
         return optional.map(InstallmentMapper::fromORMtoDomain);
     }
 
     @Override
-    public Installment saveInstallment(Installment installment) {
+    public Installment save(Installment installment) {
         final var orm = InstallmentMapper.fromDomainToORM(installment);
         final var result = repository.save(orm);
         return InstallmentMapper.fromORMtoDomain(result);
     }
 
     @Override
-    public List<Installment> findInstallmentsByAgreementId(String agreementId) {
+    public List<Installment> findAllByAgreementId(String agreementId) {
         return repository.findByIdAgreementId(agreementId).stream()
                 .map(InstallmentMapper::fromORMtoDomain)
                 .collect(Collectors.toList());

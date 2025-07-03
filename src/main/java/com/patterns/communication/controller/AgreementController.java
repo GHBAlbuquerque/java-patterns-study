@@ -1,6 +1,9 @@
 package com.patterns.communication.controller;
 
+import com.patterns.common.dto.request.CreateAgreementDTO;
 import com.patterns.common.dto.response.GetAgreementByIdDTO;
+import com.patterns.common.interfaces.gateways.AgreementGateway;
+import com.patterns.common.interfaces.usecases.CreateAgreementUseCase;
 import com.patterns.common.mapper.AgreementMapper;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
@@ -16,9 +19,13 @@ import java.util.Set;
 public class AgreementController {
 
     private final GetAgreementByIdFacade agreementFacade;
+    private final CreateAgreementUseCase createAgreementUseCase;
+    private final AgreementGateway gateway;
 
-    public AgreementController(GetAgreementByIdFacade agreementFacade) {
+    public AgreementController(GetAgreementByIdFacade agreementFacade, CreateAgreementUseCase createAgreementUseCase, AgreementGateway agreementGateway) {
         this.agreementFacade = agreementFacade;
+        this.createAgreementUseCase = createAgreementUseCase;
+        this.gateway = agreementGateway;
     }
 
     @GetMapping("/{agreementId}")
@@ -36,5 +43,12 @@ public class AgreementController {
         return AgreementMapper.fromDomainToGetDTO(detailedResponse);
     }
 
-    //TODO post method
+    @PostMapping
+    public GetAgreementByIdDTO createAgreement(
+            @RequestBody @Validated final CreateAgreementDTO createAgreementDTO
+    ) {
+        final Agreement agreement = AgreementMapper.fromDTOtoDomain(createAgreementDTO);
+        final Agreement createdAgreement = createAgreementUseCase.createAgreement(agreement, gateway);
+        return AgreementMapper.fromDomainToGetDTO(createdAgreement);
+    }
 }

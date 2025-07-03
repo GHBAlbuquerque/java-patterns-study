@@ -5,7 +5,7 @@ import com.patterns.domain.entity.Agreement;
 import java.util.Optional;
 
 public interface AgreementGateway {
-    Optional<Agreement> getAgreementById(String id);
+    Optional<Agreement> getById(String id);
 
-    Agreement saveAgreement(Agreement agreement);
+    Agreement save(Agreement agreement);
 }

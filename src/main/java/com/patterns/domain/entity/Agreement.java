@@ -56,6 +56,10 @@ public class Agreement {
         this.totalAmount = builder.totalAmount;
     }
 
+    public Agreement(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public static class Builder {
         private String id;
         private List<Installment> installments = new ArrayList<>();

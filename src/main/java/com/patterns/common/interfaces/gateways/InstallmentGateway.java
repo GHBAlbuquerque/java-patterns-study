@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface InstallmentGateway {
-    Optional<Installment> getInstallmentById(InstallmentId id);
+    Optional<Installment> getById(InstallmentId id);
 
-    Installment saveInstallment(Installment installment);
+    Installment save(Installment installment);
 
-    List<Installment> findInstallmentsByAgreementId(String agreementId);
+    List<Installment> findAllByAgreementId(String agreementId);
 }
