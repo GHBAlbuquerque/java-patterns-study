@@ -22,23 +22,20 @@ This project serves as a sandbox to study and demonstrate common design patterns
 ## 🧠 Implemented Design Patterns
 ### ✅ Validation Chain
 `(package com.patterns.domain.validator;)`
-```text
+
 Used in the `createInvoice` flow through the `validateInvoiceRequest` call.
-Each invoice field (dueDate, issueDate, issuer, amount) is validated in sequence via the `linkWith` method on ChainValidator.
-```
+
 ### 🎯 Strategy
 `(package com.patterns.domain.strategy;)`
-```text
+
 Employed in `PaymentEventGateway` to dynamically choose the right processing strategy for each payment event.
 Iterates through a list of `EventStrategy` implementations and invokes `updatePaymentStatusOnInvoice` on the appropriate one.
-```
 
 ### 🔗 Chain of Responsibility with Strategy
 `(package com.patterns.domain.strategy.entity.Middleware;)`
-```text
+
 Used to sequentially aggregate data from other entities to enrich the Agreement entity.
 The `handle` method is invoked on each middleware in the chain, conditionally assembled based on the `expand` field of the request.
-```
 
 ---
 
