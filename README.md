@@ -24,6 +24,7 @@ This project serves as a sandbox to study and demonstrate common design patterns
 `(package com.patterns.domain.validator;)`
 
 Used in the `createInvoice` flow through the `validateInvoiceRequest` call.
+Each invoice field (dueDate, issueDate, issuer, amount) is validated in sequence via the `linkWith` method on ChainValidator.
 
 ### 🎯 Strategy
 `(package com.patterns.domain.strategy;)`
