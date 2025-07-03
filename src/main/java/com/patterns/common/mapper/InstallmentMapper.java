@@ -1,5 +1,6 @@
 package com.patterns.common.mapper;
 
+import com.patterns.common.dto.request.CreateInstallmentDTO;
 import com.patterns.common.dto.response.GetInstallmentDTO;
 import com.patterns.domain.entity.Installment;
 import com.patterns.external.database.id.InstallmentId;
@@ -23,8 +24,17 @@ public class InstallmentMapper {
         );
     }
 
-    public static Installment fromDTOToDomain(){
-        return null;
+    public static Installment fromDTOToDomain(CreateInstallmentDTO createInstallmentDTO){
+        return new Installment(
+                createInstallmentDTO.getAgreementId(),
+                createInstallmentDTO.getDueDate(),
+                createInstallmentDTO.getPaymentDate(),
+                createInstallmentDTO.getAmount(),
+                createInstallmentDTO.getPaidAmount(),
+                createInstallmentDTO.getInterest(),
+                createInstallmentDTO.getStatus(),
+                createInstallmentDTO.getPaymentMethod()
+        );
     }
 
     public static InstallmentORM fromDomainToORM(final Installment installment) {

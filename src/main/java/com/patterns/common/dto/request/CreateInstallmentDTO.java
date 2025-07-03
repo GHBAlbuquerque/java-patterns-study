@@ -1,39 +1,33 @@
-package com.patterns.domain.entity;
+package com.patterns.common.dto.request;
 
 import com.patterns.domain.enums.InstallmentStatusEnum;
 import com.patterns.domain.enums.PaymentMethodEnum;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class Installment {
+public class CreateInstallmentDTO {
 
+    @NotBlank
     private String agreementId;
-    private int number;
 
+    @NotNull
     private LocalDate dueDate;
     private LocalDate paymentDate;
 
+    @NotNull
+    @Positive
     private BigDecimal amount;
     private BigDecimal paidAmount;
     private BigDecimal interest;
 
-    private InstallmentStatusEnum status;
+    private InstallmentStatusEnum status = InstallmentStatusEnum.PENDING;
     private PaymentMethodEnum paymentMethod;
 
-    public Installment(String id, int number, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod) {
-        this.agreementId = id;
-        this.number = number;
-        this.dueDate = dueDate;
-        this.paymentDate = paymentDate;
-        this.amount = amount;
-        this.paidAmount = paidAmount;
-        this.interest = interest;
-        this.status = status;
-        this.paymentMethod = paymentMethod;
-    }
-
-    public Installment(String agreementId, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod) {
+    public CreateInstallmentDTO(String agreementId, LocalDate dueDate, LocalDate paymentDate, BigDecimal amount, BigDecimal paidAmount, BigDecimal interest, InstallmentStatusEnum status, PaymentMethodEnum paymentMethod) {
         this.agreementId = agreementId;
         this.dueDate = dueDate;
         this.paymentDate = paymentDate;
@@ -50,14 +44,6 @@ public class Installment {
 
     public void setAgreementId(String agreementId) {
         this.agreementId = agreementId;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     public LocalDate getDueDate() {
@@ -115,5 +101,4 @@ public class Installment {
     public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
-
 }

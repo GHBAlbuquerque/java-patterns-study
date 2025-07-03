@@ -20,7 +20,7 @@ public class InstallmentGatewayImpl implements InstallmentGateway {
 
     @Override
     public Optional<Installment> getById(InstallmentId id) {
-        var optional = repository.findById(null); //TODO
+        var optional = repository.findById(id);
         return optional.map(InstallmentMapper::fromORMtoDomain);
     }
 

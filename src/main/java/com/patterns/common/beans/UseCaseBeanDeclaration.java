@@ -1,15 +1,8 @@
 package com.patterns.common.beans;
 
-import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
-import com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;
-import com.patterns.common.interfaces.usecases.CreateAgreementUseCase;
-import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
-import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
-import com.patterns.domain.usecase.BatchValidateInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.CreateAgreementUseCaseImpl;
-import com.patterns.domain.usecase.CreateInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.GetInvoiceUseCaseImpl;
+import com.patterns.common.interfaces.usecases.*;
+import com.patterns.domain.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,4 +28,10 @@ public class UseCaseBeanDeclaration {
     public CreateAgreementUseCase createAgreementUseCase() {
         return new CreateAgreementUseCaseImpl();
     }
+
+    @Bean
+    public CreateInstallmentUseCase createInstallmentUseCase() {
+        return new CreateInstallmentUseCaseImpl();
+    }
+
 }
