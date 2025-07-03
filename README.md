@@ -2,19 +2,44 @@
 ## java-patterns-study
 
 Mock project for pattern study using Java.
-Invoice management system with:
+
+This is a Renegotiation Agreement management system created solely for pattern study using Java and SpringBoot.
+
+### Entities:
+- Agreements
+- Installments
+- Invoices
+
+### Features: 
 + CRUD operations
 + Validation of invoices
 + Asynchronous communication for payment processings
 + Asynchronous event sourcing for invoice updates
++ Entity aggregation for Agreement entity
 
 ## Patterns :checkered_flag:
-- Validation Chain (package com.patterns.domain.validator;)
-- Strategy (package com.patterns.domain.strategy;)
+- Validation Chain ```(package com.patterns.domain.validator;)```
+   ```
+   Used in the method 'createInvoice' through the 'validateInvoiceRequest' call. 
+   Validates dueDate, issueDate, issuer and amount before creation, 
+   linking each validation with the next one thought the 'linkWith' method on ChainValidator.
+   ```
+- Strategy ```(package com.patterns.domain.strategy;)```
+   ```
+   Used on the PaymentEventGateway to strategically select the event processing class according to event type.
+  Iterates over a List<EventStrategy> and calls the 'updatePaymentStatusOnInvoice' method 
+  on the first strategy that matches the event type.
+   ```
+- Chain of Responsibility (with strategy) ```(package com.patterns.domain.strategy.entity.Middlware;)```
+   ```
+   Used to consecutivelly aggregate information from other entities to complete de Agreement entity.
+   The 'handle' method is called on each middleware, passing the current state of the Agreement entity through a builder.
+   Strategies are conditionally chained according to their enum type and if it was received in request's expand. 
+  ```
 
 ## Other 📨
-- Use of Projection Views to fetch and return partial fields from the database (com.patterns.external.database.projections;)
-- Use of CompletableFuture for validation of invoices before processing them for payment (package com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase);
+- Use of Projection Views to fetch and return partial fields from the database ```(com.patterns.external.database.projections;)```
+- Use of CompletableFuture for validation of invoices before processing them for payment ```(package com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase;)```
 
 ## Technologies :robot:
 
