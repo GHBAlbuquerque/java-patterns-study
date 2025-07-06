@@ -74,7 +74,7 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
    ./local/0-params.sh
    ./local/1-start-sqs-localstack.sh
    ```
-4. 4. **Run the application**
+4. **Run the application**
    Use your IDE or Spring Boot CLI to start the project.
 
 ## 👤 Author
