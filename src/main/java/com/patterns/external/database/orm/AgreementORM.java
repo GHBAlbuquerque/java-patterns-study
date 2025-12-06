@@ -3,6 +3,7 @@ package com.patterns.external.database.orm;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
+import com.patterns.external.database.id.CustomAgreementId;
 
 import java.math.BigDecimal;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 public class AgreementORM {
 
     @Id
+    @CustomAgreementId
     private String id;
 
     @NotNull

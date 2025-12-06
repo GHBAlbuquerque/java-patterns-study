@@ -5,6 +5,8 @@ import com.patterns.domain.enums.PaymentMethodEnum;
 import com.patterns.external.database.id.InstallmentId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -32,9 +34,11 @@ public class InstallmentORM {
     private BigDecimal interest;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private InstallmentStatusEnum status;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private PaymentMethodEnum paymentMethod;
 
     public InstallmentORM() {

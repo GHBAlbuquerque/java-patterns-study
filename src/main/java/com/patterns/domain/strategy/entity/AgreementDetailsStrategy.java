@@ -5,8 +5,8 @@ import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.usecases.GetAgreementUseCase;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class AgreementDetailsStrategy extends Middleware {
 

@@ -95,6 +95,13 @@
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
+        <!--    FLYWAY    -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>11.18.0</version>
+        </dependency>
+
     </dependencies>
 
 
