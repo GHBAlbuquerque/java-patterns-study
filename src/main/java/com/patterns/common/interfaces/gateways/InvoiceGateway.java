@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 public interface InvoiceGateway {
@@ -29,5 +30,7 @@ public interface InvoiceGateway {
     Page<Invoice> findAllByIssueDateBetween(LocalDate startDate, LocalDate endDate, PageRequest pageRequest);
 
     Page<Invoice> findAllByAmountBetween(BigDecimal minimumAmount, BigDecimal maximumAmount, PageRequest pageRequest);
+
+    List<Invoice> findAllByAgreementId(String agreementId);
 
 }

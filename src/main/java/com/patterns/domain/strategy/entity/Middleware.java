@@ -1,6 +1,7 @@
 package com.patterns.domain.strategy.entity;
 
 import com.patterns.common.interfaces.strategy.EntityStrategy;
+import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public abstract class Middleware implements EntityStrategy {
     private Middleware next;
 
     protected abstract EntityEnum getEntityEnum();
+
+    public abstract void handle(Agreement.Builder builder, String id);
 
     public static Middleware link(Set<EntityEnum> entityEnumSet,
                                   List<Middleware> chain) {
@@ -45,4 +48,3 @@ public abstract class Middleware implements EntityStrategy {
 //The ... syntax in Java is called varargs (variable-length arguments).
 // It allows you to pass a variable number of arguments of the same type to a method.
 // Internally, the arguments are treated as an array.
-

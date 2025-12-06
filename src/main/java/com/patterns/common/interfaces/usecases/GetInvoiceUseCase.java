@@ -9,6 +9,8 @@ import com.patterns.external.database.projections.IssuerView;
 import com.patterns.external.database.projections.StatusView;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface GetInvoiceUseCase {
 
     Invoice getInvoiceById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException;
@@ -21,4 +23,5 @@ public interface GetInvoiceUseCase {
 
     Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter, final int page, final int size, final FilterEnum filterType, final InvoiceGateway gateway);
 
+    List<Invoice> getInvoicesByAgreementId(String agreementId, InvoiceGateway gateway);
 }

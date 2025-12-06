@@ -1,9 +1,22 @@
 package com.patterns.domain.strategy.entity;
 
+import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.domain.entity.Agreement;
+import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.EntityEnum;
 
+import java.util.List;
+
 public class InvoiceDetailsStrategy extends Middleware {
+
+    private final GetInvoiceUseCase getInvoiceUseCase;
+    private final InvoiceGateway invoiceGateway;
+
+    public InvoiceDetailsStrategy(GetInvoiceUseCase getInvoiceUseCase, InvoiceGateway invoiceGateway) {
+        this.getInvoiceUseCase = getInvoiceUseCase;
+        this.invoiceGateway = invoiceGateway;
+    }
 
     @Override
     protected EntityEnum getEntityEnum() {
@@ -11,42 +24,12 @@ public class InvoiceDetailsStrategy extends Middleware {
     }
 
     @Override
-    public void handle(Agreement.Builder builder, String acordoId) {
-        // ---- TODO ----
-    }
+    public void handle(Agreement.Builder builder, String agreementId) {
+        List<Invoice> invoices = getInvoiceUseCase.getInvoicesByAgreementId(agreementId, invoiceGateway);
+        builder.invoices(invoices);
 
-    /*@Component
-@RequiredArgsConstructor
-@Slf4j
-public class DetalharContratosStrategy extends Middleware {
-
-    private final BackContratoBaixaClient backContratoBaixaClient;
-    private final DetalheContratoResponseMapper detalheContratoResponseMapper;
-
-    @Override
-    public void handle(final AcordoDetalhadoResponse.Builder builder, final String acordoId) {
-        try {
-            final List<ContratoBaixaResponse> contratos = backContratoBaixaClient.buscarContratoBaixaPorId(acordoId, NUMERO_PAGAMENTO_PADRAO);
-
-            for (final ContratoBaixaResponse contrato : contratos) {
-                builder.adicionarContrato(detalheContratoResponseMapper.getDetalheContratoResponse(contrato));
-            }
-
-            getNext().ifPresent(handler -> handler.handle(builder, acordoId));
-
-        } catch (FeignException.NotFound ex) {
-            log.warn("Contratos não encontrados para acordo: {}", acordoId, ex);
-        } catch (FeignException ex) {
-            log.error("Erro no serviço externo ao buscar contratos para acordo: {}", acordoId, ex);
-        } catch (Exception ex) {
-            log.error("Erro inesperado ao processar contratos para acordo: {}", acordoId, ex);
+        if (getNext().isPresent()) {
+            getNext().get().handle(builder, agreementId);
         }
     }
-
-    @Override
-    protected EntidadeEnum getEntidadeEnum() {
-        return EntidadeEnum.CONTRATOS_BAIXA;
-    }
-}
-*/
 }

@@ -34,4 +34,10 @@ public class UseCaseBeanDeclaration {
         return new CreateInstallmentUseCaseImpl();
     }
 
+    @Bean
+    public GetAgreementUseCase agreementUseCase() { return new GetAgreementUseCaseImpl();}
+
+    @Bean
+    public GetInstallmentUseCase getInstallmentUseCase() { return new GetInstallmentUseCaseImpl();}
+
 }

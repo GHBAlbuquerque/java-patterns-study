@@ -1,9 +1,23 @@
 package com.patterns.domain.strategy.entity;
 
+import com.patterns.common.exception.custom.EntityNotFoundException;
+import com.patterns.common.interfaces.gateways.AgreementGateway;
+import com.patterns.common.interfaces.usecases.GetAgreementUseCase;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 public class AgreementDetailsStrategy extends Middleware {
+
+    private final Logger log = LogManager.getLogger(AgreementDetailsStrategy.class);
+    private final GetAgreementUseCase getAgreementUseCase;
+    private final AgreementGateway agreementGateway;
+
+    public AgreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase, AgreementGateway agreementGateway) {
+        this.getAgreementUseCase = getAgreementUseCase;
+        this.agreementGateway = agreementGateway;
+    }
 
     @Override
     protected EntityEnum getEntityEnum() {
@@ -11,57 +25,17 @@ public class AgreementDetailsStrategy extends Middleware {
     }
 
     @Override
-    public void handle(Agreement.Builder builder, String acordoId) {
-        // ---- TODO ----
-    }
-
-    /*@Component
-@RequiredArgsConstructor
-@Slf4j
-public class DetalharAcordoStrategy extends Middleware {
-
-    private final BackAcordoCobrancaClient backAcordoCobrancaClient;
-    private final BackPagamentoClient backPagamentoClient;
-    private final DetaAcordoResponseMapper detaAcordoResponseMapper;
-
-    @Override
-    public void handle(final AcordoDetalhadoResponse.Builder builder, final String acordoId) {
-        CompletableFuture<AcordoCobrancaResponseEstendido> acordoCobrancaFuture =
-            CompletableFuture.supplyAsync(() -> backAcordoCobrancaClient.buscarAcordoPorId(acordoId, NUMERO_PAGAMENTO_PADRAO));
-
-        CompletableFuture<PagamentoResponsePaginado> pagamentoFuture =
-            CompletableFuture.supplyAsync(() -> backPagamentoClient.buscarPagamentoPorId(acordoId));
-
+    public void handle(Agreement.Builder builder, String agreementId) {
         try {
-            AcordoCobrancaResponseEstendido acordoCobrancaResponseEstendido = acordoCobrancaFuture.get();
-            PagamentoResponsePaginado pagamentoResponsePaginado = pagamentoFuture.get();
+            Agreement agreement = getAgreementUseCase.getAgreement(agreementId, agreementGateway);
+            builder.id(agreement.getId());
+            builder.totalAmount(agreement.getTotalAmount());
 
-            BigDecimal valorPagtoTituloCobranca = pagamentoResponsePaginado.getPagamentos().stream()
-                .map(PagamentoResponse::getValorPagamento)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-            builder.acordo(detaAcordoResponseMapper.getDetalheAcordoResponse(acordoCobrancaResponseEstendido));
-            builder.valorPagtoTituloCobranca(valorPagtoTituloCobranca);
-
-            getNext().ifPresent(handler -> handler.handle(builder, acordoId));
-
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-            log.error("Thread interrompida ao processar acordo: {}", acordoId, ex);
-        } catch (ExecutionException ex) {
-            log.error("Erro na execução assíncrona ao processar acordo: {}", acordoId, ex);
-        } catch (FeignException ex) {
-            log.error("Erro no serviço externo ao processar acordo: {}", acordoId, ex);
-        } catch (Exception ex) {
-            log.error("Erro inesperado ao processar acordo: {}", acordoId, ex);
+            if (getNext().isPresent()) {
+                getNext().get().handle(builder, agreementId);
+            }
+        } catch (EntityNotFoundException e) {
+            log.error("Agreement not found: {}", e);
         }
     }
-
-    @Override
-    protected EntidadeEnum getEntidadeEnum() {
-        return EntidadeEnum.ACORDO;
-    }
-}
-*/
-
 }

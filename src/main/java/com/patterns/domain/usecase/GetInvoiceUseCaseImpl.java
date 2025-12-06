@@ -90,4 +90,10 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
             }
         };
     }
+
+    @Override
+    public List<Invoice> getInvoicesByAgreementId(String agreementId, InvoiceGateway gateway) {
+        log.info("Retrieving invoices for agreement id: {}", agreementId);
+        return gateway.findAllByAgreementId(agreementId);
+    }
 }

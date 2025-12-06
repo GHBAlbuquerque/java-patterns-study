@@ -1,7 +1,12 @@
 package com.patterns.common.beans;
 
+import com.patterns.common.interfaces.gateways.AgreementGateway;
+import com.patterns.common.interfaces.gateways.InstallmentGateway;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.usecases.GetAgreementUseCase;
+import com.patterns.common.interfaces.usecases.GetInstallmentUseCase;
+import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.domain.strategy.entity.AgreementDetailsStrategy;
 import com.patterns.domain.strategy.entity.InstallmentDetailsStrategy;
 import com.patterns.domain.strategy.entity.InvoiceDetailsStrategy;
@@ -10,7 +15,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StretegyBeanDeclaration {
+public class StrategyBeanDeclaration {
 
     @Bean
     public PaymentCancelledEventStrategyImpl paymentCancelledEventStrategy(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
@@ -43,17 +48,17 @@ public class StretegyBeanDeclaration {
     }
 
     @Bean
-    public AgreementDetailsStrategy agreementDetailsStrategy(){
-        return new AgreementDetailsStrategy();
+    public AgreementDetailsStrategy agreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase, AgreementGateway agreementGateway){
+        return new AgreementDetailsStrategy(getAgreementUseCase, agreementGateway);
     }
 
     @Bean
-    public InvoiceDetailsStrategy invoiceDetailsStrategy(){
-        return new InvoiceDetailsStrategy();
+    public InvoiceDetailsStrategy invoiceDetailsStrategy(GetInvoiceUseCase getInvoiceUseCase, InvoiceGateway invoiceGateway){
+        return new InvoiceDetailsStrategy(getInvoiceUseCase, invoiceGateway);
     }
 
     @Bean
-    public InstallmentDetailsStrategy installmentDetailsStrategy(){
-        return new InstallmentDetailsStrategy();
+    public InstallmentDetailsStrategy installmentDetailsStrategy(GetInstallmentUseCase getInstallmentUseCase, InstallmentGateway installmentGateway){
+        return new InstallmentDetailsStrategy(getInstallmentUseCase, installmentGateway);
     }
 }

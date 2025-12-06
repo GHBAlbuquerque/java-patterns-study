@@ -14,7 +14,9 @@ public enum ValidationMessageEnum {
 
     MSINV3000("MSINV3000", "Invoice dates have to be business days"),
     MSINV3001("MSINV3001", "Due Date cannot be a retroactive date"),
-    MSINV3002("MSINV3002", "Issue Date cannot be a future date");
+    MSINV3002("MSINV3002", "Issue Date cannot be a future date"),
+
+    MSAGR0001("MSAGR0001", "Agreement not found");
 
     private final String code;
     private final String logMessage;

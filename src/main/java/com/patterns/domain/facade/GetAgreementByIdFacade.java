@@ -27,7 +27,9 @@ public class GetAgreementByIdFacade {
                 entityStrategies
         );
 
-        middleware.handle(builder, id);
+        if (middleware != null) {
+            middleware.handle(builder, id);
+        }
 
         return builder.build();
     }
