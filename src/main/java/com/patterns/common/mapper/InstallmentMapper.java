@@ -1,7 +1,7 @@
 package com.patterns.common.mapper;
 
-import com.patterns.common.dto.request.CreateInstallmentDTO;
-import com.patterns.common.dto.response.GetInstallmentDTO;
+import com.patterns.communication.dto.request.CreateInstallmentDTO;
+import com.patterns.communication.dto.response.GetInstallmentDTO;
 import com.patterns.domain.entity.Installment;
 import com.patterns.external.database.id.InstallmentId;
 import com.patterns.external.database.orm.InstallmentORM;

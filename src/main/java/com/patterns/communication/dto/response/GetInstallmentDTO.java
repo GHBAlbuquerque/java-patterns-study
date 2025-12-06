@@ -1,4 +1,4 @@
-package com.patterns.common.dto.response;
+package com.patterns.communication.dto.response;
 
 import com.patterns.domain.enums.InstallmentStatusEnum;
 import com.patterns.domain.enums.PaymentMethodEnum;

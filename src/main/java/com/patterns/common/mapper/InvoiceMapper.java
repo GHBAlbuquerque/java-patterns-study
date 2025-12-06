@@ -1,7 +1,11 @@
 package com.patterns.common.mapper;
 
-import com.patterns.common.dto.request.CreateInvoiceDTO;
-import com.patterns.common.dto.response.*;
+import com.patterns.communication.dto.request.CreateInvoiceDTO;
+import com.patterns.communication.dto.response.GetInvoiceDTO;
+import com.patterns.communication.dto.response.GetInvoiceIssuerDTO;
+import com.patterns.communication.dto.response.GetInvoiceStatusDTO;
+import com.patterns.communication.dto.response.IResponse;
+import com.patterns.communication.dto.response.PagedResponse;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.StatusEnum;
 import com.patterns.external.database.orm.InvoiceORM;

@@ -1,7 +1,7 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.request.CreateAgreementDTO;
-import com.patterns.common.dto.response.GetAgreementByIdDTO;
+import com.patterns.communication.dto.request.CreateAgreementDTO;
+import com.patterns.communication.dto.response.GetAgreementByIdDTO;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.usecases.CreateAgreementUseCase;

@@ -1,9 +1,14 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.request.CreateInvoiceDTO;
-import com.patterns.common.dto.request.InvoiceFilterRequest;
-import com.patterns.common.dto.response.*;
-import com.patterns.common.dto.validators.SingleFilterFinder;
+import com.patterns.communication.dto.request.CreateInvoiceDTO;
+import com.patterns.communication.dto.request.InvoiceFilterRequest;
+import com.patterns.communication.dto.response.GetInvoiceDTO;
+import com.patterns.communication.dto.response.GetInvoiceIssuerDTO;
+import com.patterns.communication.dto.response.GetInvoiceStatusDTO;
+import com.patterns.communication.dto.response.IResponse;
+import com.patterns.communication.dto.response.InvoiceIdDTO;
+import com.patterns.communication.dto.response.PagedResponse;
+import com.patterns.communication.dto.validators.SingleFilterFinder;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;

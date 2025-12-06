@@ -1,7 +1,7 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.request.CreateLockDTO;
-import com.patterns.common.dto.response.LockDTO;
+import com.patterns.communication.dto.request.CreateLockDTO;
+import com.patterns.communication.dto.response.LockDTO;
 import com.patterns.common.exception.custom.LockAlreadyAcquiredException;
 import com.patterns.common.interfaces.gateways.LockGateway;
 import com.patterns.common.interfaces.usecases.AcquireLockUseCase;

@@ -1,6 +1,6 @@
 package com.patterns.domain.usecase;
 
-import com.patterns.common.dto.request.CreateLockDTO;
+import com.patterns.communication.dto.request.CreateLockDTO;
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.LockAlreadyAcquiredException;
 import com.patterns.common.interfaces.gateways.LockGateway;

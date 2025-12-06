@@ -1,7 +1,7 @@
-package com.patterns.common.dto.validators;
+package com.patterns.communication.dto.validators;
 
-import com.patterns.common.dto.request.InvoiceFilterRequest;
-import com.patterns.common.dto.validators.annotations.ValidDateRange;
+import com.patterns.communication.dto.request.InvoiceFilterRequest;
+import com.patterns.communication.dto.validators.annotations.ValidDateRange;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

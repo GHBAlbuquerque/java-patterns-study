@@ -1,4 +1,4 @@
-package com.patterns.common.dto.message;
+package com.patterns.communication.dto.message;
 
 import java.util.List;
 

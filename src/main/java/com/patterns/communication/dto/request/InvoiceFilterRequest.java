@@ -1,8 +1,8 @@
-package com.patterns.common.dto.request;
+package com.patterns.communication.dto.request;
 
-import com.patterns.common.dto.validators.annotations.ValidAmountRange;
-import com.patterns.common.dto.validators.annotations.ValidDateRange;
-import com.patterns.common.dto.validators.annotations.ValidSingleFilter;
+import com.patterns.communication.dto.validators.annotations.ValidAmountRange;
+import com.patterns.communication.dto.validators.annotations.ValidDateRange;
+import com.patterns.communication.dto.validators.annotations.ValidSingleFilter;
 import com.patterns.domain.enums.IssuerEnum;
 import com.patterns.domain.enums.StatusEnum;
 import jakarta.validation.constraints.AssertTrue;

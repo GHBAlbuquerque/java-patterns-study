@@ -1,4 +1,4 @@
-package com.patterns.common.dto.request;
+package com.patterns.communication.dto.request;
 
 import java.math.BigDecimal;
 

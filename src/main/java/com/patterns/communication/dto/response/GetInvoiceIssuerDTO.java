@@ -1,4 +1,4 @@
-package com.patterns.common.dto.response;
+package com.patterns.communication.dto.response;
 
 public record GetInvoiceIssuerDTO(String id,
                                   String issuer) implements IResponse {

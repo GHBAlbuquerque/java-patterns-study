@@ -1,14 +1,11 @@
 package com.patterns.common.mapper;
 
-import com.patterns.common.dto.request.CreateAgreementDTO;
-import com.patterns.common.dto.response.GetAgreementByIdDTO;
+import com.patterns.communication.dto.request.CreateAgreementDTO;
+import com.patterns.communication.dto.response.GetAgreementByIdDTO;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.external.database.orm.AgreementORM;
-import com.patterns.external.database.orm.InstallmentORM;
-import com.patterns.external.database.orm.InvoiceORM;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class AgreementMapper {

@@ -1,4 +1,4 @@
-package com.patterns.common.dto.response;
+package com.patterns.communication.dto.response;
 
 import com.patterns.domain.entity.Installment;
 import com.patterns.domain.entity.Invoice;

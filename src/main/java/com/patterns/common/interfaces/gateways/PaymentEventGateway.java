@@ -1,8 +1,8 @@
 package com.patterns.common.interfaces.gateways;
 
-import com.patterns.common.dto.message.CustomQueueMessage;
-import com.patterns.common.dto.message.ListWrapperQueueMessage;
-import com.patterns.common.dto.request.PaymentEventDTO;
+import com.patterns.communication.dto.message.CustomQueueMessage;
+import com.patterns.communication.dto.message.ListWrapperQueueMessage;
+import com.patterns.communication.dto.request.PaymentEventDTO;
 
 import java.util.List;
 

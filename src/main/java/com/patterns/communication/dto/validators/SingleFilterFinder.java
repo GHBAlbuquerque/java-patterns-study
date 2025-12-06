@@ -1,6 +1,6 @@
-package com.patterns.common.dto.validators;
+package com.patterns.communication.dto.validators;
 
-import com.patterns.common.dto.request.InvoiceFilterRequest;
+import com.patterns.communication.dto.request.InvoiceFilterRequest;
 import com.patterns.domain.enums.FilterEnum;
 
 import java.util.HashMap;

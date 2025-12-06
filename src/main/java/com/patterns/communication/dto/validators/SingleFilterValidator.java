@@ -1,7 +1,7 @@
-package com.patterns.common.dto.validators;
+package com.patterns.communication.dto.validators;
 
-import com.patterns.common.dto.request.InvoiceFilterRequest;
-import com.patterns.common.dto.validators.annotations.ValidSingleFilter;
+import com.patterns.communication.dto.request.InvoiceFilterRequest;
+import com.patterns.communication.dto.validators.annotations.ValidSingleFilter;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

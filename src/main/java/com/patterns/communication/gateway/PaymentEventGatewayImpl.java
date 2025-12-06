@@ -1,8 +1,8 @@
 package com.patterns.communication.gateway;
 
-import com.patterns.common.dto.message.CustomQueueMessage;
-import com.patterns.common.dto.message.ListWrapperQueueMessage;
-import com.patterns.common.dto.request.PaymentEventDTO;
+import com.patterns.communication.dto.message.CustomQueueMessage;
+import com.patterns.communication.dto.message.ListWrapperQueueMessage;
+import com.patterns.communication.dto.request.PaymentEventDTO;
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.InvalidMessageException;
 import com.patterns.common.interfaces.gateways.PaymentEventGateway;
