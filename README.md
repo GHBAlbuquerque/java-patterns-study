@@ -7,6 +7,10 @@ A mock system for managing renegotiation agreements, built to explore and apply 
 
 This project serves as a sandbox to study and demonstrate common design patterns in Java within the context of a simple domain: managing agreements, installments, and invoices.
 
+### Architecture
+
+//TODO
+
 ### 📦 Entities
 - **Agreements**
 - **Installments**
