@@ -1,11 +1,9 @@
 package com.patterns.common.exception.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class ExceptionDetails {
-
-    private String type;
 
     private String title;
 
@@ -15,22 +13,17 @@ public class ExceptionDetails {
 
     private Integer status;
 
-    private Date date;
+    private LocalDateTime timestamp;
 
     private Map<String, String> errors;
 
-    public ExceptionDetails(String type, String title, String code, String detail, Integer status, Date date, Map<String, String> errors) {
-        this.type = type;
+    public ExceptionDetails(String title, String code, String detail, Integer status, LocalDateTime timestamp, Map<String, String> errors) {
         this.title = title;
         this.code = code;
         this.detail = detail;
         this.status = status;
-        this.date = date;
+        this.timestamp = timestamp;
         this.errors = errors;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getTitle() {
@@ -49,8 +42,8 @@ public class ExceptionDetails {
         return status;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getTimestamp() {
+        return timestamp;
     }
 
     public Map<String, String> getErrors() {
