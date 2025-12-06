@@ -1,16 +1,12 @@
 package com.patterns.external.database.orm;
 
-import com.patterns.domain.entity.Invoice;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
+@Entity(name = "Agreement")
 public class AgreementORM {
 
     @Id
