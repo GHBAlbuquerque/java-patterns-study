@@ -1,7 +1,7 @@
 package com.patterns.communication.gateway;
 
-import com.patterns.common.dto.message.CustomMessageHeaders;
-import com.patterns.common.dto.message.CustomQueueMessage;
+import com.patterns.communication.dto.message.CustomMessageHeaders;
+import com.patterns.communication.dto.message.CustomQueueMessage;
 import com.patterns.common.interfaces.external.MessageSender;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.domain.entity.Invoice;

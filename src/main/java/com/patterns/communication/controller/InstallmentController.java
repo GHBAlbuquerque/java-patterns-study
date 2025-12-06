@@ -1,7 +1,7 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.request.CreateInstallmentDTO;
-import com.patterns.common.dto.response.GetInstallmentDTO;
+import com.patterns.communication.dto.request.CreateInstallmentDTO;
+import com.patterns.communication.dto.response.GetInstallmentDTO;
 import com.patterns.common.interfaces.gateways.InstallmentGateway;
 import com.patterns.common.interfaces.usecases.CreateInstallmentUseCase;
 import com.patterns.common.mapper.InstallmentMapper;

@@ -4,6 +4,7 @@ package com.patterns.common.exception;
 import com.patterns.common.exception.custom.CreateEntityException;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
+import com.patterns.common.exception.custom.LockAlreadyAcquiredException;
 import com.patterns.common.exception.model.ExceptionDetails;
 import jakarta.validation.ConstraintViolationException;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 @RestControllerAdvice
@@ -28,10 +29,10 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
-            MethodArgumentNotValidException ex,
-            HttpHeaders headers,
-            HttpStatusCode status,
-            WebRequest request) {
+        MethodArgumentNotValidException ex,
+        HttpHeaders headers,
+        HttpStatusCode status,
+        WebRequest request) {
 
         final var errors = new HashMap<String, String>();
         ex.getBindingResult().getAllErrors().forEach(violation -> {
@@ -39,13 +40,12 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         });
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-                "Method Argument Not Valid",
-                ex.getClass().getName(),
-                "Invalid arguments.",
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                errors);
+            "Method Argument Not Valid",
+            ex.getClass().getName(),
+            "Invalid arguments.",
+            HttpStatus.BAD_REQUEST.value(),
+            LocalDateTime.now(),
+            errors);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
     }
@@ -58,13 +58,12 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         });
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-                "Constraint Violation",
-                ex.getClass().getName(),
-                "Invalid arguments.",
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                errors);
+            "Constraint Violation",
+            ex.getClass().getName(),
+            "Invalid arguments.",
+            HttpStatus.BAD_REQUEST.value(),
+            LocalDateTime.now(),
+            errors);
 
         return ResponseEntity.badRequest().body(message);
     }
@@ -73,13 +72,12 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionDetails> resourceException(EntityNotFoundException ex, WebRequest request) {
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404",
-                "The requested resource was not found.",
-                ex.getCode(),
-                ex.getMessage(),
-                HttpStatus.NOT_FOUND.value(),
-                new Date(),
-                ex.getErrors());
+            "The requested resource was not found.",
+            ex.getCode(),
+            ex.getMessage(),
+            HttpStatus.NOT_FOUND.value(),
+            LocalDateTime.now(),
+            ex.getErrors());
 
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
@@ -88,13 +86,12 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionDetails> resourceException(CreateEntityException ex, WebRequest request) {
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-                "Couldn't create entity on database. Try again with different values.",
-                ex.getCode(),
-                ex.getMessage(),
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                ex.getErrors());
+            "Couldn't create entity on database. Try again with different values.",
+            ex.getCode(),
+            ex.getMessage(),
+            HttpStatus.BAD_REQUEST.value(),
+            LocalDateTime.now(),
+            ex.getErrors());
 
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
@@ -103,15 +100,28 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ExceptionDetails> resourceException(InvalidInvoiceException ex, WebRequest request) {
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400",
-                "Couldn't create entity on database. Try again with different values.",
-                ex.getCode(),
-                ex.getMessage(),
-                HttpStatus.BAD_REQUEST.value(),
-                new Date(),
-                ex.getErrors());
+            "Couldn't create entity on database. Try again with different values.",
+            ex.getCode(),
+            ex.getMessage(),
+            HttpStatus.BAD_REQUEST.value(),
+            LocalDateTime.now(),
+            ex.getErrors());
 
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {LockAlreadyAcquiredException.class})
+    public ResponseEntity<ExceptionDetails> resourceException(LockAlreadyAcquiredException ex, WebRequest request) {
+
+        final var message = new ExceptionDetails(
+            "Resource lock conflict.",
+            ex.getCode(),
+            ex.getMessage(),
+            HttpStatus.CONFLICT.value(),
+            LocalDateTime.now(),
+            ex.getErrors());
+
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 
 
@@ -123,13 +133,12 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         var status = HttpStatus.INTERNAL_SERVER_ERROR;
 
         final var message = new ExceptionDetails(
-                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500",
-                "Internal server error. Please contact the admin.",
-                "NO-CODE",
-                "Unindentified error.",
-                status.value(),
-                new Date(),
-                null);
+            "Internal server error. Please contact the admin.",
+            "NO-CODE",
+            "Unindentified error.",
+            status.value(),
+            LocalDateTime.now(),
+            null);
 
         return handleExceptionInternal(ex, message, new HttpHeaders(), status, request);
     }

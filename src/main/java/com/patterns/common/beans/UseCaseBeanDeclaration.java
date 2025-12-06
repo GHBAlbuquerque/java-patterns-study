@@ -40,4 +40,7 @@ public class UseCaseBeanDeclaration {
     @Bean
     public GetInstallmentUseCase getInstallmentUseCase() { return new GetInstallmentUseCaseImpl();}
 
+    @Bean
+    public AcquireLockUseCase acquireLockUseCase() { return new AcquireLockUseCaseImpl();}
+
 }

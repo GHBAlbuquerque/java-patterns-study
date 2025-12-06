@@ -30,3 +30,11 @@ CREATE TABLE INVOICE (
     PRIMARY KEY (id),
     FOREIGN KEY (agreement_id) REFERENCES AGREEMENT(id)
 );
+
+CREATE TABLE LOCK (
+    id VARCHAR(255) NOT NULL,
+    user_id VARCHAR(255) NOT NULL,
+    entity_id VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    PRIMARY KEY (id)
+);
