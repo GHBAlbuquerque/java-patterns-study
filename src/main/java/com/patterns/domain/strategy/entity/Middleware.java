@@ -1,4 +1,5 @@
 package com.patterns.domain.strategy.entity;
+import com.patterns.common.exception.custom.EntityNotFoundException;
 
 import com.patterns.common.interfaces.strategy.EntityStrategy;
 import com.patterns.domain.entity.Agreement;
@@ -14,7 +15,7 @@ public abstract class Middleware implements EntityStrategy {
 
     protected abstract EntityEnum getEntityEnum();
 
-    public abstract void handle(Agreement.Builder builder, String id);
+    public abstract void handle(Agreement.Builder builder, String id) throws EntityNotFoundException;
 
     public static Middleware link(Set<EntityEnum> entityEnumSet,
                                   List<Middleware> chain) {

@@ -2,6 +2,7 @@ package com.patterns.communication.controller;
 
 import com.patterns.common.dto.request.CreateAgreementDTO;
 import com.patterns.common.dto.response.GetAgreementByIdDTO;
+import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.usecases.CreateAgreementUseCase;
 import com.patterns.common.mapper.AgreementMapper;
@@ -32,7 +33,7 @@ public class AgreementController {
     public GetAgreementByIdDTO getAgreementById(
             @PathVariable(name = "agreementId") final String agreementId,
             @RequestParam(name = "expand", required = true) final Set<EntityEnum> expand
-    ) {
+    ) throws EntityNotFoundException {
 
         final Agreement detailedResponse =
                 agreementFacade.getAgreementById(

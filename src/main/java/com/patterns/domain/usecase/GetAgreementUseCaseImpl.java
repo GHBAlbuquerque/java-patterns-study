@@ -14,7 +14,8 @@ public class GetAgreementUseCaseImpl implements GetAgreementUseCase {
     private final Logger log = LogManager.getLogger(GetAgreementUseCaseImpl.class);
 
     @Override
-    public Agreement getAgreement(final String agreementId, AgreementGateway agreementGateway) throws EntityNotFoundException {
+    public Agreement getAgreement(final String agreementId, AgreementGateway agreementGateway)
+        throws EntityNotFoundException {
         log.info("Retrieving agreement by id: {}", agreementId);
         var result = agreementGateway.getById(agreementId);
 

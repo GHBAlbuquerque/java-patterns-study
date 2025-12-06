@@ -25,17 +25,13 @@ public class AgreementDetailsStrategy extends Middleware {
     }
 
     @Override
-    public void handle(Agreement.Builder builder, String agreementId) {
-        try {
-            Agreement agreement = getAgreementUseCase.getAgreement(agreementId, agreementGateway);
-            builder.id(agreement.getId());
-            builder.totalAmount(agreement.getTotalAmount());
+    public void handle(Agreement.Builder builder, String agreementId) throws EntityNotFoundException {
+        Agreement agreement = getAgreementUseCase.getAgreement(agreementId, agreementGateway);
+        builder.id(agreement.getId());
+        builder.totalAmount(agreement.getTotalAmount());
 
-            if (getNext().isPresent()) {
-                getNext().get().handle(builder, agreementId);
-            }
-        } catch (EntityNotFoundException e) {
-            log.error("Agreement not found: {}", e);
+        if (getNext().isPresent()) {
+            getNext().get().handle(builder, agreementId);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.patterns.domain.strategy.entity;
 
+import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.domain.entity.Agreement;
@@ -24,7 +25,8 @@ public class InvoiceDetailsStrategy extends Middleware {
     }
 
     @Override
-    public void handle(Agreement.Builder builder, String agreementId) {
+    public void handle(Agreement.Builder builder, String agreementId)
+        throws EntityNotFoundException {
         List<Invoice> invoices = getInvoiceUseCase.getInvoicesByAgreementId(agreementId, invoiceGateway);
         builder.invoices(invoices);
 
