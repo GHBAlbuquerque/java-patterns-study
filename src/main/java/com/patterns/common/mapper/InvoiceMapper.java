@@ -17,6 +17,7 @@ public class InvoiceMapper {
     public static GetInvoiceDTO fromDomainToGetDTO(final Invoice invoice) {
 
         return new GetInvoiceDTO(invoice.getId(),
+                invoice.getAgreementId(),
                 invoice.getBarcode(),
                 invoice.getAmount(),
                 invoice.getDueDate(),
@@ -28,6 +29,7 @@ public class InvoiceMapper {
     public static Invoice fromDTOtoDomain(final GetInvoiceDTO dto) {
 
         return new Invoice(dto.id(),
+                dto.agreementId(),
                 dto.barcode(),
                 dto.amount(),
                 dto.dueDate(),
@@ -38,7 +40,8 @@ public class InvoiceMapper {
 
     public static Invoice fromCreateDTOtoDomain(final CreateInvoiceDTO dto) {
 
-        return new Invoice(dto.amount(),
+        return new Invoice(dto.agreementId(),
+                dto.amount(),
                 dto.dueDate(),
                 dto.issueDate(),
                 dto.issuer(),
@@ -62,6 +65,7 @@ public class InvoiceMapper {
         }
 
         return new Invoice(orm.getId(),
+                orm.getAgreementId(),
                 orm.getBarcode(),
                 orm.getAmount(),
                 orm.getDueDate(),

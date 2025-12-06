@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class InvoiceGatewayImpl implements InvoiceGateway {
 
@@ -76,5 +78,14 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
     public Page<Invoice> findAllByAmountBetween(BigDecimal minimumAmount, BigDecimal maximumAmount, PageRequest pageRequest) {
         return repository.findAllByAmountBetween(minimumAmount, maximumAmount, pageRequest)
                 .map(InvoiceMapper::fromORMtoDomain);
+    }
+
+    @Override
+    public List<Invoice> findAllByAgreementId(String agreementId) {
+        return repository.findAllByAgreementId(agreementId, PageRequest.of(0, 1000))
+                .getContent()
+                .stream()
+                .map(InvoiceMapper::fromORMtoDomain)
+                .collect(Collectors.toList());
     }
 }

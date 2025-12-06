@@ -11,7 +11,10 @@ import com.patterns.external.database.projections.StatusView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+
+import java.util.List;
 
 import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0001;
 
@@ -71,7 +74,10 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
                                                final InvoiceGateway gateway) {
 
         return switch (filterType) {
-            case BARCODE -> Page.empty(); //TODO gateway.getInvoiceByBarcode(null);
+            case BARCODE -> {
+                var invoice = gateway.getInvoiceByBarcode(filter.barcode());
+                yield new PageImpl<>(List.of(invoice), PageRequest.of(page, size), 1);
+            }
             case ISSUER -> gateway.findAllByIssuer(filter.issuer(), PageRequest.of(page, size));
             case STATUS -> gateway.findAllByStatus(filter.status(), PageRequest.of(page, size));
             case ISSUE_DATE ->
@@ -83,5 +89,11 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
                 throw new IllegalArgumentException("Invalid filter type: " + filterType);
             }
         };
+    }
+
+    @Override
+    public List<Invoice> getInvoicesByAgreementId(String agreementId, InvoiceGateway gateway) {
+        log.info("Retrieving invoices for agreement id: {}", agreementId);
+        return gateway.findAllByAgreementId(agreementId);
     }
 }

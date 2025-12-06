@@ -27,4 +27,6 @@ public interface InvoiceRepository extends JpaRepository<InvoiceORM, String> {
 
     Page<InvoiceORM> findAllByAmountBetween(BigDecimal minimumAmount, BigDecimal maximumAmount, PageRequest pageRequest);
 
+    Page<InvoiceORM> findAllByAgreementId(String agreementId, PageRequest pageRequest);
+
 }

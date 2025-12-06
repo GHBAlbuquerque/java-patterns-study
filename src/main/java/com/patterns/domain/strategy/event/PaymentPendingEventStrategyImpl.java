@@ -1,4 +1,4 @@
-package com.patterns.domain.strategy;
+package com.patterns.domain.strategy.event;
 
 import com.patterns.common.exception.ExceptionCodesEnum;
 import com.patterns.common.exception.custom.UpdateEntityException;
@@ -8,29 +8,29 @@ import com.patterns.common.interfaces.strategy.EventStrategy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_SUSPENDED;
-import static com.patterns.domain.enums.StatusEnum.SUSPENDED;
+import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_PENDING;
+import static com.patterns.domain.enums.StatusEnum.PENDING;
 
-public class PaymentSuspendedEventStrategyImpl implements EventStrategy {
+public class PaymentPendingEventStrategyImpl implements EventStrategy {
 
-    private final Logger log = LogManager.getLogger(PaymentSuspendedEventStrategyImpl.class);
+    private final Logger log = LogManager.getLogger(PaymentPendingEventStrategyImpl.class);
 
     private final InvoiceGateway invoiceGateway;
     private final InvoiceEventGateway invoiceEventGateway;
 
-    public PaymentSuspendedEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
+    public PaymentPendingEventStrategyImpl(InvoiceGateway invoiceGateway, InvoiceEventGateway invoiceEventGateway) {
         this.invoiceGateway = invoiceGateway;
         this.invoiceEventGateway = invoiceEventGateway;
     }
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_SUSPENDED;
+        return PAYMENT_PENDING;
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return SUSPENDED;
+        return PENDING;
     }
 
     @Override

@@ -4,15 +4,20 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.patterns.external.database.id.CustomInvoiceId;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Entity
+@Entity(name = "Invoice")
 public class InvoiceORM {
 
     @Id
+    @CustomInvoiceId
     private String id;
+
+    @NotNull
+    private String agreementId;
 
     @NotNull
     private String barcode;
@@ -47,6 +52,14 @@ public class InvoiceORM {
 
     public String getId() {
         return id;
+    }
+
+    public String getAgreementId() {
+        return agreementId;
+    }
+
+    public void setAgreementId(String agreementId) {
+        this.agreementId = agreementId;
     }
 
     public String getBarcode() {
