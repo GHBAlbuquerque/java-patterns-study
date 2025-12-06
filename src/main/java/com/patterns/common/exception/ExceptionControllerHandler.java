@@ -4,6 +4,7 @@ package com.patterns.common.exception;
 import com.patterns.common.exception.custom.CreateEntityException;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
+import com.patterns.common.exception.custom.LockAlreadyAcquiredException;
 import com.patterns.common.exception.model.ExceptionDetails;
 import jakarta.validation.ConstraintViolationException;
 import org.apache.logging.log4j.LogManager;
@@ -112,6 +113,21 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
                 ex.getErrors());
 
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {LockAlreadyAcquiredException.class})
+    public ResponseEntity<ExceptionDetails> resourceException(LockAlreadyAcquiredException ex, WebRequest request) {
+
+        final var message = new ExceptionDetails(
+                "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409",
+                "Resource lock conflict.",
+                ex.getCode(),
+                ex.getMessage(),
+                HttpStatus.CONFLICT.value(),
+                new Date(),
+                ex.getErrors());
+
+        return new ResponseEntity<>(message, HttpStatus.CONFLICT);
     }
 
 
