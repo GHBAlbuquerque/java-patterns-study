@@ -1,6 +1,8 @@
 package com.patterns.communication.controller;
 
-import com.patterns.common.dto.request.LockDTO;
+import com.patterns.common.dto.request.CreateLockDTO;
+import com.patterns.common.dto.response.LockDTO;
+import com.patterns.common.interfaces.usecases.AcquireLockUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,9 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/locks")
 public class LockController {
 
+    private final AcquireLockUseCase acquireLockUseCase;
+
+    public LockController(AcquireLockUseCase acquireLockUseCase) {
+        this.acquireLockUseCase = acquireLockUseCase;
+    }
+
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> createLockToken(@RequestBody @Valid LockDTO lockDTO) {
-        return ResponseEntity.ok("lock-token");
+    public ResponseEntity<LockDTO> createLockToken(@RequestBody @Valid CreateLockDTO createLockDTO) {
+        final var result = acquireLockUseCase.acquireLock(createLockDTO);
+        return ResponseEntity.ok(new LockDTO(result.getId()));
     }
 
     @GetMapping

@@ -7,15 +7,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record GetInstallmentDTO(
-        String agreementId,
-        int number,
-        LocalDate dueDate,
-        LocalDate paymentDate,
-        BigDecimal amount,
-        BigDecimal paidAmount,
-        BigDecimal interest,
-        InstallmentStatusEnum status,
-        PaymentMethodEnum paymentMethod
+    String agreementId,
+    int number,
+    LocalDate dueDate,
+    LocalDate paymentDate,
+    BigDecimal amount,
+    BigDecimal paidAmount,
+    BigDecimal interest,
+    InstallmentStatusEnum status,
+    PaymentMethodEnum paymentMethod
 ) {
-    
 }

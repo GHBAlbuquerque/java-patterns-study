@@ -11,4 +11,5 @@ public record GetAgreementByIdDTO(
     List<Installment> installments,
     List<Invoice> invoices,
     BigDecimal totalAmount
-) {}
+) {
+}

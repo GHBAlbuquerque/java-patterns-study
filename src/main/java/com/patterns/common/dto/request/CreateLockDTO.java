@@ -2,14 +2,14 @@ package com.patterns.common.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
-public class LockDTO {
+public record CreateLockDTO(
+    @NotNull
+    String userId,
 
     @NotNull
-    private String userId;
+    String entityId,
 
     @NotNull
-    private String entityId;
-
-    @NotNull
-    private Integer duration;
+    Integer duration
+) {
 }

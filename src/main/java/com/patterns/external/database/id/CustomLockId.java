@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
-@IdGeneratorType(CustomAgreementIdGenerator.class)
+@IdGeneratorType(CustomLockIdGenerator.class)
 public @interface CustomLockId {
 }

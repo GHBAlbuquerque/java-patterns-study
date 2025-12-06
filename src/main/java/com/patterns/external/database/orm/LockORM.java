@@ -25,6 +25,15 @@ public class LockORM {
     @NotNull
     private LocalDateTime expiresAt;
 
+    public LockORM() {
+    }
+
+    public LockORM(String userId, String entityId, LocalDateTime expiresAt) {
+        this.userId = userId;
+        this.entityId = entityId;
+        this.expiresAt = expiresAt;
+    }
+
     public LockORM(String id, String userId, String entityId, LocalDateTime expiresAt) {
         this.id = id;
         this.userId = userId;
