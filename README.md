@@ -81,6 +81,15 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
 4. **Run the application**
    Use your IDE or Spring Boot CLI to start the project.
 
+5. Access the console for in-memory database at:
+   ```bash
+    http://localhost:8080/h2-console
+   ```
+6. Access the swagger API definition at:
+   ```bash
+   http://localhost:8080/swagger-ui/index.html
+   ```
+
 ## 👤 Author
 
 **Giovanna Albuquerque**  
