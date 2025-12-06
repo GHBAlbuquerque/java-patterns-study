@@ -16,6 +16,7 @@ import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.common.mapper.InvoiceMapper;
 import com.patterns.common.properties.PropertiesMapper;
+import com.patterns.communication.filter.RequiresLockToken;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -41,6 +42,7 @@ public class InvoiceController {
         this.properties = properties;
     }
 
+    @RequiresLockToken
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<InvoiceIdDTO> createInvoice(
             final @RequestBody @Validated CreateInvoiceDTO createInvoiceDTO

@@ -8,9 +8,12 @@ import com.patterns.common.interfaces.usecases.AcquireLockUseCase;
 import com.patterns.external.database.orm.LockORM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+@Service
 public class AcquireLockUseCaseImpl implements AcquireLockUseCase {
 
     private final Logger log = LoggerFactory.getLogger(AcquireLockUseCaseImpl.class);
@@ -42,4 +45,12 @@ public class AcquireLockUseCaseImpl implements AcquireLockUseCase {
         return existingLock;
     }
 
+    @Override
+    public Optional<LockORM> getAndValidateLock(String lockToken, String userId, LockGateway lockGateway) {
+        LockORM lock = lockGateway.getLock(lockToken);
+        if (lock != null && validateLock(lock, userId)) {
+            return Optional.of(lock);
+        }
+        return Optional.empty();
+    }
 }
