@@ -2,7 +2,6 @@ package com.patterns.communication.controller;
 
 import com.patterns.communication.dto.request.CreateInstallmentDTO;
 import com.patterns.communication.dto.response.GetInstallmentDTO;
-import com.patterns.common.interfaces.gateways.InstallmentGateway;
 import com.patterns.common.interfaces.usecases.CreateInstallmentUseCase;
 import com.patterns.common.mapper.InstallmentMapper;
 import com.patterns.domain.entity.Installment;
@@ -20,15 +19,18 @@ import java.util.Objects;
 @RequestMapping("/installments")
 public class InstallmentController {
 
-    private InstallmentGateway gateway;
     private CreateInstallmentUseCase createInstallmentUseCase;
+
+    public InstallmentController(CreateInstallmentUseCase createInstallmentUseCase) {
+        this.createInstallmentUseCase = createInstallmentUseCase;
+    }
 
     @PostMapping
     public GetInstallmentDTO createInstallment(
             @RequestBody @Validated final CreateInstallmentDTO createInstallmentDTO
     ) {
         final Installment installment = InstallmentMapper.fromDTOToDomain(createInstallmentDTO);
-        final Installment createdInstallment = createInstallmentUseCase.create(installment, gateway);
+        final Installment createdInstallment = createInstallmentUseCase.create(installment);
         return InstallmentMapper.fromDomainToGetDTO(createdInstallment);
     }
 
@@ -43,7 +45,7 @@ public class InstallmentController {
         final List<Installment> entities = installments.stream().map(InstallmentMapper::fromDTOToDomain)
                         .toList();
 
-        final List<Installment> result = createInstallmentUseCase.batchCreate(entities, gateway);
+        final List<Installment> result = createInstallmentUseCase.batchCreate(entities);
 
         return result.stream().map(InstallmentMapper::fromDomainToGetDTO).toList();
     }

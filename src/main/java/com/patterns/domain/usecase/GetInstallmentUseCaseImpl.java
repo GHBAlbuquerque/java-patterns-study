@@ -11,9 +11,14 @@ import java.util.List;
 public class GetInstallmentUseCaseImpl implements GetInstallmentUseCase {
 
     private final Logger log = LogManager.getLogger(GetInstallmentUseCaseImpl.class);
+    private final InstallmentGateway installmentGateway;
+
+    public GetInstallmentUseCaseImpl(InstallmentGateway installmentGateway) {
+        this.installmentGateway = installmentGateway;
+    }
 
     @Override
-    public List<Installment> getInstallments(final String agreementId, InstallmentGateway installmentGateway) {
+    public List<Installment> getInstallments(final String agreementId) {
         log.info("Retrieving installments for agreement id: {}", agreementId);
         return installmentGateway.findAllByAgreementId(agreementId);
     }

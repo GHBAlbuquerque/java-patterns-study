@@ -48,17 +48,17 @@ public class StrategyBeanDeclaration {
     }
 
     @Bean
-    public AgreementDetailsStrategy agreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase, AgreementGateway agreementGateway){
-        return new AgreementDetailsStrategy(getAgreementUseCase, agreementGateway);
+    public AgreementDetailsStrategy agreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase){
+        return new AgreementDetailsStrategy(getAgreementUseCase);
     }
 
     @Bean
-    public InvoiceDetailsStrategy invoiceDetailsStrategy(GetInvoiceUseCase getInvoiceUseCase, InvoiceGateway invoiceGateway){
-        return new InvoiceDetailsStrategy(getInvoiceUseCase, invoiceGateway);
+    public InvoiceDetailsStrategy invoiceDetailsStrategy(GetInvoiceUseCase getInvoiceUseCase){
+        return new InvoiceDetailsStrategy(getInvoiceUseCase);
     }
 
     @Bean
-    public InstallmentDetailsStrategy installmentDetailsStrategy(GetInstallmentUseCase getInstallmentUseCase, InstallmentGateway installmentGateway){
-        return new InstallmentDetailsStrategy(getInstallmentUseCase, installmentGateway);
+    public InstallmentDetailsStrategy installmentDetailsStrategy(GetInstallmentUseCase getInstallmentUseCase){
+        return new InstallmentDetailsStrategy(getInstallmentUseCase);
     }
 }
