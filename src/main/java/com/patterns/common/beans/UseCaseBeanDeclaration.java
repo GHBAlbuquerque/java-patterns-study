@@ -1,7 +1,7 @@
 package com.patterns.common.beans;
 
-import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
+import com.patterns.common.interfaces.gateways.LockGateway;
 import com.patterns.common.interfaces.usecases.*;
 import com.patterns.domain.usecase.*;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +52,6 @@ public class UseCaseBeanDeclaration {
     public GetInstallmentUseCase getInstallmentUseCase() { return new GetInstallmentUseCaseImpl();}
 
     @Bean
-    public AcquireLockUseCase acquireLockUseCase() { return new AcquireLockUseCaseImpl();}
+    public AcquireLockUseCase acquireLockUseCase(LockGateway lockGateway) { return new AcquireLockUseCaseImpl(lockGateway);}
 
 }

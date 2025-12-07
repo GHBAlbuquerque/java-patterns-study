@@ -17,9 +17,14 @@ import java.util.Optional;
 public class AcquireLockUseCaseImpl implements AcquireLockUseCase {
 
     private final Logger log = LoggerFactory.getLogger(AcquireLockUseCaseImpl.class);
+    private final LockGateway lockGateway;
+
+    public AcquireLockUseCaseImpl(LockGateway lockGateway) {
+        this.lockGateway = lockGateway;
+    }
 
     @Override
-    public LockORM acquireLock(CreateLockDTO createLockDTO, LockGateway lockGateway)
+    public LockORM acquireLock(CreateLockDTO createLockDTO)
         throws LockAlreadyAcquiredException {
 
         final String entityId = createLockDTO.entityId();
@@ -46,7 +51,7 @@ public class AcquireLockUseCaseImpl implements AcquireLockUseCase {
     }
 
     @Override
-    public Optional<LockORM> getAndValidateLock(String lockToken, String userId, LockGateway lockGateway) {
+    public Optional<LockORM> getAndValidateLock(String lockToken, String userId) {
         LockORM lock = lockGateway.getLock(lockToken);
         if (lock != null && validateLock(lock, userId)) {
             return Optional.of(lock);

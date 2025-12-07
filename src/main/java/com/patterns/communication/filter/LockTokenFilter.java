@@ -2,7 +2,6 @@ package com.patterns.communication.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patterns.common.exception.model.ExceptionDetails;
-import com.patterns.common.interfaces.gateways.LockGateway;
 import com.patterns.common.interfaces.usecases.AcquireLockUseCase;
 import com.patterns.external.database.orm.LockORM;
 import jakarta.servlet.FilterChain;
@@ -39,15 +38,13 @@ public class LockTokenFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(LockTokenFilter.class);
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
     private final AcquireLockUseCase acquireLockUseCase;
-    private final LockGateway lockGateway;
     private final ObjectMapper objectMapper;
 
     public LockTokenFilter(RequestMappingHandlerMapping requestMappingHandlerMapping,
-                           AcquireLockUseCase acquireLockUseCase, LockGateway lockGateway,
+                           AcquireLockUseCase acquireLockUseCase,
                            ObjectMapper objectMapper) {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
         this.acquireLockUseCase = acquireLockUseCase;
-        this.lockGateway = lockGateway;
         this.objectMapper = objectMapper;
     }
 
@@ -94,7 +91,7 @@ public class LockTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        Optional<LockORM> optionalLock = acquireLockUseCase.getAndValidateLock(lockTokenHeader, userId, lockGateway);
+        Optional<LockORM> optionalLock = acquireLockUseCase.getAndValidateLock(lockTokenHeader, userId);
 
         if (optionalLock.isEmpty()) {
             log.error("Lock with token {} is invalid or not found for user {}.", lockTokenHeader, userId);
