@@ -29,16 +29,13 @@ public class AgreementController {
     private final GetAgreementByIdFacade agreementFacade;
     private final CreateAgreementUseCase createAgreementUseCase;
     private final UpdateAgreementUseCase updateAgreementUseCase;
-    private final AgreementGateway gateway;
 
     public AgreementController(GetAgreementByIdFacade agreementFacade,
                                CreateAgreementUseCase createAgreementUseCase,
-                               UpdateAgreementUseCase updateAgreementUseCase,
-                               AgreementGateway agreementGateway) {
+                               UpdateAgreementUseCase updateAgreementUseCase) {
         this.agreementFacade = agreementFacade;
         this.createAgreementUseCase = createAgreementUseCase;
         this.updateAgreementUseCase = updateAgreementUseCase;
-        this.gateway = agreementGateway;
     }
 
     @GetMapping("/{agreementId}")
@@ -62,7 +59,7 @@ public class AgreementController {
             @RequestBody @Validated final CreateAgreementDTO createAgreementDTO
     ) {
         final Agreement agreement = AgreementMapper.fromDTOtoDomain(createAgreementDTO);
-        final Agreement createdAgreement = createAgreementUseCase.createAgreement(agreement, gateway);
+        final Agreement createdAgreement = createAgreementUseCase.createAgreement(agreement);
 
         GetAgreementByIdDTO response = AgreementMapper.fromDomainToGetDTO(createdAgreement);
         return ResponseEntity.created(URI.create(response.id())).body(response);
@@ -75,7 +72,7 @@ public class AgreementController {
             @RequestBody @Validated final UpdateAgreementDTO updateAgreementDTO
     ) throws EntityNotFoundException {
         final Agreement agreement = AgreementMapper.fromUpdateDTOtoDomain(updateAgreementDTO);
-        final Agreement updatedAgreement = updateAgreementUseCase.updateAgreement(agreementId, agreement, gateway);
+        final Agreement updatedAgreement = updateAgreementUseCase.updateAgreement(agreementId, agreement);
 
         GetAgreementByIdDTO response = AgreementMapper.fromDomainToGetDTO(updatedAgreement);
         return ResponseEntity.ok(response);

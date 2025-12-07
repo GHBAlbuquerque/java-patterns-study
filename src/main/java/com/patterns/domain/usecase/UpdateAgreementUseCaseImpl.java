@@ -15,9 +15,15 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSAGR0001;
 public class UpdateAgreementUseCaseImpl implements UpdateAgreementUseCase {
 
     private final Logger log = LoggerFactory.getLogger(UpdateAgreementUseCaseImpl.class);
+    private final AgreementGateway agreementGateway;
+
+    public UpdateAgreementUseCaseImpl(AgreementGateway agreementGateway) {
+        this.agreementGateway = agreementGateway;
+    }
 
     @Override
-    public Agreement updateAgreement(String agreementId, Agreement agreement, AgreementGateway agreementGateway) throws EntityNotFoundException {
+    public Agreement updateAgreement(String agreementId, Agreement agreement)
+        throws EntityNotFoundException {
         log.info("Attempting to update agreement with ID: {}", agreementId);
 
         Agreement existingAgreement = agreementGateway.getById(agreementId)
