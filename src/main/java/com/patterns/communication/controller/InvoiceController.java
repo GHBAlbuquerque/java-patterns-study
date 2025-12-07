@@ -17,10 +17,8 @@ import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.UpdateInvoiceUseCase;
 import com.patterns.common.mapper.InvoiceMapper;
-import com.patterns.common.properties.PropertiesMapper;
 import com.patterns.communication.filter.RequiresLockToken;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,18 +35,15 @@ public class InvoiceController {
     private final CreateInvoiceUseCase createInvoiceUseCase;
     private final UpdateInvoiceUseCase updateInvoiceUseCase;
     private final GetInvoiceUseCase getInvoiceUseCase;
-    private final PropertiesMapper properties;
 
     public InvoiceController(InvoiceGateway invoiceGateway,
                                CreateInvoiceUseCase invoiceCreationUseCase,
                                UpdateInvoiceUseCase updateInvoiceUseCase,
-                               GetInvoiceUseCase invoiceGetUseCase,
-                               PropertiesMapper properties) {
+                               GetInvoiceUseCase invoiceGetUseCase) {
         this.gateway = invoiceGateway;
         this.createInvoiceUseCase = invoiceCreationUseCase;
         this.updateInvoiceUseCase = updateInvoiceUseCase;
         this.getInvoiceUseCase = invoiceGetUseCase;
-        this.properties = properties;
     }
 
     @RequiresLockToken
@@ -57,7 +52,7 @@ public class InvoiceController {
             final @RequestBody @Validated CreateInvoiceDTO createInvoiceDTO
     ) throws InvalidInvoiceException {
         final var invoice = fromCreateDTOtoDomain(createInvoiceDTO);
-        final var result = createInvoiceUseCase.createInvoice(invoice, gateway, properties);
+        final var result = createInvoiceUseCase.createInvoice(invoice);
 
         return ResponseEntity.ok(new InvoiceIdDTO(result.getId()));
     }

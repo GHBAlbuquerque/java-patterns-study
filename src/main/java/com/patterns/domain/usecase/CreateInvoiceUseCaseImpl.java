@@ -30,18 +30,23 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0003;
 public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
     private final Logger log = LogManager.getLogger(CreateInvoiceUseCaseImpl.class);
+    private final InvoiceGateway gateway;
+    private final PropertiesMapper properties;
+
+    public CreateInvoiceUseCaseImpl(InvoiceGateway gateway, PropertiesMapper properties) {
+        this.gateway = gateway;
+        this.properties = properties;
+    }
 
     @Override
-    public Invoice createInvoice(Invoice invoice,
-                                 InvoiceGateway gateway,
-                                 PropertiesMapper properties) throws InvalidInvoiceException {
+    public Invoice createInvoice(Invoice invoice) throws InvalidInvoiceException {
 
         validateInvoiceRequest(invoice);
 
         log.info("Completing information for Invoice creation: generating barcode and id.");
 
-        final var barcode = generateBarcode(properties);
-        final var id = generateInvoiceId(properties);
+        final var barcode = generateBarcode();
+        final var id = generateInvoiceId();
 
         invoice.setBarcode(barcode);
         invoice.setId(id);
@@ -52,7 +57,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
     }
 
     @Override
-    public String generateInvoiceId(PropertiesMapper properties) {
+    public String generateInvoiceId() {
         final var random = new SecureRandom();
 
         return properties.getInvoiceIdPreffix()
@@ -63,7 +68,7 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
 
     @Override
-    public String generateBarcode(PropertiesMapper properties) {
+    public String generateBarcode() {
         return properties.getInvoiceBarcodePreffix() + UUID.randomUUID();
     }
 
