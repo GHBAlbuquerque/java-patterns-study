@@ -15,16 +15,7 @@ import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.UpdateAgreementUseCase;
 import com.patterns.common.interfaces.usecases.UpdateInvoiceUseCase;
 import com.patterns.common.properties.PropertiesMapper;
-import com.patterns.domain.usecase.AcquireLockUseCaseImpl;
-import com.patterns.domain.usecase.BatchValidateInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.CreateAgreementUseCaseImpl;
-import com.patterns.domain.usecase.CreateInstallmentUseCaseImpl;
-import com.patterns.domain.usecase.CreateInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.GetAgreementUseCaseImpl;
-import com.patterns.domain.usecase.GetInstallmentUseCaseImpl;
-import com.patterns.domain.usecase.GetInvoiceUseCaseImpl;
-import com.patterns.domain.usecase.UpdateAgreementUseCaseImpl;
-import com.patterns.domain.usecase.UpdateInvoiceUseCaseImpl;
+import com.patterns.domain.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -32,8 +23,10 @@ import org.springframework.context.annotation.Configuration;
 public class UseCaseBeanDeclaration {
 
     @Bean
-    public CreateInvoiceUseCase createInvoiceUseCase(InvoiceGateway invoiceGateway, PropertiesMapper propertiesMapper) {
-        return new CreateInvoiceUseCaseImpl(invoiceGateway, propertiesMapper);
+    public CreateInvoiceUseCase createInvoiceUseCase(InvoiceGateway invoiceGateway,
+                                                     GetAgreementUseCase getAgreementUseCase,
+                                                     PropertiesMapper propertiesMapper) {
+        return new CreateInvoiceUseCaseImpl(invoiceGateway, getAgreementUseCase, propertiesMapper);
     }
 
     @Bean

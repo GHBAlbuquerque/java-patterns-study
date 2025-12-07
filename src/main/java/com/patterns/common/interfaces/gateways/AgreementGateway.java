@@ -10,4 +10,6 @@ public interface AgreementGateway {
     Agreement save(Agreement agreement);
 
     Agreement update(Agreement agreement);
+
+    boolean existsById(String id);
 }

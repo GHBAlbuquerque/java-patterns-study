@@ -42,7 +42,6 @@ public class InvoiceController {
         this.getInvoiceUseCase = invoiceGetUseCase;
     }
 
-    @RequiresLockToken
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<InvoiceIdDTO> createInvoice(
             final @RequestBody @Validated CreateInvoiceDTO createInvoiceDTO

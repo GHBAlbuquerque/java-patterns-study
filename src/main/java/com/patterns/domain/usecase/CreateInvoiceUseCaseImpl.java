@@ -3,7 +3,9 @@ package com.patterns.domain.usecase;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
+import com.patterns.common.interfaces.usecases.GetAgreementUseCase;
 import com.patterns.common.properties.PropertiesMapper;
+import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.validator.ValidationMessageEnum;
 import com.patterns.domain.validator.ValidationResult;
@@ -25,16 +27,19 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.patterns.domain.validator.ValidationMessageEnum.MSAGR0001;
 import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0003;
 
 public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
 
     private final Logger log = LogManager.getLogger(CreateInvoiceUseCaseImpl.class);
     private final InvoiceGateway gateway;
+    private final GetAgreementUseCase getAgreementUseCase;
     private final PropertiesMapper properties;
 
-    public CreateInvoiceUseCaseImpl(InvoiceGateway gateway, PropertiesMapper properties) {
+    public CreateInvoiceUseCaseImpl(InvoiceGateway gateway, GetAgreementUseCase getAgreementUseCase, PropertiesMapper properties) {
         this.gateway = gateway;
+        this.getAgreementUseCase = getAgreementUseCase;
         this.properties = properties;
     }
 
@@ -46,24 +51,12 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
         log.info("Completing information for Invoice creation: generating barcode and id.");
 
         final var barcode = generateBarcode();
-        final var id = generateInvoiceId();
 
         invoice.setBarcode(barcode);
-        invoice.setId(id);
 
         log.info("Persisting invoice.");
 
         return gateway.saveInvoice(invoice);
-    }
-
-    @Override
-    public String generateInvoiceId() {
-        final var random = new SecureRandom();
-
-        return properties.getInvoiceIdPreffix()
-                + LocalDate.now()
-                + random.nextInt(999999)
-                + properties.getInvoiceIdSuffix();
     }
 
 
@@ -80,7 +73,8 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
                 validateDueDate(invoice.getDueDate()),
                 validateIssueDate(invoice.getIssueDate()),
                 validateIssuer(invoice.getIssuer()),
-                validateAmount(invoice.getAmount())
+                validateAmount(invoice.getAmount()),
+                validateAgreement(invoice.getAgreementId())
         );
 
         final var validationMessages = validations.stream()
@@ -134,5 +128,16 @@ public class CreateInvoiceUseCaseImpl implements CreateInvoiceUseCase {
                 .linkWith(new MaximumAmountValidator())
                 .linkWith(new MinimumAmountValidator())
                 .validate(amount);
+    }
+
+    private ValidationResult validateAgreement(String agreementId) {
+        log.info("Validating agreement...");
+        boolean result = getAgreementUseCase.existsById(agreementId);
+
+        if(result) {
+            return ValidationResult.valid();
+        }
+
+        return ValidationResult.invalid(MSAGR0001);
     }
 }

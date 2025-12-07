@@ -31,4 +31,15 @@ public class GetAgreementUseCaseImpl implements GetAgreementUseCase {
 
         return result.get();
     }
+
+    @Override
+    public boolean existsById(String agreementId) {
+        if (agreementGateway.existsById(agreementId)) {
+            log.info("Agreement with id {} exists.", agreementId);
+            return true;
+        }
+
+        log.info("Agreement with id {} does not exist.", agreementId);
+        return false;
+    }
 }

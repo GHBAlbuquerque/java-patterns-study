@@ -7,8 +7,6 @@ public interface CreateInvoiceUseCase {
 
     Invoice createInvoice(Invoice invoice) throws InvalidInvoiceException;
 
-    String generateInvoiceId();
-
     String generateBarcode();
 
     void validateInvoiceRequest(Invoice invoice) throws InvalidInvoiceException;

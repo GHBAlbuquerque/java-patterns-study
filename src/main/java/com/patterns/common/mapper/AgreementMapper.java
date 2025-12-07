@@ -14,9 +14,9 @@ public class AgreementMapper {
     public static GetAgreementByIdDTO fromDomainToGetDTO(final Agreement agreement) {
         return new GetAgreementByIdDTO(
                 agreement.getId(),
+                agreement.getTotalAmount(),
                 agreement.getInstallments(),
-                agreement.getInvoices(),
-                agreement.getTotalAmount()
+                agreement.getInvoices()
         );
     }
 
