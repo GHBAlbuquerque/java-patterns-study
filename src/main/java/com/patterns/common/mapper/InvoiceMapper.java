@@ -50,7 +50,7 @@ public class InvoiceMapper {
             dto.dueDate(),
             dto.issueDate(),
             dto.issuer(),
-            StatusEnum.ACTIVE);
+            StatusEnum.ACTIVE.getStatus());
     }
 
     public static Invoice fromUpdateDTOtoDomain(final UpdateInvoiceDTO dto) {

@@ -3,7 +3,7 @@
 A mock system for managing renegotiation agreements, built to explore and apply software design patterns using Java and Spring Boot.
 
 //TODO
-- inject gateways on usecases
+~~- inject gateways on usecases~~
 - turn enums into real enums
 - Validate agreement existance
 
