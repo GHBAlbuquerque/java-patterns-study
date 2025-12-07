@@ -37,6 +37,7 @@ public class LockController {
 
     @GetMapping
     public boolean isValidLockToken(String token) {
+        //TODO
         return true;
     }
 }
