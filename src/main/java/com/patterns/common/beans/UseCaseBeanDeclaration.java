@@ -37,12 +37,12 @@ public class UseCaseBeanDeclaration {
 
     @Bean
     public UpdateInvoiceUseCase updateInvoiceUseCase(InvoiceGateway invoiceGateway) {
-        return new UpdateInvoiceUseCaseImpl();
+        return new UpdateInvoiceUseCaseImpl(invoiceGateway);
     }
 
     @Bean
-    public GetInvoiceUseCase getInvoiceUseCase() {
-        return new GetInvoiceUseCaseImpl();
+    public GetInvoiceUseCase getInvoiceUseCase(InvoiceGateway invoiceGateway) {
+        return new GetInvoiceUseCaseImpl(invoiceGateway);
     }
 
     @Bean
@@ -66,18 +66,12 @@ public class UseCaseBeanDeclaration {
     }
 
     @Bean
-    public GetAgreementUseCase agreementUseCase() {
-        return new GetAgreementUseCaseImpl();
-    }
+    public GetAgreementUseCase agreementUseCase() { return new GetAgreementUseCaseImpl();}
 
     @Bean
-    public GetInstallmentUseCase getInstallmentUseCase() {
-        return new GetInstallmentUseCaseImpl();
-    }
+    public GetInstallmentUseCase getInstallmentUseCase() { return new GetInstallmentUseCaseImpl();}
 
     @Bean
-    public AcquireLockUseCase acquireLockUseCase(LockGateway lockGateway) {
-        return new AcquireLockUseCaseImpl(lockGateway);
-    }
+    public AcquireLockUseCase acquireLockUseCase(LockGateway lockGateway) { return new AcquireLockUseCaseImpl(lockGateway);}
 
 }

@@ -12,7 +12,6 @@ import com.patterns.communication.dto.response.PagedResponse;
 import com.patterns.communication.dto.validators.SingleFilterFinder;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
-import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.common.interfaces.usecases.UpdateInvoiceUseCase;
@@ -31,16 +30,13 @@ import static com.patterns.common.mapper.InvoiceMapper.*;
 @RequestMapping("/invoices")
 public class InvoiceController {
 
-    private final InvoiceGateway gateway;
     private final CreateInvoiceUseCase createInvoiceUseCase;
     private final UpdateInvoiceUseCase updateInvoiceUseCase;
     private final GetInvoiceUseCase getInvoiceUseCase;
 
-    public InvoiceController(InvoiceGateway invoiceGateway,
-                               CreateInvoiceUseCase invoiceCreationUseCase,
+    public InvoiceController(CreateInvoiceUseCase invoiceCreationUseCase,
                                UpdateInvoiceUseCase updateInvoiceUseCase,
                                GetInvoiceUseCase invoiceGetUseCase) {
-        this.gateway = invoiceGateway;
         this.createInvoiceUseCase = invoiceCreationUseCase;
         this.updateInvoiceUseCase = updateInvoiceUseCase;
         this.getInvoiceUseCase = invoiceGetUseCase;
@@ -61,7 +57,7 @@ public class InvoiceController {
     public ResponseEntity<GetInvoiceDTO> getInvoice(
             final @PathVariable String id
     ) throws EntityNotFoundException {
-        final var result = getInvoiceUseCase.getInvoiceById(id, gateway);
+        final var result = getInvoiceUseCase.getInvoiceById(id);
 
         return ResponseEntity.ok(fromDomainToGetDTO(result));
     }
@@ -70,7 +66,7 @@ public class InvoiceController {
     public ResponseEntity<GetInvoiceIssuerDTO> getInvoiceIssuerById(
             final @PathVariable String id
     ) throws EntityNotFoundException {
-        final var result = getInvoiceUseCase.getInvoiceIssuerById(id, gateway);
+        final var result = getInvoiceUseCase.getInvoiceIssuerById(id);
         return ResponseEntity.ok(fromIssuerViewToDTO(result));
     }
 
@@ -78,7 +74,7 @@ public class InvoiceController {
     public ResponseEntity<GetInvoiceStatusDTO> getInvoiceStatusById(
             final @PathVariable String id
     ) throws EntityNotFoundException {
-        final var result = getInvoiceUseCase.getInvoiceStatusById(id, gateway);
+        final var result = getInvoiceUseCase.getInvoiceStatusById(id);
         return ResponseEntity.ok(fromStatusViewToDTO(result));
     }
 
@@ -90,7 +86,7 @@ public class InvoiceController {
     ) {
 
         final var filterType = SingleFilterFinder.providedFilter(filter);
-        final var response = getInvoiceUseCase.getInvoicesWithFilter(filter, page, size, filterType, gateway);
+        final var response = getInvoiceUseCase.getInvoicesWithFilter(filter, page, size, filterType);
 
         final var convertedResponseContent = response.getContent().stream()
                 .map(InvoiceMapper::fromDomainToGetDTO)
@@ -109,7 +105,7 @@ public class InvoiceController {
             @RequestBody @Validated final UpdateInvoiceDTO updateInvoiceDTO
     ) throws EntityNotFoundException {
         final var invoice = InvoiceMapper.fromUpdateDTOtoDomain(updateInvoiceDTO);
-        final var updatedInvoice = updateInvoiceUseCase.updateInvoice(invoiceId, invoice, gateway);
+        final var updatedInvoice = updateInvoiceUseCase.updateInvoice(invoiceId, invoice);
         return ResponseEntity.ok(fromDomainToGetDTO(updatedInvoice));
     }
 }

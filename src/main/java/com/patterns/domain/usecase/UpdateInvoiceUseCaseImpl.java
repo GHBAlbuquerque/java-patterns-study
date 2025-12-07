@@ -15,9 +15,14 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0001;
 public class UpdateInvoiceUseCaseImpl implements UpdateInvoiceUseCase {
 
     private final Logger log = LoggerFactory.getLogger(UpdateInvoiceUseCaseImpl.class);
+    private final InvoiceGateway invoiceGateway;
+
+    public UpdateInvoiceUseCaseImpl(InvoiceGateway invoiceGateway) {
+        this.invoiceGateway = invoiceGateway;
+    }
 
     @Override
-    public Invoice updateInvoice(String invoiceId, Invoice invoice, InvoiceGateway invoiceGateway)
+    public Invoice updateInvoice(String invoiceId, Invoice invoice)
         throws EntityNotFoundException {
         log.info("Attempting to update invoice with ID: {}", invoiceId);
 

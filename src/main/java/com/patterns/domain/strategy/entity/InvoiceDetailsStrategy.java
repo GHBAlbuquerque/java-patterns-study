@@ -27,7 +27,7 @@ public class InvoiceDetailsStrategy extends Middleware {
     @Override
     public void handle(Agreement.Builder builder, String agreementId)
         throws EntityNotFoundException {
-        List<Invoice> invoices = getInvoiceUseCase.getInvoicesByAgreementId(agreementId, invoiceGateway);
+        List<Invoice> invoices = getInvoiceUseCase.getInvoicesByAgreementId(agreementId);
         builder.invoices(invoices);
 
         if (getNext().isPresent()) {

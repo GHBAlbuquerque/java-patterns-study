@@ -21,9 +21,14 @@ import static com.patterns.domain.validator.ValidationMessageEnum.MSINV0001;
 public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
 
     private final Logger log = LogManager.getLogger(GetInvoiceUseCaseImpl.class);
+    private final InvoiceGateway gateway;
+
+    public GetInvoiceUseCaseImpl(InvoiceGateway gateway) {
+        this.gateway = gateway;
+    }
 
     @Override
-    public Invoice getInvoiceById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException {
+    public Invoice getInvoiceById(final String id) throws EntityNotFoundException {
         log.info("Retrieving invoice by id: {}", id);
         var result = gateway.getInvoiceById(id);
 
@@ -34,7 +39,7 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public Invoice getInvoiceByBarcode(final String barcode, final InvoiceGateway gateway) throws EntityNotFoundException {
+    public Invoice getInvoiceByBarcode(final String barcode) throws EntityNotFoundException {
         log.info("Retrieving invoice by barcode: {}", barcode);
         var result = gateway.getInvoiceByBarcode(barcode);
 
@@ -45,7 +50,7 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public IssuerView getInvoiceIssuerById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException {
+    public IssuerView getInvoiceIssuerById(final String id) throws EntityNotFoundException {
         log.info("Retrieving invoice issuer by id: {}", id);
         var result = gateway.getInvoiceIssuerById(id);
 
@@ -56,7 +61,7 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public StatusView getInvoiceStatusById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException {
+    public StatusView getInvoiceStatusById(final String id) throws EntityNotFoundException {
         log.info("Retrieving invoice status by id: {}", id);
         var result = gateway.getInvoiceStatusById(id);
 
@@ -70,8 +75,7 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     public Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter,
                                                final int page,
                                                final int size,
-                                               final FilterEnum filterType,
-                                               final InvoiceGateway gateway) {
+                                               final FilterEnum filterType) {
 
         return switch (filterType) {
             case BARCODE -> {
@@ -92,7 +96,7 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     }
 
     @Override
-    public List<Invoice> getInvoicesByAgreementId(String agreementId, InvoiceGateway gateway) {
+    public List<Invoice> getInvoicesByAgreementId(String agreementId) {
         log.info("Retrieving invoices for agreement id: {}", agreementId);
         return gateway.findAllByAgreementId(agreementId);
     }
