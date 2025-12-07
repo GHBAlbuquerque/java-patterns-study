@@ -67,6 +67,7 @@ public class InvoiceMapper {
     public static InvoiceORM fromDomainToORM(final Invoice invoice) {
 
         return new InvoiceORM(invoice.getId(),
+            invoice.getAgreementId(),
             invoice.getBarcode(),
             invoice.getAmount(),
             invoice.getDueDate(),
