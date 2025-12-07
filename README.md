@@ -47,6 +47,7 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
 ## 🧰 Additional Highlights
 - **Projection Views**: Efficient data retrieval using partial views from the database (`com.patterns.external.database.projections`)
 - **Asynchronous Invoice Validation**: Concurrent validations using `CompletableFuture` before payment processing (`com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase`)
+- **Lock-Token for Concurrency Management**: Implemented a custom filter (`com.patterns.common.filter.LockTokenFilter`) to manage concurrent requests using a `Lock-Token` header, ensuring data consistency for update operations.
 
 ---
 
