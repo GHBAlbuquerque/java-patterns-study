@@ -1,5 +1,6 @@
 package com.patterns.common.beans;
 
+import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.*;
 import com.patterns.domain.usecase.*;
@@ -15,6 +16,11 @@ public class UseCaseBeanDeclaration {
     }
 
     @Bean
+    public UpdateInvoiceUseCase updateInvoiceUseCase() {
+        return new UpdateInvoiceUseCaseImpl();
+    }
+
+    @Bean
     public GetInvoiceUseCase getInvoiceUseCase() {
         return new GetInvoiceUseCaseImpl();
     }
@@ -27,6 +33,11 @@ public class UseCaseBeanDeclaration {
     @Bean
     public CreateAgreementUseCase createAgreementUseCase() {
         return new CreateAgreementUseCaseImpl();
+    }
+
+    @Bean
+    public UpdateAgreementUseCase updateAgreementUseCase() {
+        return new UpdateAgreementUseCaseImpl();
     }
 
     @Bean

@@ -19,6 +19,8 @@ public interface InvoiceGateway {
 
     Invoice saveInvoice(Invoice invoice);
 
+    Invoice updateInvoice(Invoice invoice);
+
     IssuerView getInvoiceIssuerById(String id);
 
     StatusView getInvoiceStatusById(String id);

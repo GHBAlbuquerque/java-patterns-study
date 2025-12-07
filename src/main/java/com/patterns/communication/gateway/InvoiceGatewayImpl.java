@@ -45,6 +45,13 @@ public class InvoiceGatewayImpl implements InvoiceGateway {
     }
 
     @Override
+    public Invoice updateInvoice(Invoice invoice) {
+        final var orm = InvoiceMapper.fromDomainToORM(invoice);
+        final var result = repository.save(orm); // save can be used for update if the ID exists
+        return InvoiceMapper.fromORMtoDomain(result);
+    }
+
+    @Override
     public IssuerView getInvoiceIssuerById(String id) {
         return repository.getIssuerById(id);
     }

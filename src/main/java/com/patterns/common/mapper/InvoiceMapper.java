@@ -1,6 +1,7 @@
 package com.patterns.common.mapper;
 
 import com.patterns.communication.dto.request.CreateInvoiceDTO;
+import com.patterns.communication.dto.request.UpdateInvoiceDTO;
 import com.patterns.communication.dto.response.GetInvoiceDTO;
 import com.patterns.communication.dto.response.GetInvoiceIssuerDTO;
 import com.patterns.communication.dto.response.GetInvoiceStatusDTO;
@@ -21,46 +22,57 @@ public class InvoiceMapper {
     public static GetInvoiceDTO fromDomainToGetDTO(final Invoice invoice) {
 
         return new GetInvoiceDTO(invoice.getId(),
-                invoice.getAgreementId(),
-                invoice.getBarcode(),
-                invoice.getAmount(),
-                invoice.getDueDate(),
-                invoice.getIssueDate(),
-                invoice.getIssuer(),
-                invoice.getStatus());
+            invoice.getAgreementId(),
+            invoice.getBarcode(),
+            invoice.getAmount(),
+            invoice.getDueDate(),
+            invoice.getIssueDate(),
+            invoice.getIssuer(),
+            invoice.getStatus());
     }
 
     public static Invoice fromDTOtoDomain(final GetInvoiceDTO dto) {
 
         return new Invoice(dto.id(),
-                dto.agreementId(),
-                dto.barcode(),
-                dto.amount(),
-                dto.dueDate(),
-                dto.issueDate(),
-                dto.issuer(),
-                dto.status());
+            dto.agreementId(),
+            dto.barcode(),
+            dto.amount(),
+            dto.dueDate(),
+            dto.issueDate(),
+            dto.issuer(),
+            dto.status());
     }
 
     public static Invoice fromCreateDTOtoDomain(final CreateInvoiceDTO dto) {
 
         return new Invoice(dto.agreementId(),
-                dto.amount(),
-                dto.dueDate(),
-                dto.issueDate(),
-                dto.issuer(),
-                StatusEnum.ACTIVE);
+            dto.amount(),
+            dto.dueDate(),
+            dto.issueDate(),
+            dto.issuer(),
+            StatusEnum.ACTIVE);
+    }
+
+    public static Invoice fromUpdateDTOtoDomain(final UpdateInvoiceDTO dto) {
+        return new Invoice(null,
+            null,
+            null,
+            dto.amount(),
+            dto.dueDate(),
+            dto.issueDate(),
+            dto.issuer(),
+            dto.status());
     }
 
     public static InvoiceORM fromDomainToORM(final Invoice invoice) {
 
         return new InvoiceORM(invoice.getId(),
-                invoice.getBarcode(),
-                invoice.getAmount(),
-                invoice.getDueDate(),
-                invoice.getIssueDate(),
-                invoice.getIssuer(),
-                invoice.getStatus());
+            invoice.getBarcode(),
+            invoice.getAmount(),
+            invoice.getDueDate(),
+            invoice.getIssueDate(),
+            invoice.getIssuer(),
+            invoice.getStatus());
     }
 
     public static Invoice fromORMtoDomain(final InvoiceORM orm) {
@@ -69,13 +81,13 @@ public class InvoiceMapper {
         }
 
         return new Invoice(orm.getId(),
-                orm.getAgreementId(),
-                orm.getBarcode(),
-                orm.getAmount(),
-                orm.getDueDate(),
-                orm.getIssueDate(),
-                orm.getIssuer(),
-                orm.getStatus());
+            orm.getAgreementId(),
+            orm.getBarcode(),
+            orm.getAmount(),
+            orm.getDueDate(),
+            orm.getIssueDate(),
+            orm.getIssuer(),
+            orm.getStatus());
     }
 
     public static GetInvoiceIssuerDTO fromIssuerViewToDTO(final IssuerView view) {
@@ -88,10 +100,20 @@ public class InvoiceMapper {
 
     public static <E extends IResponse> PagedResponse<E> fromPageToPagedResponse(final Page<Invoice> page, final List<E> content) {
         return new PagedResponse<>(
-                page.getNumber(),
-                page.getSize(),
-                page.getTotalElements(),
-                page.getTotalPages(),
-                content);
+            page.getNumber(),
+            page.getSize(),
+            page.getTotalElements(),
+            page.getTotalPages(),
+            content);
+    }
+
+    public static Invoice update(Invoice existingInvoice, Invoice updatedInvoice) {
+        existingInvoice.setAmount(updatedInvoice.getAmount());
+        existingInvoice.setDueDate(updatedInvoice.getDueDate());
+        existingInvoice.setIssueDate(updatedInvoice.getIssueDate());
+        existingInvoice.setIssuer(updatedInvoice.getIssuer());
+        existingInvoice.setStatus(updatedInvoice.getStatus());
+
+        return existingInvoice;
     }
 }

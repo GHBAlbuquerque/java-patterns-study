@@ -27,4 +27,10 @@ public class AgreementGatewayImpl implements AgreementGateway {
         return AgreementMapper.fromORMtoDomain(result);
     }
 
+    @Override
+    public Agreement update(Agreement agreement) {
+        final var orm = AgreementMapper.fromDomainToORM(agreement);
+        final var result = repository.save(orm); // save can be used for update if the ID exists
+        return AgreementMapper.fromORMtoDomain(result);
+    }
 }
