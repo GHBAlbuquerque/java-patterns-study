@@ -2,7 +2,6 @@ package com.patterns.common.interfaces.usecases;
 
 import com.patterns.communication.dto.request.InvoiceFilterRequest;
 import com.patterns.common.exception.custom.EntityNotFoundException;
-import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.domain.enums.FilterEnum;
 import com.patterns.external.database.projections.IssuerView;
@@ -13,15 +12,15 @@ import java.util.List;
 
 public interface GetInvoiceUseCase {
 
-    Invoice getInvoiceById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException;
+    Invoice getInvoiceById(final String id) throws EntityNotFoundException;
 
-    Invoice getInvoiceByBarcode(final String barcode, final InvoiceGateway gateway) throws EntityNotFoundException;
+    Invoice getInvoiceByBarcode(final String barcode) throws EntityNotFoundException;
 
-    IssuerView getInvoiceIssuerById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException;
+    IssuerView getInvoiceIssuerById(final String id) throws EntityNotFoundException;
 
-    StatusView getInvoiceStatusById(final String id, final InvoiceGateway gateway) throws EntityNotFoundException;
+    StatusView getInvoiceStatusById(final String id) throws EntityNotFoundException;
 
-    Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter, final int page, final int size, final FilterEnum filterType, final InvoiceGateway gateway);
+    Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter, final int page, final int size, final FilterEnum filterType);
 
-    List<Invoice> getInvoicesByAgreementId(String agreementId, InvoiceGateway gateway);
+    List<Invoice> getInvoicesByAgreementId(String agreementId);
 }

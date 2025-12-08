@@ -2,7 +2,6 @@ package com.patterns.common.interfaces.usecases;
 
 import com.patterns.communication.dto.request.CreateLockDTO;
 import com.patterns.common.exception.custom.LockAlreadyAcquiredException;
-import com.patterns.common.interfaces.gateways.LockGateway;
 import com.patterns.external.database.orm.LockORM;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.util.Optional;
 
 public interface AcquireLockUseCase {
 
-    LockORM acquireLock(CreateLockDTO createLockDTO, LockGateway lockGateway) throws LockAlreadyAcquiredException;
+    LockORM acquireLock(CreateLockDTO createLockDTO) throws LockAlreadyAcquiredException;
 
     default boolean isLockActive(LockORM lock) {
         return lock != null && lock.getExpiresAt().isAfter(LocalDateTime.now());
@@ -20,5 +19,5 @@ public interface AcquireLockUseCase {
         return isLockActive(lock) && lock.getUserId().equals(userId);
     }
 
-    Optional<LockORM> getAndValidateLock(String lockToken, String userId, LockGateway lockGateway);
+    Optional<LockORM> getAndValidateLock(String lockToken, String userId);
 }

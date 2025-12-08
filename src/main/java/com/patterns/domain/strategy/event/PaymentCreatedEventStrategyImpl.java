@@ -5,11 +5,10 @@ import com.patterns.common.exception.custom.UpdateEntityException;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.strategy.EventStrategy;
+import com.patterns.domain.enums.PaymentEventsEnum;
+import com.patterns.domain.enums.StatusEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_CANCELLED;
-import static com.patterns.domain.enums.StatusEnum.INACTIVE;
 
 public class PaymentCreatedEventStrategyImpl implements EventStrategy {
 
@@ -25,12 +24,12 @@ public class PaymentCreatedEventStrategyImpl implements EventStrategy {
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_CANCELLED;
+        return PaymentEventsEnum.PAYMENT_CANCELLED.getEvent();
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return INACTIVE;
+        return StatusEnum.INACTIVE.getStatus();
     }
 
     @Override

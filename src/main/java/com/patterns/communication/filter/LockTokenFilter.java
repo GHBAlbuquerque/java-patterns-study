@@ -2,13 +2,13 @@ package com.patterns.communication.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.patterns.common.exception.model.ExceptionDetails;
-import com.patterns.common.interfaces.gateways.LockGateway;
 import com.patterns.common.interfaces.usecases.AcquireLockUseCase;
 import com.patterns.external.database.orm.LockORM;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -38,20 +38,18 @@ public class LockTokenFilter extends OncePerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(LockTokenFilter.class);
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
     private final AcquireLockUseCase acquireLockUseCase;
-    private final LockGateway lockGateway;
     private final ObjectMapper objectMapper;
 
     public LockTokenFilter(RequestMappingHandlerMapping requestMappingHandlerMapping,
-                           AcquireLockUseCase acquireLockUseCase, LockGateway lockGateway,
+                           AcquireLockUseCase acquireLockUseCase,
                            ObjectMapper objectMapper) {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
         this.acquireLockUseCase = acquireLockUseCase;
-        this.lockGateway = lockGateway;
         this.objectMapper = objectMapper;
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
+    protected boolean shouldNotFilter(@NotNull HttpServletRequest request) {
         try {
             HandlerExecutionChain handlerChain = requestMappingHandlerMapping.getHandler(request);
             if (handlerChain == null) {
@@ -69,8 +67,8 @@ public class LockTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain filterChain) throws ServletException, IOException {
 
         String lockTokenHeader = request.getHeader(LOCK_TOKEN_HEADER);
         String userId = request.getHeader(USER_ID_HEADER);
@@ -93,7 +91,7 @@ public class LockTokenFilter extends OncePerRequestFilter {
             return;
         }
 
-        Optional<LockORM> optionalLock = acquireLockUseCase.getAndValidateLock(lockTokenHeader, userId, lockGateway);
+        Optional<LockORM> optionalLock = acquireLockUseCase.getAndValidateLock(lockTokenHeader, userId);
 
         if (optionalLock.isEmpty()) {
             log.error("Lock with token {} is invalid or not found for user {}.", lockTokenHeader, userId);

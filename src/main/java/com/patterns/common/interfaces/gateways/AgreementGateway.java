@@ -8,4 +8,8 @@ public interface AgreementGateway {
     Optional<Agreement> getById(String id);
 
     Agreement save(Agreement agreement);
+
+    Agreement update(Agreement agreement);
+
+    boolean existsById(String id);
 }

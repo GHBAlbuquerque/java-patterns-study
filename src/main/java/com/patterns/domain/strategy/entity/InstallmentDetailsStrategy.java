@@ -1,7 +1,6 @@
 package com.patterns.domain.strategy.entity;
 
 import com.patterns.common.exception.custom.EntityNotFoundException;
-import com.patterns.common.interfaces.gateways.InstallmentGateway;
 import com.patterns.common.interfaces.usecases.GetInstallmentUseCase;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.entity.Installment;
@@ -12,11 +11,9 @@ import java.util.List;
 public class InstallmentDetailsStrategy extends Middleware {
 
     private final GetInstallmentUseCase getInstallmentUseCase;
-    private final InstallmentGateway installmentGateway;
 
-    public InstallmentDetailsStrategy(GetInstallmentUseCase getInstallmentUseCase, InstallmentGateway installmentGateway) {
+    public InstallmentDetailsStrategy(GetInstallmentUseCase getInstallmentUseCase) {
         this.getInstallmentUseCase = getInstallmentUseCase;
-        this.installmentGateway = installmentGateway;
     }
 
     @Override
@@ -27,7 +24,7 @@ public class InstallmentDetailsStrategy extends Middleware {
     @Override
     public void handle(Agreement.Builder builder, String agreementId)
         throws EntityNotFoundException {
-        List<Installment> installments = getInstallmentUseCase.getInstallments(agreementId, installmentGateway);
+        List<Installment> installments = getInstallmentUseCase.getInstallments(agreementId);
         builder.installments(installments);
 
         if (getNext().isPresent()) {

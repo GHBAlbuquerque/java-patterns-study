@@ -8,8 +8,8 @@ import java.util.List;
 
 public record GetAgreementByIdDTO(
     String id,
+    BigDecimal totalAmount,
     List<Installment> installments,
-    List<Invoice> invoices,
-    BigDecimal totalAmount
+    List<Invoice> invoices
 ) {
 }

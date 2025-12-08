@@ -9,9 +9,15 @@ import java.util.List;
 
 public class CreateInstallmentUseCaseImpl implements CreateInstallmentUseCase {
 
+    private final InstallmentGateway gateway;
+
+    public CreateInstallmentUseCaseImpl(InstallmentGateway gateway) {
+        this.gateway = gateway;
+    }
+
     @Override
-    public Installment create(Installment installment, InstallmentGateway gateway) {
-        Integer lastPos = getLastInstallmentNumber(installment.getAgreementId(), gateway);
+    public Installment create(Installment installment) {
+        Integer lastPos = getLastInstallmentNumber(installment.getAgreementId());
 
         installment.setNumber(lastPos + 1);
 
@@ -19,8 +25,8 @@ public class CreateInstallmentUseCaseImpl implements CreateInstallmentUseCase {
     }
 
     @Override
-    public List<Installment> batchCreate(List<Installment> installments, InstallmentGateway gateway) {
-        Integer lastPos = getLastInstallmentNumber(installments.get(0).getAgreementId(), gateway);
+    public List<Installment> batchCreate(List<Installment> installments) {
+        Integer lastPos = getLastInstallmentNumber(installments.get(0).getAgreementId());
 
         final List<Installment> createdInstallments = new ArrayList<Installment>();
 
@@ -36,7 +42,7 @@ public class CreateInstallmentUseCaseImpl implements CreateInstallmentUseCase {
         return createdInstallments;
     }
 
-    private Integer getLastInstallmentNumber(String agreementId, InstallmentGateway gateway) {
+    private Integer getLastInstallmentNumber(String agreementId) {
         final List<Installment> existantInstallments = gateway.findAllByAgreementId(agreementId);
 
         if (existantInstallments.isEmpty()) {

@@ -37,8 +37,9 @@ public class InvoiceORM {
     @NotBlank
     private String status;
 
-    public InvoiceORM(String id, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
+    public InvoiceORM(String id, String agreementId, String barcode, BigDecimal amount, LocalDate dueDate, LocalDate issueDate, String issuer, String status) {
         this.id = id;
+        this.agreementId = agreementId;
         this.barcode = barcode;
         this.amount = amount;
         this.dueDate = dueDate;

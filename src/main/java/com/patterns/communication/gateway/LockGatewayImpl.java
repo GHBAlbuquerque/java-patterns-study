@@ -15,8 +15,8 @@ public class LockGatewayImpl implements LockGateway {
     }
 
     @Override
-    public LockORM getLock(String entityId) {
-        return repository.findByEntityId(entityId).orElse(null);
+    public LockORM getLock(String lockId) {
+        return repository.findById(lockId).orElse(null);
     }
 
     @Override

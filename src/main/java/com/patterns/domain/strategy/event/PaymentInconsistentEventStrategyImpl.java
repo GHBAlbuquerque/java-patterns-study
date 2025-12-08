@@ -5,11 +5,10 @@ import com.patterns.common.exception.custom.UpdateEntityException;
 import com.patterns.common.interfaces.gateways.InvoiceEventGateway;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.strategy.EventStrategy;
+import com.patterns.domain.enums.PaymentEventsEnum;
+import com.patterns.domain.enums.StatusEnum;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static com.patterns.domain.enums.PaymentEventsEnum.PAYMENT_INCONSISTENT;
-import static com.patterns.domain.enums.StatusEnum.INCONSISTENT;
 
 public class PaymentInconsistentEventStrategyImpl implements EventStrategy {
 
@@ -25,12 +24,12 @@ public class PaymentInconsistentEventStrategyImpl implements EventStrategy {
 
     @Override
     public String getEventStatus() {
-        return PAYMENT_INCONSISTENT;
+        return PaymentEventsEnum.PAYMENT_INCONSISTENT.getEvent();
     }
 
     @Override
     public String getInvoiceUpdateStatus() {
-        return INCONSISTENT;
+        return StatusEnum.INCONSISTENT.getStatus();
     }
 
     @Override

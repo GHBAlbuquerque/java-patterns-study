@@ -1,7 +1,6 @@
 package com.patterns.domain.strategy.entity;
 
 import com.patterns.common.exception.custom.EntityNotFoundException;
-import com.patterns.common.interfaces.gateways.AgreementGateway;
 import com.patterns.common.interfaces.usecases.GetAgreementUseCase;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.domain.enums.EntityEnum;
@@ -12,11 +11,9 @@ public class AgreementDetailsStrategy extends Middleware {
 
     private final Logger log = LogManager.getLogger(AgreementDetailsStrategy.class);
     private final GetAgreementUseCase getAgreementUseCase;
-    private final AgreementGateway agreementGateway;
 
-    public AgreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase, AgreementGateway agreementGateway) {
+    public AgreementDetailsStrategy(GetAgreementUseCase getAgreementUseCase) {
         this.getAgreementUseCase = getAgreementUseCase;
-        this.agreementGateway = agreementGateway;
     }
 
     @Override
@@ -26,7 +23,7 @@ public class AgreementDetailsStrategy extends Middleware {
 
     @Override
     public void handle(Agreement.Builder builder, String agreementId) throws EntityNotFoundException {
-        Agreement agreement = getAgreementUseCase.getAgreement(agreementId, agreementGateway);
+        Agreement agreement = getAgreementUseCase.getAgreement(agreementId);
         builder.id(agreement.getId());
         builder.totalAmount(agreement.getTotalAmount());
 

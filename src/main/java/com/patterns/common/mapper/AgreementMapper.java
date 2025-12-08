@@ -1,6 +1,7 @@
 package com.patterns.common.mapper;
 
 import com.patterns.communication.dto.request.CreateAgreementDTO;
+import com.patterns.communication.dto.request.UpdateAgreementDTO;
 import com.patterns.communication.dto.response.GetAgreementByIdDTO;
 import com.patterns.domain.entity.Agreement;
 import com.patterns.external.database.orm.AgreementORM;
@@ -13,13 +14,19 @@ public class AgreementMapper {
     public static GetAgreementByIdDTO fromDomainToGetDTO(final Agreement agreement) {
         return new GetAgreementByIdDTO(
                 agreement.getId(),
+                agreement.getTotalAmount(),
                 agreement.getInstallments(),
-                agreement.getInvoices(),
-                agreement.getTotalAmount()
+                agreement.getInvoices()
         );
     }
 
     public static Agreement fromDTOtoDomain(final CreateAgreementDTO dto) {
+        return new Agreement(
+                dto.totalAmount()
+        );
+    }
+
+    public static Agreement fromUpdateDTOtoDomain(final UpdateAgreementDTO dto) {
         return new Agreement(
                 dto.totalAmount()
         );
@@ -44,5 +51,11 @@ public class AgreementMapper {
                 new ArrayList<>(),
                 orm.getTotalAmount()
         );
+    }
+
+    public static Agreement update(Agreement existingAgreement, Agreement updatedAgreement) {
+        existingAgreement.setTotalAmount(updatedAgreement.getTotalAmount());
+
+        return existingAgreement;
     }
 }
