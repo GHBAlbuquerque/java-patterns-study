@@ -42,6 +42,13 @@ Iterates through a list of `EventStrategy` implementations and invokes `updatePa
 Used to sequentially aggregate data from other entities to enrich the Agreement entity.
 The `handle` method is invoked on each middleware in the chain, conditionally assembled based on the `expand` field of the request.
 
+### ⚙️ Specification Pattern with JPA Criteria
+`(package com.patterns.communication.gateway;)`
+
+To support dynamic and complex filtering of invoices, this project uses the **Specification** pattern from Domain-Driven Design, implemented via Spring Data JPA's `Specification<T>` interface.
+
+The `InvoiceGatewayImpl` dynamically constructs a query using the **JPA Criteria API** based on the fields provided in the `InvoiceFilterRequest`. This approach avoids the need for multiple repository methods for different filter combinations and protects against SQL injection by design. It allows for clean, type-safe, and flexible query building, making it easy to add new filter criteria in the future.
+
 ---
 
 ## 🧰 Additional Highlights
