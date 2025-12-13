@@ -5,13 +5,11 @@ import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.interfaces.gateways.InvoiceGateway;
 import com.patterns.common.interfaces.usecases.GetInvoiceUseCase;
 import com.patterns.domain.entity.Invoice;
-import com.patterns.domain.enums.FilterEnum;
 import com.patterns.external.database.projections.IssuerView;
 import com.patterns.external.database.projections.StatusView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
@@ -74,25 +72,9 @@ public class GetInvoiceUseCaseImpl implements GetInvoiceUseCase {
     @Override
     public Page<Invoice> getInvoicesWithFilter(final InvoiceFilterRequest filter,
                                                final int page,
-                                               final int size,
-                                               final FilterEnum filterType) {
-
-        return switch (filterType) {
-            case BARCODE -> {
-                var invoice = gateway.getInvoiceByBarcode(filter.barcode());
-                yield new PageImpl<>(List.of(invoice), PageRequest.of(page, size), 1);
-            }
-            case ISSUER -> gateway.findAllByIssuer(filter.issuer(), PageRequest.of(page, size));
-            case STATUS -> gateway.findAllByStatus(filter.status(), PageRequest.of(page, size));
-            case ISSUE_DATE ->
-                    gateway.findAllByIssueDateBetween(filter.startDate(), filter.endDate(), PageRequest.of(page, size));
-            case AMOUNT ->
-                    gateway.findAllByAmountBetween(filter.minimumAmount(), filter.maximumAmount(), PageRequest.of(page, size));
-            default -> {
-                log.warn("Invalid filter type provided: {}", filterType);
-                throw new IllegalArgumentException("Invalid filter type: " + filterType);
-            }
-        };
+                                               final int size) {
+        log.info("Retrieving invoices with filter: {}", filter);
+        return gateway.getInvoicesWithFilter(filter, PageRequest.of(page, size));
     }
 
     @Override

@@ -1,13 +1,12 @@
 package com.patterns.common.interfaces.gateways;
 
+import com.patterns.communication.dto.request.InvoiceFilterRequest;
 import com.patterns.domain.entity.Invoice;
 import com.patterns.external.database.projections.IssuerView;
 import com.patterns.external.database.projections.StatusView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,20 +18,11 @@ public interface InvoiceGateway {
 
     Invoice saveInvoice(Invoice invoice);
 
-    Invoice updateInvoice(Invoice invoice);
-
     IssuerView getInvoiceIssuerById(String id);
 
     StatusView getInvoiceStatusById(String id);
 
-    Page<Invoice> findAllByStatus(String status, PageRequest pageRequest);
-
-    Page<Invoice> findAllByIssuer(String issuer, PageRequest pageRequest);
-
-    Page<Invoice> findAllByIssueDateBetween(LocalDate startDate, LocalDate endDate, PageRequest pageRequest);
-
-    Page<Invoice> findAllByAmountBetween(BigDecimal minimumAmount, BigDecimal maximumAmount, PageRequest pageRequest);
-
     List<Invoice> findAllByAgreementId(String agreementId);
 
+    Page<Invoice> getInvoicesWithFilter(InvoiceFilterRequest filter, PageRequest pageRequest);
 }

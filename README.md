@@ -42,11 +42,22 @@ Iterates through a list of `EventStrategy` implementations and invokes `updatePa
 Used to sequentially aggregate data from other entities to enrich the Agreement entity.
 The `handle` method is invoked on each middleware in the chain, conditionally assembled based on the `expand` field of the request.
 
+### ⚙️ Specification Pattern with JPA Criteria
+`(package com.patterns.communication.gateway;)`
+
+To support dynamic and complex filtering of invoices, this project uses the **Specification** pattern from Domain-Driven Design, implemented via Spring Data JPA's `Specification<T>` interface.
+
+The `InvoiceGatewayImpl` dynamically constructs a query using the **JPA Criteria API** based on the fields provided in the `InvoiceFilterRequest`. This approach avoids the need for multiple repository methods for different filter combinations and protects against SQL injection by design. It allows for clean, type-safe, and flexible query building, making it easy to add new filter criteria in the future.
+
 ---
 
 ## 🧰 Additional Highlights
 - **Projection Views**: Efficient data retrieval using partial views from the database (`com.patterns.external.database.projections`)
+
+
 - **Asynchronous Invoice Validation**: Concurrent validations using `CompletableFuture` before payment processing (`com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase`)
+
+
 - **Lock-Token for Concurrency Management**: Implemented a custom filter (`com.patterns.common.filter.LockTokenFilter`) to manage concurrent requests using a `Lock-Token` header, ensuring data consistency for update operations.
 
 ---
@@ -73,20 +84,18 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
    ```bash
    mvn clean install
    ```
-3. **Start AWS local services**
-   Run the scripts inside the `local` directory to bootstrap LocalStack and SQS:
+3. **Start AWS local services**: Run the scripts inside the `local` directory to bootstrap LocalStack and SQS:
    ```bash
    ./local/0-params.sh
    ./local/1-start-sqs-localstack.sh
    ```
-4. **Run the application**
-   Use your IDE or Spring Boot CLI to start the project.
+4. **Run the application**: Use your IDE or Spring Boot CLI to start the project.
 
-5. Access the console for in-memory database at:
+5. **Access the in-memory database** console at:
    ```bash
     http://localhost:8080/h2-console
    ```
-6. Access the swagger API definition at:
+6. **Access the swagger** API definition at:
    ```bash
    http://localhost:8080/swagger-ui/index.html
    ```

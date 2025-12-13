@@ -34,7 +34,7 @@ public class UpdateInvoiceUseCaseImpl implements UpdateInvoiceUseCase {
 
         InvoiceMapper.update(existingInvoice, invoice);
 
-        Invoice updatedInvoice = invoiceGateway.updateInvoice(existingInvoice);
+        Invoice updatedInvoice = invoiceGateway.saveInvoice(existingInvoice);
         log.info("Invoice with ID {} updated successfully.", invoiceId);
         return updatedInvoice;
     }
