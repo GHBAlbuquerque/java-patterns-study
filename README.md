@@ -46,7 +46,11 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
 
 ## 🧰 Additional Highlights
 - **Projection Views**: Efficient data retrieval using partial views from the database (`com.patterns.external.database.projections`)
+
+
 - **Asynchronous Invoice Validation**: Concurrent validations using `CompletableFuture` before payment processing (`com.patterns.common.interfaces.usecases.BatchValidateInvoiceUseCase`)
+
+
 - **Lock-Token for Concurrency Management**: Implemented a custom filter (`com.patterns.common.filter.LockTokenFilter`) to manage concurrent requests using a `Lock-Token` header, ensuring data consistency for update operations.
 
 ---
@@ -73,20 +77,18 @@ The `handle` method is invoked on each middleware in the chain, conditionally as
    ```bash
    mvn clean install
    ```
-3. **Start AWS local services**
-   Run the scripts inside the `local` directory to bootstrap LocalStack and SQS:
+3. **Start AWS local services**: Run the scripts inside the `local` directory to bootstrap LocalStack and SQS:
    ```bash
    ./local/0-params.sh
    ./local/1-start-sqs-localstack.sh
    ```
-4. **Run the application**
-   Use your IDE or Spring Boot CLI to start the project.
+4. **Run the application**: Use your IDE or Spring Boot CLI to start the project.
 
-5. Access the console for in-memory database at:
+5. **Access the in-memory database** console at:
    ```bash
     http://localhost:8080/h2-console
    ```
-6. Access the swagger API definition at:
+6. **Access the swagger** API definition at:
    ```bash
    http://localhost:8080/swagger-ui/index.html
    ```
