@@ -101,11 +101,11 @@ public class InvoiceMapper {
 
     public static <E extends IResponse> PagedResponse<E> fromPageToPagedResponse(final Page<Invoice> page, final List<E> content) {
         return new PagedResponse<>(
+            content,
             page.getNumber(),
             page.getSize(),
             page.getTotalElements(),
-            page.getTotalPages(),
-            content);
+            page.getTotalPages());
     }
 
     public static Invoice update(Invoice existingInvoice, Invoice updatedInvoice) {

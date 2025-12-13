@@ -9,7 +9,6 @@ import com.patterns.communication.dto.response.GetInvoiceStatusDTO;
 import com.patterns.communication.dto.response.IResponse;
 import com.patterns.communication.dto.response.InvoiceIdDTO;
 import com.patterns.communication.dto.response.PagedResponse;
-import com.patterns.communication.dto.validators.SingleFilterFinder;
 import com.patterns.common.exception.custom.EntityNotFoundException;
 import com.patterns.common.exception.custom.InvalidInvoiceException;
 import com.patterns.common.interfaces.usecases.CreateInvoiceUseCase;
@@ -83,9 +82,7 @@ public class InvoiceController {
             final @RequestParam(value = "page", defaultValue = "0") int page,
             final @RequestParam(value = "size", defaultValue = "10") int size
     ) {
-
-        final var filterType = SingleFilterFinder.providedFilter(filter);
-        final var response = getInvoiceUseCase.getInvoicesWithFilter(filter, page, size, filterType);
+        final var response = getInvoiceUseCase.getInvoicesWithFilter(filter, page, size);
 
         final var convertedResponseContent = response.getContent().stream()
                 .map(InvoiceMapper::fromDomainToGetDTO)
